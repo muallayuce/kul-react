@@ -4,10 +4,14 @@
 
 .app {
   background-color: #fafafa;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensures the app takes up at least the height of the viewport */
 }
 
 .app_posts {
   padding: 20px;
+  flex: 1; /* Make the posts section flexible to take up remaining space */
 }
 
 .app_header {
@@ -26,4 +30,28 @@
 .app_header_image {
   object-fit: contain;
   width: 250px;
+}
+
+.footer {
+  background-color: #352473;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  margin-top: auto; /* Pushes the footer to the bottom of the page */
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font: bold;
+}
+
+.footer nav {
+  display: flex;
+  justify-content: center;
+}
+
+.footer a {
+  color: #fff;
+  margin: 0 10px; /* Add spacing between links */
+}
+
+.footer a:hover {
+  text-decoration: underline;
 }

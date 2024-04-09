@@ -51,7 +51,16 @@ function App() {
             />
           ))
         }
+
       </div>
+      <footer className='footer'>
+        <nav>
+            <a href="/">Privacy Policy</a>
+            <a href="/terms">Terms of Service</a>
+            <a href="/contact">Contact Us</a>
+         </nav>
+</footer>
+
     </div>
   );
 }
