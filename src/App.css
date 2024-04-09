@@ -16,12 +16,12 @@
 
 .app_header {
   position: sticky;
+  display: flex;
   top: 0;
   z-index: 1;
   background-color: white;
   border-bottom: 1px solid lightgray;
   object-fit: contain;
-  display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px;
