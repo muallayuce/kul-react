@@ -1,70 +1,79 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import Post from './Post';
-import headerImg from './assets/header.png'; 
+import Login from './Login/Login';
+import headerImg from './assets/header.png';
+import footerImg from './assets/kulw.png';
+import balamw from './assets/balamw.png';
 
-const BASE_URL = 'http://localhost:8000/'
+const BASE_URL = 'http://localhost:8000/';
 
 function App() {
-
-  const [posts, setPosts] = useState ([]);
-  const [setOpenSignIn, serOpenSignIn] = useState(false);
-  const [setOpenSignUp, serOpenSignUp] = useState(false);
+  const [posts, setPosts] = useState([]);
+  const [openSignIn, setOpenSignIn] = useState(false);
+  const [openSignUp, setOpenSignUp] = useState(false);
 
   useEffect(() => {
     fetch(BASE_URL + 'posts/all')
       .then(response => {
-        const json = response.json()
-        console.log(json);
         if (response.ok) {
-          return json
+          return response.json();
         }
-        throw response
-      }) 
+        throw new Error('Failed to fetch posts');
+      })
       .then(data => {
-        setPosts(data)
+        setPosts(data);
       })
       .catch(error => {
-        console.log(error);
-        alert(error)
-      })
-    }, [])
+        console.error(error);
+        alert('Failed to fetch posts');
+      });
+  }, []);
+
+  // Function to handle login
+  const handleLogin = (email, password) => {
+    // Implement your login logic here, e.g., send a request to authenticate the user
+    console.log('Logging in with:', email, password);
+    // After successful login, you can close the login modal or perform other actions
+    setOpenSignIn(false);
+  };
 
   return (
     <div className='app'>
-      <div className='app_header'>
-        <img className='app_header_image' 
+      <header className='app_header'>
+        <img className='app_header_image'
           src={headerImg}
           alt='Kul' />
 
-        <div>
-          <button onClick={() => setOpenSignIn(true)}>Login</button>
-          <button onClick={() => setOpenSignUp(true)}>Signup</button>
-        </div>
-      </div>
-    
-      <div className='app_posts'>
-        {
-          posts.map(post => (
-            <Post
-            post={post}
-            />
-          ))
-        }
+        <nav>
+          <button className='register' onClick={() => setOpenSignIn(true)}>Login</button>
+          <button className='register' onClick={() => setOpenSignUp(true)}>Signup</button>
+        </nav>
+      </header>
 
+      {/* Conditionally render the Login component */}
+      {openSignIn && <Login onLogin={handleLogin} />}
+
+      <div className='app_posts'>
+        {posts.map(post => (
+          <Post
+            key={post.id} // Don't forget to add a unique key prop when rendering a list
+            post={post}
+          />
+        ))}
       </div>
+
       <footer className='footer'>
         <nav>
-            <a href="/">Privacy Policy</a>
-            <a href="/terms">Terms of Service</a>
-            <a href="/contact">Contact Us</a>
-         </nav>
-</footer>
-
+          <img className='footerImgLeft' src={footerImg} alt="" />
+          <a href="/">Privacy Policy</a>
+          <a href="/terms">Terms of Service</a>
+          <a href="/contact">Contact Us</a>
+          <img className='footerImgRight' src={balamw} alt="" />
+        </nav>
+      </footer>
     </div>
   );
 }
-
-
 
 export default App;

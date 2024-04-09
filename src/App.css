@@ -1,3 +1,13 @@
+@font-face {
+  font-family: "Slogan";
+  src: url("/src/fonts/lucida.TTF") format("truetype");
+}
+
+@font-face {
+  font-family: "Logo";
+  src: url("/src/fonts/eras.TTF") format("truetype");
+}
+
 * {
   margin: 0px;
 }
@@ -29,7 +39,19 @@
 
 .app_header_image {
   object-fit: contain;
-  width: 250px;
+  width: 220px;
+}
+
+.register {
+  background-color:  #352473;
+  margin: 10px;
+  font-family: "Logo", sans-serif;
+  
+}
+
+.register:hover {
+  border: #D90D6C solid;
+  background-color: #724FC3;
 }
 
 .footer {
@@ -38,11 +60,11 @@
   padding: 20px;
   text-align: center;
   margin-top: auto; /* Pushes the footer to the bottom of the page */
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  font: bold;
+  font-family: "Slogan", sans-serif;
 }
 
 .footer nav {
+  flex: 1;
   display: flex;
   justify-content: center;
 }
@@ -50,8 +72,20 @@
 .footer a {
   color: #fff;
   margin: 0 10px; /* Add spacing between links */
+  
 }
 
 .footer a:hover {
   text-decoration: underline;
+  color: #D90D6C;
+}
+
+.footerImgLeft {
+  width: 50px;
+  margin-right: auto; /* Add margin to the right of the image */
+}
+
+.footerImgRight {
+  width: 50px;
+  margin-left: auto; /* Add margin to the right of the image */
 }
