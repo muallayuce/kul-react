@@ -42,6 +42,8 @@
   width: 220px;
 }
 
+
+
 .register {
   background-color:  #352473;
   margin: 10px;
@@ -71,7 +73,7 @@
 
 .footer a {
   color: #fff;
-  margin: 0 10px; /* Add spacing between links */
+  margin: 0 40px; /* Add spacing between links */
   
 }
 
@@ -88,4 +90,8 @@
 .footerImgRight {
   width: 50px;
   margin-left: auto; /* Add margin to the right of the image */
+}
+
+.copy {
+  font-size: small;
 }
