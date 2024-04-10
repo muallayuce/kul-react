@@ -52,8 +52,8 @@ function App() {
       <header className='app_header'>
         <img className='app_header_image' src={headerImg} alt='Kul' />
         <nav>
-          <button className='register' onClick={() => setOpenModal('login')}>Login</button>
-          <button className='register' onClick={() => setOpenModal('signup')}>Signup</button>
+          <button className='register' onClick={() => setOpenModal('login')}>Log In</button>
+          <button className='register' onClick={() => setOpenModal('signup')}>Sign Up</button>
         </nav>
       </header>
 
