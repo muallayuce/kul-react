@@ -78,21 +78,21 @@
     background-color:  #352473;
     margin: 10px;
     font-family: "Logo", sans-serif;
+    cursor: pointer;
   }
   
-  .button:hover {
+.button:hover {
     background-color: #724FC3;
     border: #D90D6C solid;
   }
   
-  .button-flat {
+.button-flat {
     background-color:  #352473;
     margin: 10px;
     font-family: "Logo", sans-serif;
   }
   
-  .button-flat:hover {
+.button-flat:hover {
     background-color: #724FC3;
     border: #D90D6C solid;
   }
-  
