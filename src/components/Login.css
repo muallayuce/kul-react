@@ -56,11 +56,11 @@
     padding: 20px;
   }
 
-  #password:hover, #email:hover {
+  #password:hover, #username:hover {
     border-color:#d90d6c
   }
   
-  input[type="email"],
+  input[type="text"],
   input[type="password"] {
     width: 300px;
     padding: 10px;
