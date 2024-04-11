@@ -40,6 +40,7 @@
 .app_header_image {
   object-fit: contain;
   width: 220px;
+  cursor: pointer;
 }
 
 .register {
@@ -53,6 +54,31 @@
   border: #D90D6C solid;
   background-color: #724FC3;
 }
+
+/* App.css */
+
+/* Add these styles for the "Coming Soon" section */
+.coming_soon {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.coming_soon img {
+  max-width: 200px;
+  margin-bottom: 10px;
+  margin-top: 100px;
+}
+
+.coming_soon h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.coming_soon p {
+  font-size: 16px;
+  color: #724FC3;
+}
+
 
 .footer {
   background-color: #352473;

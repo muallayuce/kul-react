@@ -67,6 +67,7 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #fafafa;
+  color: #d90d6c;
 }
 
 #e-mail:hover, #supassword:hover, #confirm-password:hover, #first-name:hover, #last-name:hover, #user-name:hover {

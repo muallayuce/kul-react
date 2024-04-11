@@ -1,0 +1,34 @@
+.marketplace {
+    position: relative;
+    display: inline-block;
+  }
+
+.marketplace-button {
+    background-color:  #352473;
+    margin: 10px;
+    font-family: "Logo", sans-serif;
+    cursor: pointer;
+  }
+  
+.marketplace-button:hover {
+    background-color: #724FC3;
+    border: #D90D6C solid;
+  }
+  
+.marketplace-button-flat {
+    background-color:  #352473;
+    margin: 10px;
+    font-family: "Logo", sans-serif;
+  }
+  
+.marketplace-button:hover {
+    background-color: #724FC3;
+    border: #D90D6C solid;
+  }
+
+.coming-soon {
+    background-color: #D90D6C;
+    color: white;
+    border: #352473 dotted 10px;
+    border-radius: 10px;
+}

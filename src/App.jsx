@@ -6,6 +6,8 @@ import Signup from './components/SignUp';
 import headerImg from './assets/header.png';
 import footerImg from './assets/kulw.png';
 import balamw from './assets/balamw.png';
+import Marketplace from './components/Marketplace';
+import heart from './assets/heart.png';
 
 
 const BASE_URL = 'http://localhost:8000/';
@@ -52,6 +54,7 @@ function App() {
       <header className='app_header'>
         <img className='app_header_image' src={headerImg} alt='Kul' />
         <nav>
+          <Marketplace closeOtherModals={() => setOpenModal(null)} />
           <button className='register' onClick={() => setOpenModal('login')}>Log In</button>
           <button className='register' onClick={() => setOpenModal('signup')}>Sign Up</button>
         </nav>
@@ -63,6 +66,15 @@ function App() {
         {openModal === 'signup' && <Signup onSignup={handleSignup} />}
       </div>
 
+      {/* Conditionally render the "Coming Soon" section based on the absence of any open modal */}
+      {openModal === null && (
+        <div className='coming_soon'>
+          <img src={heart} alt='Coming Soon' />
+          <h2>Coming Soon...</h2>
+          <p>We're working on something exciting! Stay tuned for updates.</p>
+        </div>
+      )}
+
       <div className='app_posts'>
         {posts.map(post => (
           <Post key={post.id} post={post} />
@@ -70,15 +82,15 @@ function App() {
       </div>
 
       <footer className='footer'>
-      <nav>
-        <img className='footerImgLeft' src={footerImg} alt="" />
-        <a href="/">Privacy Policy</a>
-        <a href="/terms">Terms of Service</a>
-        <a href="/contact">Contact Us</a>
-        <img className='footerImgRight' src={balamw} alt="" />
-      </nav>
-      <p className='copy'>&copy; 2024 KUL-BALAM. All rights reserved.</p>
-    </footer>
+        <nav>
+          <img className='footerImgLeft' src={footerImg} alt="" />
+          <a href="/">Privacy Policy</a>
+          <a href="/terms">Terms of Service</a>
+          <a href="/contact">Contact Us</a>
+          <img className='footerImgRight' src={balamw} alt="" />
+        </nav>
+        <p className='copy'>&copy; 2024 KUL-BALAM. All rights reserved.</p>
+      </footer>
     </div>
   );
 }
