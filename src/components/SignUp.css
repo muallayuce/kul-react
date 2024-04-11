@@ -115,3 +115,8 @@
   background-color: #724fc3;
   border: #d90d6c solid;
 }
+
+.error-message {
+  font-family: "Logo";
+  color: var(--color-2);
+}

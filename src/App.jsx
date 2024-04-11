@@ -8,14 +8,14 @@ import footerImg from './assets/kulw.png';
 import balamw from './assets/balamw.png';
 
 
-const BASE_URL = 'http://localhost:8000/';
+export const BASE_URL = 'http://localhost:8000';
 
 function App() {
   const [posts, setPosts] = useState([]);
   const [openModal, setOpenModal] = useState(null); // State to manage which modal is open
 
   useEffect(() => {
-    fetch(BASE_URL + 'posts/all')
+    fetch(BASE_URL + '/posts/all')
       .then(response => {
         if (response.ok) {
           return response.json();
