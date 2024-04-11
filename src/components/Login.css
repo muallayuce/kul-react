@@ -1,7 +1,13 @@
 @font-face {
     font-family: "Logo";
     src: url("/src/fonts/eras.TTF") format("truetype");
+  }
+
+@font-face {
+    font-family: "Slogan";
+    src: url("/src/fonts/mystical.TTF") format("truetype");
   }  
+
   
   h2 {
     margin-bottom: 20px;
@@ -14,10 +20,10 @@
   
 .welcome {
   margin-bottom: 10px;
-  color:  #352473;
-  font-size: 40px;
+  color:#724FC3;
+  font-size: 50px;
   text-align: center;
-  font-family: "Logo", sans-serif;
+  font-family: "Slogan", sans-serif;
   padding: 20px;
 }
 
@@ -50,6 +56,9 @@
     padding: 20px;
   }
 
+  #password:hover, #email:hover {
+    border-color:#d90d6c
+  }
   
   input[type="email"],
   input[type="password"] {
@@ -57,6 +66,7 @@
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    background-color: #fafafa;
   }
   
   .form-actions {

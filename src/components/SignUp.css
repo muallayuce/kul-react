@@ -1,26 +1,31 @@
+:root{
+  --color-1:#352473;
+  --color-2:#d90d6c;
+}
+
 @font-face {
   font-family: "Logo";
   src: url("/src/fonts/eras.TTF") format("truetype");
 }
 
-.welcome {
+.welcome2 {
   margin-bottom: 10px;
   color: #352473;
   font-size: 40px;
   text-align: center;
   font-family: "Logo", sans-serif;
-  padding: 20px;
+  padding: 0px;
 }
 
 .control-row {
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
-  color: #352473;
+  color: var(--color-1);
   font-size: 24px;
   font-family: "Logo", sans-serif;
   justify-content: center;
-  align-items: center;
+  align-items: flex;
 }
 
 .control {
@@ -30,8 +35,8 @@
   color: #352473;
   font-size: 24px;
   font-family: "Logo", sans-serif;
-  justify-content: center;
-  align-items: center;
+  justify-content: left;
+  align-items: flex-start;
 }
 
 .control label {
@@ -56,11 +61,16 @@
   width: 300px;
 }
 
-#e-mail, #supassword, #confirm-password, #first-name, #last-name {
+#e-mail, #supassword, #confirm-password, #first-name, #last-name, #user-name {
   width: 300px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  background-color: #fafafa;
+}
+
+#e-mail:hover, #supassword:hover, #confirm-password:hover, #first-name:hover, #last-name:hover, #user-name:hover {
+  border-color:#d90d6c
 }
 
 #firstnametag {
@@ -72,7 +82,7 @@
   flex-direction: column;
   margin-bottom: 20px;
   color:#724fc3;
-  font-size: 24px;
+  font-size: 20px;
   font-family: "Logo", sans-serif;
   justify-content: center;
   align-items: center;
@@ -86,6 +96,7 @@
   background-color: #352473;
   margin: 10px;
   font-family: "Logo", sans-serif;
+  color: #fafafa;
 }
 
 .button:hover {
@@ -97,6 +108,7 @@
   background-color: #352473;
   margin: 10px;
   font-family: "Logo", sans-serif;
+  color: #fafafa;
 }
 
 .button-flat:hover {

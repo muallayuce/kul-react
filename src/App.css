@@ -42,13 +42,11 @@
   width: 220px;
 }
 
-
-
 .register {
   background-color:  #352473;
   margin: 10px;
   font-family: "Logo", sans-serif;
-  
+  color:#fafafa;
 }
 
 .register:hover {
@@ -58,11 +56,11 @@
 
 .footer {
   background-color: #352473;
-  color: #fff;
-  padding: 20px;
+  color: #fafafa;
+  padding: 24px;
   text-align: center;
   margin-top: auto; /* Pushes the footer to the bottom of the page */
-  font-family: "Slogan", sans-serif;
+  font-family: "Logo", sans-serif;
 }
 
 .footer nav {
