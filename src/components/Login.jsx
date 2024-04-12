@@ -28,6 +28,7 @@ const Login = () => {
             setErrorMessage(data.detail);
         } else {
             setToken(data.access_token); //backend response body in /token
+            setErrorMessage();
         }
     };
     
