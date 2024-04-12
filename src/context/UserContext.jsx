@@ -3,7 +3,7 @@ import React, { createContext, useEffect, useState } from "react";
 export const UserContext = createContext();
 
 export const UserProvider = (props) => {
-    const [token, setToken] = useState(localStorage.getItem('awseomeLeadsToken'));
+    const [token, setToken] = useState(localStorage.getItem('The Kul-est Token'));
 
     useEffect(()=>{
         const fetchUser = async () => {
@@ -20,7 +20,7 @@ export const UserProvider = (props) => {
             if (!respone.ok) {
                 setToken(null);
             }
-            localStorage.setItem('awseomeLeadsToken', token)
+            localStorage.setItem('The Kul-est Token', token)
         };
 
         fetchUser();
