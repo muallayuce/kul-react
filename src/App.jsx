@@ -3,12 +3,11 @@ import './App.css';
 import Post from './Post';
 import Login from './components/Login';
 import Signup from './components/SignUp';
+import Marketplace from './components/Marketplace';
 import headerImg from './assets/header.png';
 import footerImg from './assets/kulw.png';
 import balamw from './assets/balamw.png';
-import Marketplace from './components/Marketplace';
 import heart from './assets/heart.png';
-
 
 export const BASE_URL = 'http://localhost:8000';
 
@@ -17,12 +16,20 @@ function App() {
   const [openModal, setOpenModal] = useState(null); // State to manage which modal is open
 
   useEffect(() => {
-    fetch(BASE_URL + '/posts/all')
+    fetchPosts();
+  }, []);
+
+  useEffect(() => {
+    console.log('Posts:', posts);
+  }, [posts]);
+
+  const fetchPosts = () => {
+    fetch(BASE_URL + `/posts/all`)
       .then(response => {
-        if (response.ok) {
-          return response.json();
+        if (!response.ok) {
+          throw new Error('Failed to fetch posts');
         }
-        throw new Error('Failed to fetch posts');
+        return response.json();
       })
       .then(data => {
         setPosts(data);
@@ -31,7 +38,8 @@ function App() {
         console.error(error);
         alert('Failed to fetch posts');
       });
-  }, []);
+  };
+  
 
   // Function to handle login
   const handleLogin = (email, password) => {
@@ -66,20 +74,14 @@ function App() {
         {openModal === 'signup' && <Signup onSignup={handleSignup} />}
       </div>
 
-      {/* Conditionally render the "Coming Soon" section based on the absence of any open modal */}
-      {openModal === null && (
-        <div className='coming_soon'>
-          <img src={heart} alt='Coming Soon' />
-          <h2>Coming Soon...</h2>
-          <p>We're working on something exciting! Stay tuned for updates.</p>
+      {/* Only render the posts section if no modal is open */}
+      {!openModal && (
+        <div className='app_posts'>
+          {posts.map(post => (
+            <Post key={post.id} post={post} />
+          ))}
         </div>
       )}
-
-      <div className='app_posts'>
-        {posts.map(post => (
-          <Post key={post.id} post={post} />
-        ))}
-      </div>
 
       <footer className='footer'>
         <nav>
