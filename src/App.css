@@ -119,3 +119,17 @@
 .copy {
   font-size: small;
 }
+
+.welcome-container {
+  text-align: center;
+}
+
+.images-welcome {
+  display: flex;
+  justify-content: center;
+}
+
+.images-welcome img {
+  max-width: 20%;
+  height: auto;
+}

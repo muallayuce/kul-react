@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './App.css';
 import Post from './Post';
 import Login from './components/Login';
@@ -8,28 +8,41 @@ import headerImg from './assets/header.png';
 import footerImg from './assets/kulw.png';
 import balamw from './assets/balamw.png';
 import heart from './assets/heart.png';
+import Logout from './components/Logout';
+import Home from './components/Home';
+import { UserContext } from './context/UserContext';
 
 export const BASE_URL = 'http://localhost:8000';
 
 function App() {
   const [posts, setPosts] = useState([]);
-  const [openModal, setOpenModal] = useState(null); // State to manage which modal is open
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [openModal, setOpenModal] = useState(null); // Define setOpenModal state
+  const [token, setToken] = useContext(UserContext);
 
   useEffect(() => {
-    fetchPosts();
+    const storedToken = localStorage.getItem('token');
+    if (storedToken) {
+      setToken(storedToken);
+      setIsLoggedIn(true);
+      fetchPosts();
+    } else {
+      setIsLoggedIn(false);
+    }
   }, []);
+  
 
   useEffect(() => {
     console.log('Posts:', posts);
   }, [posts]);
 
   const fetchPosts = () => {
-    fetch(BASE_URL + `/posts/all`)
+    fetch(BASE_URL + '/posts/all')
       .then(response => {
-        if (!response.ok) {
-          throw new Error('Failed to fetch posts');
+        if (response.ok) {
+          return response.json();
         }
-        return response.json();
+        throw new Error('Failed to fetch posts');
       })
       .then(data => {
         setPosts(data);
@@ -39,14 +52,13 @@ function App() {
         alert('Failed to fetch posts');
       });
   };
-  
 
   // Function to handle login
   const handleLogin = (email, password) => {
-    // Implement your login logic here, e.g., send a request to authenticate the user
     console.log('Logging in with:', email, password);
-    // After successful login, you can close the modal
-    setOpenModal(null);
+    fetchPosts(); // Fetch posts after successful login
+    setIsLoggedIn(true); // Update isLoggedIn state
+    setOpenModal(null); // Close the login modal
   };
 
   // Function to handle signup
@@ -57,31 +69,47 @@ function App() {
     setOpenModal(null);
   };
 
+// Function to handle logout
+const handleLogout = () => {
+  localStorage.removeItem('token'); // Remove token from local storage
+  setToken(null);
+  setIsLoggedIn(false);
+  setPosts([]); // Clear posts when logging out
+  setOpenModal(null); // Close any open modal when logging out
+};
+
+
   return (
     <div className='app'>
       <header className='app_header'>
         <img className='app_header_image' src={headerImg} alt='Kul' />
         <nav>
-          <Marketplace closeOtherModals={() => setOpenModal(null)} />
-          <button className='register' onClick={() => setOpenModal('login')}>Log In</button>
-          <button className='register' onClick={() => setOpenModal('signup')}>Sign Up</button>
+          <Marketplace />
+          {isLoggedIn ? (
+            <Logout onLogout={handleLogout} />
+          ) : (
+            <>
+              <button className='register' onClick={() => setOpenModal('login')}>Log In</button>
+              <button className='register' onClick={() => setOpenModal('signup')}>Sign Up</button>
+            </>
+          )}
         </nav>
       </header>
 
-      <div className='app_users'>
-        {/* Conditionally render the modal based on the openModal state */}
-        {openModal === 'login' && <Login onLogin={handleLogin} />}
-        {openModal === 'signup' && <Signup onSignup={handleSignup} />}
-      </div>
-
-      {/* Only render the posts section if no modal is open */}
-      {!openModal && (
+      {isLoggedIn ? (
         <div className='app_posts'>
           {posts.map(post => (
             <Post key={post.id} post={post} />
           ))}
         </div>
+      ) : openModal === null && (
+        <Home />
       )}
+
+      {/* Render login or signup modal based on openModal state */}
+      {openModal === 'signup' && <Signup onSignup={handleSignup} />}
+      
+      {!isLoggedIn && openModal === 'login' && <Login onLogin={handleLogin} />}
 
       <footer className='footer'>
         <nav>
