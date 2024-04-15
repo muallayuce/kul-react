@@ -11,8 +11,8 @@ function Post({ post }) {
         </div>
       </div>
       <p className="post_content">{post.content}</p>
-      {post.image_url && (
-        <img className="post_image" src={post.image_url} alt="Post Image" />
+      {post.id && (
+        <img className="post_image" src={`http://localhost:8000/images/${post.id}`} alt="Post Image" />
       )}
       <div className="post_actions">
         <button className="post_action">

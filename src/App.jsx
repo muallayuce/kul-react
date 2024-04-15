@@ -12,51 +12,51 @@ import Logout from './components/Logout';
 import Home from './components/Home';
 import { UserContext } from './context/UserContext';
 
+// Define your base URL
 export const BASE_URL = 'http://localhost:8000';
 
+// Define your App component
 function App() {
+  // Define state variables
   const [posts, setPosts] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [openModal, setOpenModal] = useState(null); // Define setOpenModal state
+  const [openModal, setOpenModal] = useState(null);
   const [token, setToken] = useContext(UserContext);
 
+  // useEffect to check if user is logged in and fetch posts and images
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
       setToken(storedToken);
       setIsLoggedIn(true);
-      fetchPosts();
+      fetchPosts(); // Fetch posts when user is logged in
     } else {
       setIsLoggedIn(false);
     }
   }, []);
-  
 
-  useEffect(() => {
-    console.log('Posts:', posts);
-  }, [posts]);
 
-  const fetchPosts = () => {
-    fetch(BASE_URL + '/posts/all')
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
+  // Fetch posts function
+  const fetchPosts = async () => {
+    try {
+      const response = await fetch(BASE_URL + '/posts/all');
+      if (response.ok) {
+        const postData = await response.json();
+        console.log('Posts:', postData);
+        setPosts(postData); // Set posts state
+      } else {
         throw new Error('Failed to fetch posts');
-      })
-      .then(data => {
-        setPosts(data);
-      })
-      .catch(error => {
-        console.error(error);
-        alert('Failed to fetch posts');
-      });
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Failed to fetch posts');
+    }
   };
 
   // Function to handle login
-  const handleLogin = (email, password) => {
+  const handleLogin = async (email, password) => {
     console.log('Logging in with:', email, password);
-    fetchPosts(); // Fetch posts after successful login
+    await fetchPosts(); // Fetch posts after login
     setIsLoggedIn(true); // Update isLoggedIn state
     setOpenModal(null); // Close the login modal
   };
@@ -69,15 +69,14 @@ function App() {
     setOpenModal(null);
   };
 
-// Function to handle logout
-const handleLogout = () => {
-  localStorage.removeItem('token'); // Remove token from local storage
-  setToken(null);
-  setIsLoggedIn(false);
-  setPosts([]); // Clear posts when logging out
-  setOpenModal(null); // Close any open modal when logging out
-};
-
+  // Function to handle logout
+  const handleLogout = () => {
+    localStorage.removeItem('token'); // Remove token from local storage
+    setToken(null);
+    setIsLoggedIn(false);
+    setPosts([]); // Clear posts when logging out
+    setOpenModal(null); // Close any open modal when logging out
+  };
 
   return (
     <div className='app'>
@@ -125,4 +124,5 @@ const handleLogout = () => {
   );
 }
 
+// Export your App component
 export default App;
