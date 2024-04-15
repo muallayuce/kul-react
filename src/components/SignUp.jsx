@@ -115,11 +115,11 @@ export default function Signup() {
         <div className="form-actions">
           <ErrorMessage message={errorMessage}/>
           <br/> 
-          <button type="reset" className="button button-flat" onClick={handleReset}>
-            Reset
-          </button>
           <button type="submit" className="button">
             Sign Up
+          </button>
+          <button type="reset" className="button button-flat" onClick={handleReset}>
+            Reset
           </button>
         </div>
       </form>

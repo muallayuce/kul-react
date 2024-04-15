@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './App.css';
 import Post from './Post';
 import Login from './components/Login';
@@ -7,7 +7,9 @@ import headerImg from './assets/header.png';
 import footerImg from './assets/kulw.png';
 import balamw from './assets/balamw.png';
 import Marketplace from './components/Marketplace';
-import heart from './assets/heart.png';
+import Logout from './components/Logout';
+import Home from './components/Home';
+import { UserContext } from './context/UserContext';
 
 
 export const BASE_URL = 'http://localhost:8000';
@@ -15,6 +17,8 @@ export const BASE_URL = 'http://localhost:8000';
 function App() {
   const [posts, setPosts] = useState([]);
   const [openModal, setOpenModal] = useState(null); // State to manage which modal is open
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [token,] = useContext(UserContext);
 
   useEffect(() => {
     fetch(BASE_URL + '/posts/all')
@@ -39,6 +43,8 @@ function App() {
     console.log('Logging in with:', email, password);
     // After successful login, you can close the modal
     setOpenModal(null);
+    setIsLoggedIn(true);
+    console.log('isLoggedIn:', isLoggedIn);
   };
 
   // Function to handle signup
@@ -49,14 +55,23 @@ function App() {
     setOpenModal(null);
   };
 
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+  };
+
   return (
     <div className='app'>
       <header className='app_header'>
         <img className='app_header_image' src={headerImg} alt='Kul' />
         <nav>
           <Marketplace closeOtherModals={() => setOpenModal(null)} />
-          <button className='register' onClick={() => setOpenModal('login')}>Log In</button>
-          <button className='register' onClick={() => setOpenModal('signup')}>Sign Up</button>
+          <Logout onLogout={handleLogout} />
+          {!token && (
+            <button className='register' onClick={() => setOpenModal('login')}>Log In</button>
+          )}
+          {!token && (
+            <button className='register' onClick={() => setOpenModal('signup')}>Sign Up</button>
+          )}
         </nav>
       </header>
 
@@ -66,13 +81,8 @@ function App() {
         {openModal === 'signup' && <Signup onSignup={handleSignup} />}
       </div>
 
-      {/* Conditionally render the "Coming Soon" section based on the absence of any open modal */}
       {openModal === null && (
-        <div className='coming_soon'>
-          <img src={heart} alt='Coming Soon' />
-          <h2>Coming Soon...</h2>
-          <p>We're working on something exciting! Stay tuned for updates.</p>
-        </div>
+        <Home />
       )}
 
       <div className='app_posts'>
