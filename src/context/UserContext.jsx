@@ -20,7 +20,7 @@ export const UserProvider = (props) => {
             if (!respone.ok) {
                 setToken(null);
             }
-            localStorage.setItem('The Kul-est Token', token)
+            localStorage.setItem('The Kul-est Token', token);
         };
 
         fetchUser();

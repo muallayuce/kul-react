@@ -12,6 +12,7 @@ const Logout = ({ onLogout }) => { // Receive onLogout as a prop
   return (
     <div>
       {token && (
+
         <button className="button-flat" onClick={handleLogout}>
           Log Out
         </button>

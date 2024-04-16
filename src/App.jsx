@@ -19,9 +19,9 @@ function App() {
   // Define state variables
   const [posts, setPosts] = useState([]);
   const [products, setProducts] = useState([]); // Initialize products as an empty array
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [openModal, setOpenModal] = useState(null);
   const [token, setToken] = useContext(UserContext);
+  const [openModal, setOpenModal] = useState(null); // State to manage which modal is open
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // useEffect to check if user is logged in and fetch posts and products
   useEffect(() => {
@@ -120,7 +120,9 @@ function App() {
             <Post key={post.id} post={post} />
           ))}
         </div>
+
       ) : openModal === null && (
+
         <Home />
       )}
 
