@@ -1,6 +1,7 @@
 :root{
   --color-1:#352473;
-  --color-2:#d90d6c;
+  --color-2:#724fc3; 
+  --color-3:#d90d6c;
 }
 
 @font-face {
@@ -119,5 +120,5 @@
 
 .error-message {
   font-family: "Logo";
-  color: var(--color-2);
+  color: var(--color-3);
 }

@@ -1,34 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React from "react";
 import './Marketplace.css';
 
-const Marketplace = () => {
-  const [showComingSoon, setShowComingSoon] = useState(false);
-
-  useEffect(() => {
-    // Add event listener to close the "Coming soon..." text when any other button is clicked
-    const handleClickOutside = (event) => {
-      if (!event.target.closest('.marketplace-button')) {
-        setShowComingSoon(false);
-      }
-    };
-
-    document.addEventListener('click', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, []);
-
-  const handleClick = () => {
-    setShowComingSoon(true);
-  };
-
+function Marketplace({ products }) { // Change 'product' to 'products'
   return (
     <div className="marketplace">
-      <button className="marketplace-button" onClick={handleClick}>Marketplace</button>
-      {showComingSoon && <p className="coming-soon">New features coming!</p>}
+      {products.map(product => ( // Change 'product.id' to 'products.map(product => ...'
+        <div key={product.id} className="product">
+          <div className="product_header">
+            <div>
+              <p className="product_name">{product.product_name}</p>
+              <p className="product_price">{product.price}</p>
+            </div>
+          </div>
+          <p className="product_description">{product.description}</p>
+          {/* {product.id && (
+            <img className="product_image" src={`http://localhost:8000/images/${product.id}`} alt="Product Image" /> 
+          )} */}
+        </div>
+      ))}
     </div>
   );
-};
+}
 
 export default Marketplace;

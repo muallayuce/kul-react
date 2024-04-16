@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import './App.css';
-import Post from './Post';
+import Post from './components/Post';
 import Login from './components/Login';
 import Signup from './components/SignUp';
 import Marketplace from './components/Marketplace';
@@ -19,11 +19,12 @@ export const BASE_URL = 'http://localhost:8000';
 function App() {
   // Define state variables
   const [posts, setPosts] = useState([]);
+  const [products, setProducts] = useState([]); // Initialize products as an empty array
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [openModal, setOpenModal] = useState(null);
   const [token, setToken] = useContext(UserContext);
 
-  // useEffect to check if user is logged in and fetch posts and images
+  // useEffect to check if user is logged in and fetch posts and products
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
@@ -34,7 +35,6 @@ function App() {
       setIsLoggedIn(false);
     }
   }, []);
-
 
   // Fetch posts function
   const fetchPosts = async () => {
@@ -50,6 +50,23 @@ function App() {
     } catch (error) {
       console.error(error);
       alert('Failed to fetch posts');
+    }
+  };
+
+  // Function to fetch products
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch(BASE_URL + '/products/');
+      if (response.ok) {
+        const productsData = await response.json();
+        console.log('Products:', productsData);
+        setProducts(productsData); // Set products state
+      } else {
+        throw new Error('Failed to fetch products');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Failed to fetch products');
     }
   };
 
@@ -75,6 +92,7 @@ function App() {
     setToken(null);
     setIsLoggedIn(false);
     setPosts([]); // Clear posts when logging out
+    setProducts([]); // Clear products when logging out
     setOpenModal(null); // Close any open modal when logging out
   };
 
@@ -83,9 +101,11 @@ function App() {
       <header className='app_header'>
         <img className='app_header_image' src={headerImg} alt='Kul' />
         <nav>
-          <Marketplace />
           {isLoggedIn ? (
-            <Logout onLogout={handleLogout} />
+            <>
+              <button className='marketplace_button' onClick={fetchProducts}>Marketplace</button>
+              <Logout onLogout={handleLogout} />
+            </>
           ) : (
             <>
               <button className='register' onClick={() => setOpenModal('login')}>Log In</button>
@@ -107,7 +127,10 @@ function App() {
 
       {/* Render login or signup modal based on openModal state */}
       {openModal === 'signup' && <Signup onSignup={handleSignup} />}
-      
+
+      {/* Render the Marketplace component if products are available */}
+      {products.length > 0 && <Marketplace products={products} />}
+
       {!isLoggedIn && openModal === 'login' && <Login onLogin={handleLogin} />}
 
       <footer className='footer'>
