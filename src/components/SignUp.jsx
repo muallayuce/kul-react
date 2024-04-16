@@ -5,7 +5,6 @@ import { useContext, useState } from 'react';
 import ErrorMessage from './ErrorMessage';
 import {BASE_URL} from '../App';
 
-
 export default function Signup() {
   const [email, setEmail] = useState ('');
   const [password, setPassword] = useState ('');
@@ -21,8 +20,11 @@ export default function Signup() {
       body: JSON.stringify({email: email, password: password, username: username})
     };
 
-    const response = await fetch(BASE_URL + '/users', requestOptions);
+    console.log(BASE_URL);
+    const response = await fetch(BASE_URL + '/users/', requestOptions);
     const data = await response.json();
+
+    console.log("response: ", response)
     
     if (!response.ok) {
         setErrorMessage(data.detail);
