@@ -7,7 +7,6 @@ import Marketplace from './components/Marketplace';
 import headerImg from './assets/header.png';
 import footerImg from './assets/kulw.png';
 import balamw from './assets/balamw.png';
-import heart from './assets/heart.png';
 import Logout from './components/Logout';
 import Home from './components/Home';
 import { UserContext } from './context/UserContext';
