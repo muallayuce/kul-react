@@ -1,7 +1,7 @@
 import React from "react";
 import './Marketplace.css';
 
-function Marketplace({ products }) { // Change 'product' to 'products'
+function Marketplace({ products }) { 
   return (
     <div className="marketplace">
       {products.map(product => ( // Change 'product.id' to 'products.map(product => ...'

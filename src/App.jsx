@@ -22,6 +22,7 @@ function App() {
   const [token, setToken] = useContext(UserContext);
   const [openModal, setOpenModal] = useState(null); // State to manage which modal is open
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentScreen, setCurrentScreen] = useState(null);
 
   // useEffect to check if user is logged in and fetch posts and products
   useEffect(() => {
@@ -60,6 +61,7 @@ function App() {
         const productsData = await response.json();
         console.log('Products:', productsData);
         setProducts(productsData); // Set products state
+        setCurrentScreen('marketplace');
       } else {
         throw new Error('Failed to fetch products');
       }
@@ -75,6 +77,7 @@ function App() {
     await fetchPosts(); // Fetch posts after login
     setIsLoggedIn(true); // Update isLoggedIn state
     setOpenModal(null); // Close the login modal
+    setCurrentScreen('posts');
   };
 
   // Function to handle signup
@@ -114,14 +117,14 @@ function App() {
         </nav>
       </header>
 
-      {isLoggedIn ? (
+      {currentScreen === 'posts' && isLoggedIn ? (
         <div className='app_posts'>
           {posts.map(post => (
             <Post key={post.id} post={post} />
           ))}
         </div>
 
-      ) : openModal === null && (
+      ) : currentScreen === null && openModal === null && (
 
         <Home />
       )}
@@ -130,7 +133,8 @@ function App() {
       {openModal === 'signup' && <Signup onSignup={handleSignup} />}
 
       {/* Render the Marketplace component if products are available */}
-      {products.length > 0 && <Marketplace products={products} />}
+      
+      {currentScreen === 'marketplace' && <Marketplace products={products} />}
 
       {!isLoggedIn && openModal === 'login' && <Login onLogin={handleLogin} />}
 
