@@ -25,7 +25,7 @@ function Post({ post }) {
       </div>
       <p className="post_content">{post.content}</p>
       {post.id && (
-        <img className="post_image" src={`http://localhost:8000/images/${post.id}`} alt="Post Image" />
+        <img className="post_image" src={`http://localhost:8000/postimages/${post.id}`} alt="Post Image" />
       )}
       <div className="post_actions">
         <button className="post_reactions">
@@ -44,4 +44,3 @@ function Post({ post }) {
 }
 
 export default Post;
-
