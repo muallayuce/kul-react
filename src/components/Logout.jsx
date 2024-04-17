@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
+import './Logout.css'
 
 const Logout = ({ onLogout }) => { // Receive onLogout as a prop
   const [token, setToken] = useContext(UserContext);
@@ -13,7 +14,7 @@ const Logout = ({ onLogout }) => { // Receive onLogout as a prop
     <div>
       {token && (
 
-        <button className="button-flat" onClick={handleLogout}>
+        <button className="logout_button" onClick={handleLogout}>
           Log Out
         </button>
       )}

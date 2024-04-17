@@ -7,6 +7,7 @@ import Marketplace from './components/Marketplace';
 import headerImg from './assets/header.png';
 import footerImg from './assets/kulw.png';
 import balamw from './assets/balamw.png';
+import balam from './assets/balam.png'
 import Logout from './components/Logout';
 import Home from './components/Home';
 import { UserContext } from './context/UserContext';
@@ -44,6 +45,7 @@ function App() {
         const postData = await response.json();
         console.log('Posts:', postData);
         setPosts(postData); // Set posts state
+        setCurrentScreen('posts');
       } else {
         throw new Error('Failed to fetch posts');
       }
@@ -96,25 +98,36 @@ function App() {
     setPosts([]); // Clear posts when logging out
     setProducts([]); // Clear products when logging out
     setOpenModal(null); // Close any open modal when logging out
+    setCurrentScreen(null);
   };
 
   return (
     <div className='app'>
       <header className='app_header'>
-        <img className='app_header_image' src={headerImg} alt='Kul' />
-        <nav>
-          {isLoggedIn ? (
-            <>
-              <button className='marketplace_button' onClick={fetchProducts}>Marketplace</button>
+        <div className='app_header_left'>
+          <button className='header_button' onClick={fetchPosts}>
+            <img className='app_header_image' src={headerImg} />
+          </button>
+        </div>
+        {isLoggedIn ? (
+          <>
+            <div className='app_header_center'>
+              <button className='balam_button' onClick={fetchProducts}>
+                <img className='balam_header' src={balam} />
+              </button>
+            </div>
+            <div className='app_header_right'>
               <Logout onLogout={handleLogout} />
-            </>
-          ) : (
-            <>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className='app_header_right'>
               <button className='register' onClick={() => setOpenModal('login')}>Log In</button>
               <button className='register' onClick={() => setOpenModal('signup')}>Sign Up</button>
-            </>
-          )}
-        </nav>
+            </div>
+          </>
+        )}
       </header>
 
       {currentScreen === 'posts' && isLoggedIn ? (
@@ -133,7 +146,7 @@ function App() {
       {openModal === 'signup' && <Signup onSignup={handleSignup} />}
 
       {/* Render the Marketplace component if products are available */}
-      
+
       {currentScreen === 'marketplace' && <Marketplace products={products} />}
 
       {!isLoggedIn && openModal === 'login' && <Login onLogin={handleLogin} />}

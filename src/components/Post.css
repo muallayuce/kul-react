@@ -64,8 +64,17 @@
     width: 20px;
     height: auto;
   }
+
+  .post_reactions {
+    background-color: transparent;
+  }
+
+  .post_reactions:hover{
+    border: transparent;
+    transform: scale(2);
+  }
   
-  .post_action {
+  .button-comment {
     margin-right: 10px;
     color: white;
     cursor: pointer;
@@ -73,11 +82,6 @@
     align-items: center;
     background-color: var(--color-1);
     font-family: 'Logo';
-
-  }
-  
-  .post_action_icon {
-    margin-right: 5px;
   }
   
   .likeImg {
