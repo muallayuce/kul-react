@@ -75,15 +75,15 @@ const Login = ({ onLogin }) => {
         <ErrorMessage message={errorMessage} />
         <br />
         <p className="form-actions">
+        <button className="button" type="submit">
+            Log In
+          </button>
           <button
             className="button button-flat"
             type="reset"
             onClick={handleReset}
           >
             Reset
-          </button>
-          <button className="button" type="submit">
-            Log In
           </button>
         </p>
       </div>

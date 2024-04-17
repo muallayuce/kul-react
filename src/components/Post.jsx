@@ -1,7 +1,7 @@
 import React from "react";
 import './Post.css';
-import likeImg from '../assets/likew.png'
-import loveImg from '../assets/heartw.png'
+import likeImg from '../assets/like.png'
+import loveImg from '../assets/heart.png'
 
 function Post({ post }) {
   // Function to format timestamp
@@ -28,14 +28,14 @@ function Post({ post }) {
         <img className="post_image" src={`http://localhost:8000/images/${post.id}`} alt="Post Image" />
       )}
       <div className="post_actions">
-        <button className="post_action">
+        <button className="post_reactions">
           <img src={likeImg} className="likeImg"></img>
         </button>
-        <button className="post_action">
+        <button className="post_reactions">
           <img src={loveImg} className="loveImg"></img>
         </button>
-        <button className="post_action">
-          <i className="post_action_icon fas fa-comment"></i>
+        <button className="button-comment">
+          <i className="comment"></i>
           Comment
         </button>
       </div>
