@@ -1,36 +1,72 @@
+@font-face {
+  font-family: "Logo";
+  src: url("/src/fonts/eras.TTF") format("truetype");
+}
+
 .marketplace {
-    position: relative;
-    display: inline-block;
-    color: #352473;
-  }
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 5px;
+}
 
-.marketplace-button {
-    background-color:  #352473;
-    margin: 10px;
-    font-family: "Logo", sans-serif;
-    color: #fafafa;
-    cursor: pointer;
-  }
-  
-.marketplace-button:hover {
-    background-color: #724FC3;
-    border: #D90D6C solid;
-  }
-  
-.marketplace-button-flat {
-    background-color:  #352473;
-    margin: 10px;
-    font-family: "Logo", sans-serif;
-  }
-  
-.marketplace-button:hover {
-    background-color: #724FC3;
-    border: #D90D6C solid;
-  }
+.product {
+  height: 350px;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #dddfe2;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+}
 
-.coming-soon {
-    background-color: #D90D6C;
-    color: white;
-    border: #352473 dotted 3px;
-    border-radius: 10px;
+.product_name {
+  font-size: 25px;
+  line-height: 1.6;
+  color: var(--color-1);
+  font-weight: bold;
+  font-family: 'Logo';
+  text-transform: capitalize;
+}
+
+.product_price {
+  font-size: 20px;
+  line-height: 1.6;
+  color: #1c1e21;
+  font-family: 'Logo';
+}
+
+.product_description {
+  font-size: 20px;
+  line-height: 1.6;
+  color: #1c1e21;
+}
+
+.product_images {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  height: -webkit-fill-available;
+}
+
+.product_image {
+  display: block; /* Make the image a block-level element */
+  margin: auto; /* Center the image horizontally */
+  max-width: 320px; /* Set maximum width for the image */
+  max-height: 200px;
+  height: auto; /* Maintain aspect ratio */
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border-radius: 5%;
+}
+
+.product_header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  justify-content: space-between;
 }

@@ -12,7 +12,7 @@ function Marketplace({ products }) {
               <p className="product_price">${product.price}</p>
             </div>
           </div>
-          <p className="product_description">{product.description}</p>
+          {/*<p className="product_description">{product.description}</p>*/}
           <div className="product_images">
           {product.images.map(image => (
               <img
