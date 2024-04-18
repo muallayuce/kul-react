@@ -11,6 +11,8 @@ import balam from './assets/balam.png'
 import Logout from './components/Logout';
 import Home from './components/Home';
 import { UserContext } from './context/UserContext';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import ProductDetail from './components/ProductDetail';
 
 // Define your base URL
 export const BASE_URL = 'http://localhost:8000';
@@ -102,6 +104,7 @@ function App() {
   };
 
   return (
+    <Router>
     <div className='app'>
       <header className='app_header'>
         <div className='app_header_left'>
@@ -129,6 +132,11 @@ function App() {
           </>
         )}
       </header>
+
+      <Routes>
+          <Route path="/" element={<Marketplace products={products} />} />
+          <Route path="/product/:productId" element={<ProductDetail />} />
+        </Routes>
 
       {currentScreen === 'posts' && isLoggedIn ? (
         <div className='app_posts'>
@@ -162,6 +170,7 @@ function App() {
         <p className='copy'>&copy; 2024 KUL-BALAM. All rights reserved.</p>
       </footer>
     </div>
+    </Router>
   );
 }
 
