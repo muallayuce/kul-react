@@ -11,6 +11,7 @@ import balam from './assets/balam.png'
 import Logout from './components/Logout';
 import Home from './components/Home';
 import { UserContext } from './context/UserContext';
+import UserProfile from './components/UserProfile/UserProfile';
 
 // Define your base URL
 export const BASE_URL = 'http://localhost:8000';
@@ -24,7 +25,25 @@ function App() {
   const [openModal, setOpenModal] = useState(null); // State to manage which modal is open
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentScreen, setCurrentScreen] = useState(null);
+  const [showUserProfile, setShowUserProfile] = useState(false); // State to manage whether to display UserProfile component
 
+  
+  // Dummy user profile data
+  const dummyUserProfileData = {
+    name: "John Doe",
+    profilePicture: "profile.jpg",
+    posts: [
+      { id: 1, content: "Post 1" },
+      { id: 2, content: "Post 2" },
+      { id: 3, content: "Post 3" },
+      { id: 4, content: "Post 4" }
+    ],
+    friends: [
+      { id: 1, name: "Friend 1" },
+      { id: 2, name: "Friend 2" }
+    ]
+  };
+  
   // useEffect to check if user is logged in and fetch posts and products
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
@@ -99,8 +118,16 @@ function App() {
     setProducts([]); // Clear products when logging out
     setOpenModal(null); // Close any open modal when logging out
     setCurrentScreen(null);
+    setShowUserProfile(null);
   };
 
+// Function to handle displaying user profile
+const handleProfile = () => {
+  setShowUserProfile(true);
+  setCurrentScreen('profile'); // Set currentScreen state to 'profile'
+};
+
+  
   return (
     <div className='app'>
       <header className='app_header'>
@@ -117,6 +144,7 @@ function App() {
               </button>
             </div>
             <div className='app_header_right'>
+            <button className='profile_button' onClick={handleProfile}>Profile</button> {/* Toggle showUserProfile state */}
               <Logout onLogout={handleLogout} />
             </div>
           </>
@@ -130,6 +158,13 @@ function App() {
         )}
       </header>
 
+       {/* Render UserProfile component if showUserProfile is true */}
+      {showUserProfile && (currentScreen === 'profile' || currentScreen === null) && (
+        <UserProfile/>
+      )}
+
+
+      
       {currentScreen === 'posts' && isLoggedIn ? (
         <div className='app_posts'>
           {posts.map(post => (

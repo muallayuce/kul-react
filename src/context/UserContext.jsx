@@ -15,7 +15,7 @@ export const UserProvider = (props) => {
                 },
             };
 
-            const respone = await fetch('/users', requestOptions);
+            const respone = await fetch('/users', requestOptions); 
 
             if (!respone.ok) {
                 setToken(null);
@@ -26,6 +26,7 @@ export const UserProvider = (props) => {
         fetchUser();
     }, [token]);
 
+
         return (
             <UserContext.Provider value={[token, setToken]}>
                 {props.children}
@@ -33,3 +34,5 @@ export const UserProvider = (props) => {
         )
 };
 
+
+// calismiyor, fetch url yanlis???? baseurl yok?? boyle bir endpoint yok ki????

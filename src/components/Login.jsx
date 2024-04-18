@@ -10,6 +10,7 @@ const Login = ({ onLogin }) => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [, setToken] = useContext(UserContext);
+  
 
   const submitLogin = async () => {
     const requestOptions = {
@@ -22,6 +23,9 @@ const Login = ({ onLogin }) => {
 
     const response = await fetch(BASE_URL + "/token", requestOptions); //backend comunication
     const data = await response.json();
+    const {user_id} = data 
+
+    localStorage.setItem("user_id", user_id)
 
     if (!response.ok) {
       setErrorMessage(data.detail);

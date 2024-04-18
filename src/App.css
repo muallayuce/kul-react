@@ -143,3 +143,11 @@
   max-width: 20%;
   height: auto;
 }
+
+.profile_button {
+  background-color: #352473;
+  margin: 10px;
+  font-family: "Logo", sans-serif;
+  color: #fafafa;
+  font-size: 18px;
+}
