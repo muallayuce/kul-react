@@ -154,7 +154,6 @@ function App() {
       {openModal === 'signup' && <Signup onSignup={handleSignup} />}
 
       {/* Render the Marketplace component if products are available */}
-
       {currentScreen === 'marketplace' && <Marketplace products={products} />}
 
       {!isLoggedIn && openModal === 'login' && <Login onLogin={handleLogin} />}
