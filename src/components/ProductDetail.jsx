@@ -19,7 +19,6 @@ function ProductDetail() {
         }
       } catch (error) {
         console.error(error);
-        // Podrías añadir una lógica aquí para manejar el error, como mostrar un mensaje al usuario
       }
     };
 
