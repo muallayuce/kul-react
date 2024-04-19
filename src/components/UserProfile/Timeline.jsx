@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { BASE_URL } from '../../App';
 import './UserProfile.css';
+import likeImg from '../../assets/like.png';
+import loveImg from '../../assets/heart.png'
+
 
 const Timeline = () => {
   const [userPosts, setUserPosts] = useState([]);
@@ -47,15 +50,18 @@ const Timeline = () => {
           {post.images.map((image) => (
               <img className="post_image" src={`http://localhost:8000/postimages/${image.id}`} alt="Post Image" />
           ))}
-          
-          <div className="post-actions">
-            <button className="like-btn" onClick={() => handleLike(post.id)}>
-              Like
-            </button>
-            <button className="comment-btn" onClick={() => handleComment(post.id)}>
-              Comment
-            </button>
-          </div>
+          <div className="post_actions">
+        <button className="post_reactions">
+          <img src={likeImg} className="likeImg"></img>
+        </button>
+        <button className="post_reactions">
+          <img src={loveImg} className="loveImg"></img>
+        </button>
+        <button className="button-comment">
+          <i className="comment"></i>
+          Comment
+        </button>
+      </div>
         </div>
       ))}
     </div>
@@ -63,3 +69,6 @@ const Timeline = () => {
 };
 
 export default Timeline;
+
+
+

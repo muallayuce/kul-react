@@ -4,6 +4,7 @@ import FriendsList from './FriendsList';
 import EditProfileModal from './EditProfileModal';
 import Groups from './Groups';
 import './UserProfile.css';
+import UserInfo from './UserInfo';
 
 
 const UserProfile = ({ user }) => {
@@ -60,23 +61,19 @@ const UserProfile = ({ user }) => {
 
   // Dummy group data
   const dummyGroupData = [
-    { id: 1, name: "Group 1", posts: [{ id: 1, content: "Group 1 Post 1" }, { id: 2, content: "Group 1 Post 2" }] },
-    { id: 2, name: "Group 2", posts: [{ id: 1, content: "Group 2 Post 1" }, { id: 2, content: "Group 2 Post 2" }] },
-    { id: 3, name: "Group 3", posts: [{ id: 1, content: "Group 3 Post 1" }, { id: 2, content: "Group 3 Post 2" }] },
-    { id: 4, name: "Group 4", posts: [{ id: 1, content: "Group 4 Post 1" }, { id: 2, content: "Group 4 Post 2" }] }
+    { id: 1, name: "Photography", posts: [{ id: 1, content: "Does anyone want to go on a photo shoot?" }, { id: 2, content: "Hi everyone!!" }] },
+    { id: 2, name: "Museum", posts: [{ id: 1, content: "Hi everyone!!" }, { id: 2, content: "Does anyone wanna go to a museum?" }] },
+    { id: 3, name: "Music", posts: [{ id: 1, content: "Any musiclover?" }, { id: 2, content: "Hi everyone!!" }] },
+    { id: 4, name: "Books", posts: [{ id: 1, content: "Hi everyone!!" }, { id: 2, content: "Book suggestion?" }] }
   ];
 
   return (
     <div className="user-profile">
       <div className="profile-body">
         <div className="left-column">
-          <div className="left-content">
-            <div className="user-actions">
-              <button onClick={handleEdit}>Edit Profile</button>
-              {/* Add other user actions/buttons here */}
-            </div>
-           {friends.length > 0 && <FriendsList friends={friends}/>}
-          </div>
+             { /* <button className='edit-profile' onClick={handleEdit}>Edit Profile</button> */}
+              <UserInfo user={user} /> {/* Render UserInfo component here */}
+              {friends.length > 0 && <FriendsList friends={friends}/>}
         </div>
         <div className="middle-column">
         <Timeline/>
