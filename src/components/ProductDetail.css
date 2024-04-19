@@ -51,12 +51,12 @@
     margin-top: 10px;
     border-radius: 5%;
   }
-  
-  .product_header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    justify-content: space-between;
+
+  .product-d-rating {
+    font-size: 25px;
+    line-height: 1.6;
+    color: var(--color-2);
+    text-align: center;
   }
 
   .close-button {

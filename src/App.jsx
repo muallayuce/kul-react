@@ -117,7 +117,7 @@ function App() {
                 </Link>
               </div>
               <div className='app_header_right'>
-                <Link to="/"> <button className="logout_button" onClick={handleLogout}>Logout </button></Link>
+                <Link to="/"> <button className="logout_button" onClick={handleLogout}>Log Out </button></Link>
               </div>
             </>
           ) : (
