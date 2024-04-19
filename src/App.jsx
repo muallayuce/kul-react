@@ -137,7 +137,7 @@ function App() {
                 <Post key={post.id} post={post} />
               ))}
             </div>
-          ) : <Home />} />
+          ) : openModal === null && <Home />} />
           <Route
             path="/posts"
             element={
