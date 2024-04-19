@@ -11,7 +11,7 @@ import balam from './assets/balam.png'
 import Logout from './components/Logout';
 import Home from './components/Home';
 import { UserContext } from './context/UserContext';
-import { BrowserRouter as Router, Route, Routes, Link, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import ProductDetail from './components/ProductDetail';
 
 // Define your base URL
