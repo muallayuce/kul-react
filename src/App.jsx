@@ -11,7 +11,7 @@ import balam from './assets/balam.png'
 import Logout from './components/Logout';
 import Home from './components/Home';
 import { UserContext } from './context/UserContext';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link, Navigate } from 'react-router-dom';
 import ProductDetail from './components/ProductDetail';
 
 // Define your base URL
@@ -131,18 +131,13 @@ function App() {
         </header>
 
         <Routes>
-          <Route path='/' element={
-            <>
-              <Home />
-              {isLoggedIn && posts.length > 0 && (
-                <div className='home_app_posts'>
-                  {posts.map(post => (
-                    <Post key={post.id} post={post} />
-                  ))}
-                </div>
-              )}
-            </>
-          } />
+        <Route path='/' element={isLoggedIn ? (
+            <div className='home_app_posts'>
+              {posts.map(post => (
+                <Post key={post.id} post={post} />
+              ))}
+            </div>
+          ) : <Home />} />
           <Route
             path="/posts"
             element={
