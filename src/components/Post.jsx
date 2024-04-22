@@ -4,9 +4,12 @@ import likeImg from '../assets/like.png';
 import loveImg from '../assets/heart.png';
 import { BASE_URL } from '../App';
 
-function Post({ post, authToken, authTokenType, username }) {
+function Post({ post, authToken, authTokenType}) {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
+
+  const userId = localStorage.getItem("user_id");
+  const username= localStorage.getItem('username');
 
   useEffect(() => {
     fetchComments();
@@ -26,29 +29,27 @@ function Post({ post, authToken, authTokenType, username }) {
     return `${day}/${month}/${year}, ${hours}:${minutes}hrs`;
   }
 
-  const fetchComments = () => {
-    fetch(`http://127.0.0.1:8000/comments/all/${post.id}`)
-      .then(response => {
-        if (response.ok) {
-          return response.json()
-        }
-        throw new Error('Failed to fetch comments');
-      })
-      .then(data => {
-        setComments(data);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+  const fetchComments = async () => {
+    try{
+    const response = await fetch(`http://127.0.0.1:8000/comments/all/${post.id}`)
+    if (response.ok) {
+      const data= await response.json()
+      console.log("data",data)
+      setComments(data);
+    }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const postComment = (event) => {
     event?.preventDefault()
 
     const json_string = JSON.stringify({
-      'username': username.value,
+      'username': username,
       'txt': newComment,
-      'post_id': post.id
+      'post_id': post.id,
+      'user_id': userId, // Include userId in the JSON string
     })
 
     const requestOptions = {
@@ -77,51 +78,6 @@ function Post({ post, authToken, authTokenType, username }) {
       })
   }
 
-
-  const createPost = (event) => {
-    event?.preventDefault(); // Prevent default form submission behavior
-  
-    // Create a JSON string with the post data
-    const json_string = JSON.stringify({
-      'username': username.value,
-      'content': newPostContent, // Assuming newPostContent is the content of the new post
-    });
-  
-    // Set up request options for the fetch API
-    const requestOptions = {
-      method: 'POST',
-      headers: new Headers({
-        'Authorization': authTokenType + ' ' + authToken,
-        'Content-Type': 'application/json'
-      }),
-      body: json_string
-    };
-  
-    // Make a POST request to create the post
-    fetch(BASE_URL + '/posts', requestOptions)
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-      })
-      .then(data => {
-        // If post creation is successful, you can perform additional actions here
-        console.log('Post created successfully:', data);
-        // For example, you might want to fetch the updated list of posts
-        fetchPosts();
-      })
-      .catch(error => {
-        console.error('Error creating post:', error);
-        // Handle error here
-      })
-      .finally(() => {
-        // Reset the new post content after creating the post
-        setNewPostContent('');
-      });
-  };
-  
-  
-
   return (
     <div className="post">
       <div className="post_header">
@@ -145,7 +101,7 @@ function Post({ post, authToken, authTokenType, username }) {
       <div className='post_comments'>
         {comments &&
           comments.map((comment) => (
-            <p>
+            <p key={comment.id}>
               <strong>{comment.username}:</strong> {comment.text}
             </p>
           ))

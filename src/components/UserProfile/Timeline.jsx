@@ -4,70 +4,107 @@ import './UserProfile.css';
 import likeImg from '../../assets/like.png';
 import loveImg from '../../assets/heart.png';
 
-const Timeline = () => {
+const Timeline = ({ authToken, authTokenType }) => {
   const [userPosts, setUserPosts] = useState([]);
-  const [commentsFetched, setCommentsFetched] = useState(false); // Track whether comments have been fetched
+  const [commentInputs, setCommentInputs] = useState({}); // State to store comment inputs
 
   const userId = localStorage.getItem("user_id");
+  const username = localStorage.getItem("username");
+
+  const fetchCommentsForPost = async (postId) => {
+    try {
+      const response = await fetch(`${BASE_URL}/comments/all/${postId}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch comments for post');
+      }
+      const data = await response.json();
+      console.log("Comments for post ID:", postId, data);
+      setUserPosts(prevPosts =>
+        prevPosts.map(prevPost =>
+          prevPost.id === postId ? { ...prevPost, comments: data } : prevPost
+        )
+      );
+    } catch (error) {
+      console.error('Error fetching comments for post:', error);
+    }
+  };
 
   useEffect(() => {
+    // Fetch user data from local storage
+    const userId = localStorage.getItem("user_id");
+    const username = localStorage.getItem("username");
+    console.log("User ID:", userId);
+    console.log("Username:", username);
+  
     const fetchUserPosts = async () => {
       try {
+        // Fetch user posts
         const response = await fetch(`${BASE_URL}/users/${userId}/posts`);
         if (!response.ok) {
           throw new Error('Failed to fetch user posts');
         }
         const data = await response.json();
         console.log("Fetched user posts:", data);
-        // Add an empty array for comments for each post
         const postsWithComments = data.map(post => ({ ...post, comments: [] }));
         setUserPosts(postsWithComments);
-        setCommentsFetched(false); // Reset commentsFetched when userPosts are updated
+  
+        // Fetch comments for each post
+        for (const post of data) {
+          fetchCommentsForPost(post.id);
+        }
       } catch (error) {
         console.error(error);
       }
     };
+  
+    fetchUserPosts();
+  }, []);
+  
+  
+  
 
-    if (userId) {
-      fetchUserPosts();
-    }
-  }, [userId]);
+  const postComment = async (postId, event) => {
+    event.preventDefault();
+    const commentText = commentInputs[postId] || ""; // Get comment text from state
+    try {
+      const json_string = JSON.stringify({
+        'username': username,
+        'txt': commentText,
+        'post_id': postId,
+        'user_id': userId,
+      });
 
-  useEffect(() => {
-    const fetchCommentsForUserPosts = async () => {
-      try {
-        for (const post of userPosts) {
-          console.log("Post ID:", post.id);
-          console.log("Fetching comments for post ID:", post.id);
-          const response = await fetch(`${BASE_URL}/comments/all/${post.id}`);
-          if (!response.ok) {
-            throw new Error('Failed to fetch comments');
-          }
-          const data = await response.json();
-          console.log("Comments for post ID:", post.id, data); // Log the fetched comments
-          setUserPosts(prevPosts =>
-            prevPosts.map(prevPost =>
-              prevPost.id === post.id ? { ...prevPost, comments: data } : prevPost
-            )
-          );
-        }
-        setCommentsFetched(true); // Set commentsFetched to true after fetching comments for all posts
-      } catch (error) {
-        console.error('Error fetching comments:', error);
+      const requestOptions = {
+        method: 'POST',
+        headers: new Headers({
+          'Authorization': authTokenType + ' ' + authToken,
+          'Content-Type': 'application/json'
+        }),
+        body: json_string
+      };
+
+      const response = await fetch(`${BASE_URL}/comments`, requestOptions);
+      if (!response.ok) {
+        throw new Error('Failed to post comment');
       }
-    };
-  
-    if (userPosts.length > 0 && !commentsFetched) {
-      fetchCommentsForUserPosts();
+      
+      fetchCommentsForPost(postId);
+      setCommentInputs({ ...commentInputs, [postId]: "" }); // Clear the input field after posting comment
+    } catch (error) {
+      console.error('Error posting comment:', error);
     }
-  }, [userPosts, commentsFetched]);
-  
-  
+  };
+
+  // Function to update comment input state
+  const handleCommentInputChange = (postId, event) => {
+    setCommentInputs({ ...commentInputs, [postId]: event.target.value });
+  };
+
   return (
     <div className="timeline">
       <h2>Timeline</h2>
       {userPosts.map((post) => (
-        <div className="post" key={post.id} >
+        <div className="post" key={post.id}>
           <h3>{post.title}</h3>
           <p>{post.content}</p>
           {post.images.map((image) => (
@@ -80,15 +117,10 @@ const Timeline = () => {
             <button className="post_reactions">
               <img src={loveImg} className="loveImg" alt="Love" />
             </button>
-            <button className="button-comment" onClick={() => handleComment(post.id)}>
-              <i className="comment"></i>
-              Comment
-            </button>
           </div>
-          {/* Render comments for the current post */}
           <div className='post_comments'>
             {post.comments && post.comments
-              .filter((comment, index, self) => 
+              .filter((comment, index, self) =>
                 index === self.findIndex(c => c.text === comment.text)
               )
               .map((comment, index) => (
@@ -97,6 +129,21 @@ const Timeline = () => {
                 </p>
               ))}
           </div>
+          <form className="post_commentbox">
+            <input className="post_input"
+              type="text"
+              placeholder="Add a comment"
+              value={commentInputs[post.id] || ""} // Bind input value to state
+              onChange={(event) => handleCommentInputChange(post.id, event)} // Update state on input change
+            />
+            <button
+              className="post_button"
+              type="submit"
+              disabled={!commentInputs[post.id]}
+              onClick={(event) => postComment(post.id, event)}>
+              Post
+            </button>
+          </form>
         </div>
       ))}
     </div>

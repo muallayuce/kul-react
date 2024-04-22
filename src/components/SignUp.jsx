@@ -11,7 +11,8 @@ export default function Signup() {
   const [confirmPassword, setConfirmPassword] = useState ('');
   const [username, setUsername] = useState ('');
   const [errorMessage, setErrorMessage] = useState ('');
-  const [, setToken] = useContext(UserContext);
+  const [firstname, setFirstname] = useState ('');
+  const [lastname, setLastname] = useState ('');
 
   const submitRegistration = async () => {
     const requestOptions = {
@@ -29,8 +30,8 @@ export default function Signup() {
     if (!response.ok) {
         setErrorMessage(data.detail);
     } else {
-      setToken(data.acces_token);
-    } 
+      handleReset()
+    }
   };
 
   const handleSubmit = (e) => {
@@ -53,6 +54,8 @@ export default function Signup() {
     setPassword('');
     setConfirmPassword('');
     setUsername('');
+    setFirstname('');
+    setLastname('');
   };
 
     return (
@@ -91,12 +94,12 @@ export default function Signup() {
         <div className="control-row">
           <div className="control">
             <label htmlFor="first-name" id='firstnametag'>First Name</label>
-            <input type="text" id="first-name" name="first-name" placeholder='First Name' />
+            <input type="text" id="first-name" value={firstname} name="first-name" placeholder='First Name' onChange={(e) => setFirstname(e.target.value)} />
           </div>
   
           <div className="control">
             <label htmlFor="last-name">Last Name</label>
-            <input type="text" id="last-name" name="last-name" placeholder='Last Name'/>
+            <input type="text" id="last-name" value={lastname} name="last-name" placeholder='Last Name' onChange={(e) => setLastname(e.target.value)}/>
           </div>
 
           <div className="control">

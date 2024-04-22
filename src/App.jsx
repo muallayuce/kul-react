@@ -21,7 +21,7 @@ function App() {
   // Define state variables
   const [posts, setPosts] = useState([]);
   const [products, setProducts] = useState([]); // Initialize products as an empty array
-  const [token, setToken] = useContext(UserContext);
+  const [token, setToken, userId] = useContext(UserContext);
   const [openModal, setOpenModal] = useState(null); // State to manage which modal is open
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentScreen, setCurrentScreen] = useState(null);
@@ -150,7 +150,7 @@ const handleProfile = () => {
       {currentScreen === 'posts' && isLoggedIn ? (
         <div className='app_posts'>
           {posts.map(post => (
-            <Post key={post.id} post={post} authToken={token} username={username} />
+            <Post key={post.id} post={post} authToken={token} userId={userId}/>
           ))}
         </div>
       ) : currentScreen === null && openModal === null && (
