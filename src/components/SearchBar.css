@@ -11,6 +11,11 @@
     padding: 20px;
 }
 
+.input-wrapper:hover {
+    border: var(--color-3) 2px solid;
+    transform: scale(1.2);
+}
+
 .input-wrapper {
     background-color: #ffff;
     width: 80%;
@@ -29,7 +34,7 @@ input{
     height: 100%;
     font-size: 1.25rem;
     width: 100%;
-    margin-left: 5px;
+    margin-left: 1%;
 }
 
 input:focus{
@@ -38,4 +43,5 @@ input:focus{
 
 #search-icon{
     color: var(--color-2);
+    margin-left: 2%;
 }
