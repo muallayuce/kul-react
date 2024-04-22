@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import './Marketplace.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
+import SearchBar from "./SearchBar";
 
 function Marketplace({ products }) {
   const [averageScores, setAverageScores] = useState({});
+  const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
     const fetchAverageScores = async () => {
@@ -51,33 +53,63 @@ function Marketplace({ products }) {
   };
 
   return (
-    <div className="marketplace">
-      {products.map(product => (
-        <div key={product.id} className="product">
-          <Link to={`/product/${product.id}`} className="product-link">
-            <div className="product_header">
-                <p className="product_name">{product.product_name}</p>
-                <p className="product_price">${product.price}</p>
-                <div className="product_images">
-                  {product.images.map(image => (
-                    <img
-                      key={image.id}
-                      className="product_image"
-                      src={`http://127.0.0.1:8000/images/${image.id}`}
-                      alt="Product Image"
-                    />
-                  ))}
+    <div className="market">
+      <div className="search-bar-container">
+        <SearchBar setSearchResults={setSearchResults} />
+      </div>
+      <div className="marketplace">
+        {searchResults.length > 0 ? (
+          searchResults.map((product) => (
+            <div key={product.id} className="product">
+              <Link to={`/product/${product.id}`} className="product-link">
+                <div className="product_header">
+                  <p className="product_name">{product.product_name}</p>
+                  <p className="product_price">${product.price}</p>
+                  <div className="product_images">
+                    {product.images.map(image => (
+                      <img
+                        key={image.id}
+                        className="product_image"
+                        src={`http://127.0.0.1:8000/images/${image.id}`}
+                        alt="Product Image"
+                      />
+                    ))}
+                  </div>
+                  <div className="product_rating">
+                    {averageScores[product.id] !== undefined ? renderStars(averageScores[product.id]) : ''}
+                  </div>
                 </div>
-                <div className="product_rating">
-                  {averageScores[product.id] !== undefined ? renderStars(averageScores[product.id]) : ''}
-                </div>
+              </Link>
             </div>
-          </Link>
-        </div>
-      ))}
+          ))
+        ) : (
+          products.map((product) => (
+            <div key={product.id} className="product">
+              <Link to={`/product/${product.id}`} className="product-link">
+                <div className="product_header">
+                  <p className="product_name">{product.product_name}</p>
+                  <p className="product_price">${product.price}</p>
+                  <div className="product_images">
+                    {product.images.map(image => (
+                      <img
+                        key={image.id}
+                        className="product_image"
+                        src={`http://127.0.0.1:8000/images/${image.id}`}
+                        alt="Product Image"
+                      />
+                    ))}
+                  </div>
+                  <div className="product_rating">
+                    {averageScores[product.id] !== undefined ? renderStars(averageScores[product.id]) : ''}
+                  </div>
+                </div>
+              </Link>
+            </div>
+          ))
+        )}
+      </div>
     </div>
   );
 }
 
 export default Marketplace;
-

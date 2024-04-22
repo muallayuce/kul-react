@@ -44,7 +44,7 @@
   .product-d-image {
     display: block; /* Make the image a block-level element */
     margin: auto; /* Center the image horizontally */
-    max-width: 500px; /* Set maximum width for the image */
+    max-width: 800px; 
     max-height: 500px;
     height: auto; /* Maintain aspect ratio */
     margin-bottom: 20px;

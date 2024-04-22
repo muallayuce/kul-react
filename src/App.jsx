@@ -101,37 +101,39 @@ function App() {
   return (
     <Router>
       <div className='app'>
-        <header className='app_header'>
-          <div className='app_header_left'>
-            <Link to="/posts"> <button className='header_button' onClick={fetchPosts}>
-              <img className='app_header_image' src={headerImg} />
-            </button>
-            </Link>
-          </div>
-          {isLoggedIn ? (
-            <>
-              <div className='app_header_center'>
-                <Link to="/marketplace"> <button className='balam_button' onClick={fetchProducts}>
-                  <img className='balam_header' src={balam} alt="Balam" />
-                </button>
-                </Link>
-              </div>
-              <div className='app_header_right'>
-                <Link to="/"> <button className="logout_button" onClick={handleLogout}>Log Out </button></Link>
-              </div>
-            </>
-          ) : (
-            <>
-              <div className='app_header_right'>
-                <button className='register' onClick={() => setOpenModal('login')}>Log In</button>
-                <button className='register' onClick={() => setOpenModal('signup')}>Sign Up</button>
-              </div>
-            </>
-          )}
-        </header>
+        <div className='app_header_container'>
+          <header className='app_header'>
+            <div className='app_header_left'>
+              <Link to="/posts"> <button className='header_button' onClick={fetchPosts}>
+                <img className='app_header_image' src={headerImg} />
+              </button>
+              </Link>
+            </div>
+            {isLoggedIn ? (
+              <>
+                <div className='app_header_center'>
+                  <Link to="/marketplace"> <button className='balam_button' onClick={fetchProducts}>
+                    <img className='balam_header' src={balam} alt="Balam" />
+                  </button>
+                  </Link>
+                </div>
+                <div className='app_header_right'>
+                  <Link to="/"> <button className="logout_button" onClick={handleLogout}>Log Out </button></Link>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className='app_header_right'>
+                  <button className='register' onClick={() => setOpenModal('login')}>Log In</button>
+                  <button className='register' onClick={() => setOpenModal('signup')}>Sign Up</button>
+                </div>
+              </>
+            )}
+          </header>
+        </div>
 
         <Routes>
-        <Route path='/' element={isLoggedIn ? (
+          <Route path='/' element={isLoggedIn ? (
             <div className='home_app_posts'>
               {posts.map(post => (
                 <Post key={post.id} post={post} />
