@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import './Marketplace.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { faStar, faStarHalfAlt } from "@fortawesome/free-solid-svg-icons";
 import SearchBar from "./SearchBar";
 
 function Marketplace({ products }) {
@@ -40,18 +40,21 @@ function Marketplace({ products }) {
 
   // Rating stars
   const renderStars = (score) => {
-    const starCount = Math.round(score); // Rounds the score
+    const fullStarsCount = Math.floor(score);
+    const hasHalfStar = score % 1 !== 0; 
     const stars = [];
     for (let i = 0; i < 5; i++) {
-      if (i < starCount) {
-        stars.push(<FontAwesomeIcon icon={faStar} key={i} style={{ opacity: 1 }} />); // Illuminated star with full opacity
+      if (i < fullStarsCount) {
+        stars.push(<FontAwesomeIcon icon={faStar} key={i} style={{ opacity: 1 }} />);
+      } else if (i === fullStarsCount && hasHalfStar) {
+        stars.push(<FontAwesomeIcon icon={faStarHalfAlt} key={i} style={{ opacity: 1 }} />);
       } else {
-        stars.push(<FontAwesomeIcon icon={faStar} key={i} style={{ opacity: 0.3 }} />); // Empty star with reduced opacity
+        stars.push(<FontAwesomeIcon icon={faStar} key={i} style={{ opacity: 0.3 }} />);
       }
     }
     return stars;
   };
-
+  
   return (
     <div className="market">
       <div className="search-bar-container">

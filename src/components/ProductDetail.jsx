@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import './ProductDetail.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { faStar, faStarHalfAlt } from "@fortawesome/free-solid-svg-icons";
 
 function ProductDetail() {
   const { productId } = useParams();
@@ -44,17 +44,21 @@ function ProductDetail() {
 
   // Rating stars
   const renderStars = (score) => {
-    const starCount = Math.round(score); // Rounds the score
+    const fullStarsCount = Math.floor(score); // Full starts
+    const hasHalfStar = score % 1 !== 0; // Half star
     const stars = [];
     for (let i = 0; i < 5; i++) {
-      if (i < starCount) {
-        stars.push(<FontAwesomeIcon icon={faStar} key={i} style={{ opacity: 1 }} />); // Illuminated star with full opacity
+      if (i < fullStarsCount) {
+        stars.push(<FontAwesomeIcon icon={faStar} key={i} style={{ opacity: 1 }} />);
+      } else if (i === fullStarsCount && hasHalfStar) {
+        stars.push(<FontAwesomeIcon icon={faStarHalfAlt} key={i} style={{ opacity: 1, fill: 'gold' }} />);
       } else {
-        stars.push(<FontAwesomeIcon icon={faStar} key={i} style={{ opacity: 0.3 }} />); // Empty star with reduced opacity
+        stars.push(<FontAwesomeIcon icon={faStar} key={i} style={{ opacity: 0.3 }} />);
       }
     }
     return stars;
   };
+
 
   return (
     <div className="product-container">
@@ -70,7 +74,7 @@ function ProductDetail() {
       ))}
       {averageScore !== null && (
         <div className='product-d-rating'>
-          <p>{renderStars(averageScore)}</p>
+          <p> {averageScore.toFixed(1)} {renderStars(averageScore)}</p>
         </div>
       )}
       <p className='product-d-description'>Description: {product.description}</p>
