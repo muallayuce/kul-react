@@ -5,7 +5,7 @@
 
   @font-face {
     font-family: "Slogan";
-    src: url("/src/fonts/lucida.TTF") format("truetype");
+    src: url("/src/fonts/mystical.TTF") format("truetype");
   }
 
   .reviews-container {
@@ -32,7 +32,7 @@
   }
   
   .reviews-title {
-    font-size: 28px;
+    font-size: 30px;
     line-height: 1.6;
     color: var(--color-2);
     font-weight: bold;
@@ -41,16 +41,22 @@
     margin-bottom: 0%;
   }
   
-  .product_price {
-    font-size: 25px;
+  .review-username {
+    font-size: 20px;
     line-height: 1.6;
-    color: #1c1e21;
+    color: var(--color-1);
     font-family: 'Logo';
+    text-transform: capitalize;
   }
   
-  .product_rating {
+  .review-rating {
     font-size: 18px;
     line-height: 1.6;
     color: var(--color-2);
-    text-align: center;
+  }
+
+  .review-comment {
+    font-size: 18px;
+    line-height: 1.6;
+    color: black;
   }
