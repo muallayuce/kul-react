@@ -26,23 +26,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentScreen, setCurrentScreen] = useState(null);
   const [showUserProfile, setShowUserProfile] = useState(false); // State to manage whether to display UserProfile component
-
   
-  // Dummy user profile data
-  const dummyUserProfileData = {
-    name: "John Doe",
-    profilePicture: "profile.jpg",
-    posts: [
-      { id: 1, content: "Post 1" },
-      { id: 2, content: "Post 2" },
-      { id: 3, content: "Post 3" },
-      { id: 4, content: "Post 4" }
-    ],
-    friends: [
-      { id: 1, name: "Friend 1" },
-      { id: 2, name: "Friend 2" }
-    ]
-  };
   
   // useEffect to check if user is logged in and fetch posts and products
   useEffect(() => {
@@ -144,7 +128,7 @@ const handleProfile = () => {
               </button>
             </div>
             <div className='app_header_right'>
-            <button className='profile_button' onClick={handleProfile}>Profile</button> {/* Toggle showUserProfile state */}
+              <button className='profile_button' onClick={handleProfile}>Profile</button> {/* Toggle showUserProfile state */}
               <Logout onLogout={handleLogout} />
             </div>
           </>
@@ -163,25 +147,34 @@ const handleProfile = () => {
         <UserProfile/>
       )}
 
-
-      
       {currentScreen === 'posts' && isLoggedIn ? (
         <div className='app_posts'>
           {posts.map(post => (
-            <Post key={post.id} post={post} />
+            <Post key={post.id} post={post} authToken={token} username={username} />
           ))}
         </div>
-
       ) : currentScreen === null && openModal === null && (
-
         <Home />
+      )}
+
+      {/* Render Create Post form if currentScreen is 'createPost' */}
+      {currentScreen === 'createPost' && isLoggedIn && (
+        <div className='create_post_form'>
+          {/* Your create post form elements will go here */}
+        </div>
+      )}
+
+      {/* Render Create Post button after all posts */}
+      {currentScreen === 'posts' && isLoggedIn && (
+        <div className='create_post_container'>
+          <button className='create_post_button' onClick={() => setCurrentScreen('createPost')}>Create Post</button>
+        </div>
       )}
 
       {/* Render login or signup modal based on openModal state */}
       {openModal === 'signup' && <Signup onSignup={handleSignup} />}
 
       {/* Render the Marketplace component if products are available */}
-
       {currentScreen === 'marketplace' && <Marketplace products={products} />}
 
       {!isLoggedIn && openModal === 'login' && <Login onLogin={handleLogin} />}
