@@ -16,8 +16,8 @@ function Marketplace({ products }) {
           const response = await fetch(`http://127.0.0.1:8000/products/${product.id}/reviews`);
           const data = await response.json();
 
-          if (data.reviews.length > 0) {
-            const scores = data.reviews.map(review => review.score);
+          if (data.length > 0) {
+            const scores = data.map(review => review.score);
             const averageScore = scores.length > 0 ? scores.reduce((total, score) => total + score, 0) / scores.length : 0;
 
             setAverageScores(prevState => ({
@@ -43,6 +43,9 @@ function Marketplace({ products }) {
     const fullStarsCount = Math.floor(score);
     const hasHalfStar = score % 1 !== 0; 
     const stars = [];
+    if (score === 0 || score === null ) {
+      return stars;
+    }
     for (let i = 0; i < 5; i++) {
       if (i < fullStarsCount) {
         stars.push(<FontAwesomeIcon icon={faStar} key={i} style={{ opacity: 1 }} />);

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import './ProductDetail.css';
+import Reviews from './Reviews.jsx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faStarHalfAlt } from "@fortawesome/free-solid-svg-icons";
 
@@ -24,7 +25,7 @@ function ProductDetail() {
         const scoreResponse = await fetch(`http://localhost:8000/products/${productId}/reviews`);
         if (scoreResponse.ok) {
           const scoreData = await scoreResponse.json();
-          const scores = scoreData.reviews.map(review => review.score);
+          const scores = scoreData.map(review => review.score);
           const averageScore = scores.length > 0 ? scores.reduce((total, score) => total + score, 0) / scores.length : 0;
           setAverageScore(averageScore);
         } else {
@@ -78,6 +79,7 @@ function ProductDetail() {
         </div>
       )}
       <p className='product-d-description'>Description: {product.description}</p>
+      <Reviews productId={productId} />
       <Link to="/marketplace"><button className='close-button'>Close</button></Link>
     </div>
   );

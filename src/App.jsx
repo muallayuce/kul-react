@@ -28,9 +28,7 @@ function App() {
 
   // useEffect to check if user is logged in and fetch posts and products
   useEffect(() => {
-    const storedToken = localStorage.getItem('token');
-    if (storedToken) {
-      setToken(storedToken);
+    if (token !== null && token !== 'null') {
       setIsLoggedIn(true);
       fetchPosts(); // Fetch posts when user is logged in
     } else {
