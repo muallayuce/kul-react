@@ -179,7 +179,7 @@ function App() {
         <footer className='footer'>
           <nav>
             <img className='footerImgLeft' src={footerImg} alt="" />
-            <a href="/">Privacy Policy</a>
+            <a href="/privacy">Privacy Policy</a>
             <a href="/terms">Terms of Service</a>
             <a href="/contact">Contact Us</a>
             <img className='footerImgRight' src={balamw} alt="" />
