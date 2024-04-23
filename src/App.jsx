@@ -34,6 +34,7 @@ function App() {
     if (token !== null && token !== 'null') {
       setIsLoggedIn(true);
       fetchPosts(); // Fetch posts when user is logged in
+      fetchProducts();
     } else {
       setIsLoggedIn(false);
     }
