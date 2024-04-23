@@ -3,6 +3,11 @@
     src: url("/src/fonts/eras.TTF") format("truetype");
   }
   
+  @font-face {
+    font-family: "Lucida";
+    src: url("/src/fonts/lucida.TTF") format("truetype");
+  }
+
   .product-container {
     height: 50%;
     width: auto;
@@ -84,6 +89,7 @@
     color: var(--color-2);
     font-weight: bold;
     font-family: 'Slogan';
+    margin-left: 1%;
   }
 
   .description-text {
@@ -112,7 +118,7 @@
     color: var(--color-2);
     font-weight: bold;
     font-family: 'Slogan';
-    margin-bottom: 0%;
+    margin-left: 1%;
   }
 
   .seller-name {
@@ -132,4 +138,37 @@
   .seller-button:hover {
     transform: scale(1.3);
     border: transparent;
+  }
+
+  #examples {
+    margin: 3rem auto;
+  }
+  
+  #examples menu {
+    display: flex;
+    gap: 0.5rem;
+    list-style: none;
+  }
+  
+  #examples menu button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    width: 200px;
+    background-color: #e4e6ea;
+    color: var(--color-2);
+    font-family: "Logo";
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  #examples menu button:hover {
+    background-color: #1b082f;
+    color: #ebe7ef;
+  }
+  
+  #examples menu button.active {
+    background-color: var(--color-1);
+    color: #ebe7ef;
   }
