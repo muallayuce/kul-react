@@ -90,25 +90,26 @@ function Post({ post, authToken, authTokenType}) {
       {post.id && (
         <img className="post_image" src={`http://localhost:8000/postimages/${post.id}`} alt="Post Image" />
       )}
-      <div className="post_actions">
+      <div className='post_comments'>
+        {comments &&
+          comments.map((comment) => (
+            <p key={comment.id}>
+              <span className="comment-username" >{comment.username}:</span><span className="comment-text">{comment.text}</span> 
+            </p>
+          ))
+        }
+      </div>
+      <div className="post-actions-container">
         <button className="post_reactions">
           <img src={likeImg} alt="Like" className="likeImg" />
         </button>
         <button className="post_reactions">
           <img src={loveImg} alt="Love" className="loveImg" />
         </button>
-      </div>
-      <div className='post_comments'>
-        {comments &&
-          comments.map((comment) => (
-            <p key={comment.id}>
-              <strong>{comment.username}:</strong> {comment.text}
-            </p>
-          ))
-        }
-      </div>
+      
 
       {authToken && (
+        <div className="form-container">
         <form className="post_commentbox">
           <input className="post_input"
             type="text"
@@ -124,7 +125,9 @@ function Post({ post, authToken, authTokenType}) {
               Send
             </button>
         </form>
+        </div>
       )}
+    </div>
     </div>
   )
 }

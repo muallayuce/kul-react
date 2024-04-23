@@ -35,6 +35,7 @@ input{
     font-size: 1.25rem;
     width: 100%;
     margin-left: 1%;
+    color: black
 }
 
 input:focus{

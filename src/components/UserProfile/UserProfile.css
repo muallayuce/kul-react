@@ -1,5 +1,10 @@
 /* UserProfile.css */
 
+@font-face {
+  font-family: "Logo";
+  src: url("/src/fonts/eras.TTF") format("truetype");
+}
+
 /* Base colors */
 :root {
   --color-1: #352473; /* Purple */
@@ -81,7 +86,7 @@ body {
   display: flex; /* Use flexbox for layout */
   align-items: center; /* Align items vertically */
   background-color: white;
-  border: 1px solid var(--color-3);
+  border: 1px solid #dddfe2;
   border-radius: 5px;
   margin-bottom: 10px;
   width: 400px;
@@ -105,6 +110,21 @@ body {
   margin-top: 20px;
 }
 
+.info-item-user {
+  display: flex;
+  margin-top: 20px;
+  margin-left: 60px;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  align-items: center;
+  color: var(--color-2);
+}
+
+.info-item-username {
+  font-family: 'Logo';
+  color: var(--color-1);
+}
+
 .info-item h2 {
   font-size: 16px;
   font-weight: italic;
@@ -115,6 +135,7 @@ body {
   margin-top: 10px;
   font-size: 18px;
   color: var(--color-1);
+  font-family: 'Logo';
 }
 
 /* Timeline component */
@@ -146,6 +167,20 @@ body {
 .timeline-item-content {
   font-size: 14px;
   color: var(--color-1);
+}
+
+.post_comments {
+  margin-top: 10px;
+  color: var(--color-2);
+  font-size: 20px;
+  margin-bottom: 20px;
+  font-family: 'Logo';
+}
+
+.comment-text {
+font-family: Arial, Helvetica, sans-serif;
+margin-left: 10px;
+color: black;
 }
 
 /* Modal styles */
@@ -189,7 +224,7 @@ body {
 /* Groups component */
 .groups {
   background-color: white;
-  border: 1px solid var(--color-3); /* Border color */
+  border: 1px solid #dddfe2; /* Border color */
   border-radius: 5px;
   padding: 20px;
   margin-bottom: 20px;
@@ -245,8 +280,13 @@ body {
 
 }
 
+.friends-text {
+  font-family: 'Slogan';
+  font-size: 20px;
+}
+
 .friends-profile{
-  border:1px solid var(--color-3);
+  border:1px solid #dddfe2;
   border-radius: 10px;
   width: 350px;
 }
@@ -255,6 +295,7 @@ body {
 .friend-info {
   display: flex;
   align-items: center;
+  font-size: 20px;
 }
 
 .email-modal {
