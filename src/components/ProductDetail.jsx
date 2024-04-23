@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import './ProductDetail.css';
 import Reviews from './Reviews.jsx'
+//import SellerInfo from './ProductSeller.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar, faStarHalfAlt } from "@fortawesome/free-solid-svg-icons";
+import { faStar, faStarHalfAlt, faCommentsDollar } from "@fortawesome/free-solid-svg-icons";
 
 function ProductDetail() {
   const { productId } = useParams();
@@ -78,8 +79,14 @@ function ProductDetail() {
           <p> {averageScore.toFixed(1)} {renderStars(averageScore)}</p>
         </div>
       )}
-      <p className='product-d-description'>Description: {product.description}</p>
+      <div className='description-container'>
+      <p className='description-title'> Description <br/> <span className='description-text'>{product.description}</span></p>
+      </div>
       <Reviews productId={productId} />
+      <div className='seller-container'>
+      <p className='seller-title'> Seller <br /> <span className='seller-name'> {product.user.username}</span> </p>
+      <button className='seller-button'> <FontAwesomeIcon icon={faCommentsDollar} /> </button>
+      </div>
       <Link to="/marketplace"><button className='close-button'>Close</button></Link>
     </div>
   );
