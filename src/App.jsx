@@ -11,6 +11,7 @@ import balam from './assets/balam.png'
 import Logout from './components/Logout';
 import Home from './components/Home';
 import { UserContext } from './context/UserContext';
+import UserProfile from './components/UserProfile/UserProfile';
 
 // Define your base URL
 export const BASE_URL = 'http://localhost:8000';
@@ -20,11 +21,13 @@ function App() {
   // Define state variables
   const [posts, setPosts] = useState([]);
   const [products, setProducts] = useState([]); // Initialize products as an empty array
-  const [token, setToken] = useContext(UserContext);
+  const [token, setToken, userId] = useContext(UserContext);
   const [openModal, setOpenModal] = useState(null); // State to manage which modal is open
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentScreen, setCurrentScreen] = useState(null);
-
+  const [showUserProfile, setShowUserProfile] = useState(false); // State to manage whether to display UserProfile component
+  
+  
   // useEffect to check if user is logged in and fetch posts and products
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
@@ -99,8 +102,16 @@ function App() {
     setProducts([]); // Clear products when logging out
     setOpenModal(null); // Close any open modal when logging out
     setCurrentScreen(null);
+    setShowUserProfile(null);
   };
 
+// Function to handle displaying user profile
+const handleProfile = () => {
+  setShowUserProfile(true);
+  setCurrentScreen('profile'); // Set currentScreen state to 'profile'
+};
+
+  
   return (
     <div className='app'>
       <header className='app_header'>
@@ -117,6 +128,7 @@ function App() {
               </button>
             </div>
             <div className='app_header_right'>
+              <button className='profile_button' onClick={handleProfile}>Profile</button> {/* Toggle showUserProfile state */}
               <Logout onLogout={handleLogout} />
             </div>
           </>
@@ -130,23 +142,39 @@ function App() {
         )}
       </header>
 
+       {/* Render UserProfile component if showUserProfile is true */}
+      {showUserProfile && (currentScreen === 'profile' || currentScreen === null) && (
+        <UserProfile/>
+      )}
+
       {currentScreen === 'posts' && isLoggedIn ? (
         <div className='app_posts'>
           {posts.map(post => (
-            <Post key={post.id} post={post} />
+            <Post key={post.id} post={post} authToken={token} userId={userId}/>
           ))}
         </div>
-
       ) : currentScreen === null && openModal === null && (
-
         <Home />
+      )}
+
+      {/* Render Create Post form if currentScreen is 'createPost' */}
+      {currentScreen === 'createPost' && isLoggedIn && (
+        <div className='create_post_form'>
+          {/* Your create post form elements will go here */}
+        </div>
+      )}
+
+      {/* Render Create Post button after all posts */}
+      {currentScreen === 'posts' && isLoggedIn && (
+        <div className='create_post_container'>
+          <button className='create_post_button' onClick={() => setCurrentScreen('createPost')}>Create Post</button>
+        </div>
       )}
 
       {/* Render login or signup modal based on openModal state */}
       {openModal === 'signup' && <Signup onSignup={handleSignup} />}
 
       {/* Render the Marketplace component if products are available */}
-
       {currentScreen === 'marketplace' && <Marketplace products={products} />}
 
       {!isLoggedIn && openModal === 'login' && <Login onLogin={handleLogin} />}

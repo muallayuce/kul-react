@@ -93,3 +93,50 @@
     width: 30px; /* Adjust width as needed */
     height: auto; /* Adjust height as needed */
   }
+
+  /* Post.css */
+
+/* Post comments */
+.post_comments {
+  margin-top: 10px;
+  color: var(--color-3);
+  font-size: 20px;
+  font-style: italic;
+}
+
+.post_comments p {
+  margin-bottom: 5px;
+}
+
+.post_comments p strong {
+  font-weight: bold;
+}
+
+/* Comment input and button */
+.post_commentbox {
+  margin-top: 10px;
+}
+
+.post_input {
+  width: 70%;
+  padding: 8px;
+  margin-right: 5px;
+}
+
+.post_button {
+  padding: 8px 15px;
+  background-color: var(--color-2);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.post_button:hover {
+  background-color: var(--color-1);
+}
+
+.post_button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
