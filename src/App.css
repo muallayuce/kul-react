@@ -93,6 +93,17 @@
   background-color: #724FC3;
 }
 
+.create_post_button {
+  margin-bottom: 20px;
+  background-color: var(--color-1);
+  margin-left: 20px;
+}
+
+.create_post_button:hover {
+  border: #D90D6C solid;
+  background-color: #724FC3;
+}
+
 .footer {
   background-color: #352473;
   color: #fafafa;
@@ -145,4 +156,12 @@
 .images-welcome img {
   max-width: 20%;
   height: auto;
+}
+
+.profile_button {
+  background-color: #352473;
+  margin: 10px;
+  font-family: "Logo", sans-serif;
+  color: #fafafa;
+  font-size: 18px;
 }

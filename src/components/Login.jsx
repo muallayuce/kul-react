@@ -6,29 +6,35 @@ import { UserContext } from "../context/UserContext.jsx";
 import { BASE_URL } from "../App.jsx";
 
 const Login = ({ onLogin }) => {
-  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [, setToken] = useContext(UserContext);
+  
 
   const submitLogin = async () => {
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" }, //backend Curl in /token
       body: JSON.stringify(
-        `grant_type=&username=${username}&password=${password}&scope=&client_id=&client_secret=`
+        `grant_type=&username=${name}&password=${password}&scope=&client_id=&client_secret=`
       ), //backend Curl in /token
     };
 
     const response = await fetch(BASE_URL + "/token", requestOptions); //backend comunication
     const data = await response.json();
+    const {user_id, username} = data  //!!!!!!IMPORTANT PART
+    
+    localStorage.setItem("user_id", user_id)
+    localStorage.setItem("username", username)
+  
 
     if (!response.ok) {
       setErrorMessage(data.detail);
     } else {
       setToken(data.access_token); //backend response body in /token
       setErrorMessage("");
-      onLogin(username, password); // Call onLogin function passed from parent component
+      onLogin(name, password); // Call onLogin function passed from parent component
     }
   };
 
@@ -38,7 +44,7 @@ const Login = ({ onLogin }) => {
   };
 
   const handleReset = () => {
-    setUsername("");
+    setName("");
     setPassword("");
   };
 
@@ -53,8 +59,8 @@ const Login = ({ onLogin }) => {
             type="text"
             name="username"
             placeholder="User Name"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
         </div>
 

@@ -13,6 +13,7 @@ import Home from './components/Home';
 import { UserContext } from './context/UserContext';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import ProductDetail from './components/ProductDetail';
+import UserProfile from './components/UserProfile/UserProfile';
 
 // Define your base URL
 export const BASE_URL = 'http://localhost:8000';
@@ -22,10 +23,12 @@ function App() {
   // Define state variables
   const [posts, setPosts] = useState([]);
   const [products, setProducts] = useState([]); // Initialize products as an empty array
-  const [token, setToken] = useContext(UserContext);
+  const [token, setToken, userId] = useContext(UserContext);
   const [openModal, setOpenModal] = useState(null); // State to manage which modal is open
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  const [currentScreen, setCurrentScreen] = useState(null);
+  const [showUserProfile, setShowUserProfile] = useState(false); // State to manage whether to display UserProfile component
+  
   // useEffect to check if user is logged in and fetch posts and products
   useEffect(() => {
     if (token !== null && token !== 'null') {
@@ -94,8 +97,17 @@ function App() {
     setPosts([]); // Clear posts when logging out
     setProducts([]); // Clear products when logging out
     setOpenModal(null); // Close any open modal when logging out
+    setCurrentScreen(null);
+    setShowUserProfile(null);
   };
 
+// Function to handle displaying user profile
+const handleProfile = () => {
+  setShowUserProfile(true);
+  setCurrentScreen('profile'); // Set currentScreen state to 'profile'
+};
+
+  
   return (
     <Router>
       <div className='app'>
@@ -107,6 +119,7 @@ function App() {
               </button>
               </Link>
             </div>
+
             {isLoggedIn ? (
               <>
                 <div className='app_header_center'>
@@ -115,7 +128,9 @@ function App() {
                   </button>
                   </Link>
                 </div>
+   
                 <div className='app_header_right'>
+           <button className='profile_button' onClick={handleProfile}>Profile</button> {/* Toggle showUserProfile state */}
                   <Link to="/"> <button className="logout_button" onClick={handleLogout}>Log Out </button></Link>
                 </div>
               </>
@@ -128,23 +143,30 @@ function App() {
               </>
             )}
           </header>
+
+{/* Render UserProfile component if showUserProfile is true */}
+      {showUserProfile && (currentScreen === 'profile' || currentScreen === null) && (
+        <UserProfile/>
+      )}
+
         </div>
 
         <Routes>
           <Route path='/' element={isLoggedIn ? (
             <div className='home_app_posts'>
               {posts.map(post => (
-                <Post key={post.id} post={post} />
+                <Post key={post.id} post={post} authToken={token} userId={userId} />
               ))}
             </div>
           ) : openModal === null && <Home />} />
+
           <Route
             path="/posts"
             element={
               isLoggedIn && posts.length > 0 ? (
                 <div className='app_posts'>
                   {posts.map(post => (
-                    <Post key={post.id} post={post} />
+                    <Post key={post.id} post={post} authToken={token} userId={userId}/>
                   ))}
                 </div>
               ) : null
