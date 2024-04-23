@@ -20,8 +20,8 @@ const FriendsList = ({ friends }) => {
 
   return (
     <div className="friends-list">
-      <i className="bi bi-umbrella-fill" style={{ color: "purple" }}></i>
-      <h2>Friends</h2> {/* Removed onClick from Friends heading */}
+      <i className="bi bi-people-fill" style={{ color: "#724fc3", fontSize: '25px' }}></i>
+      <h2 className='friends-text'>Friends</h2> {/* Removed onClick from Friends heading */}
       {showFriends && (
         <>
           {friends.map((friend) => (

@@ -106,18 +106,10 @@ const Timeline = ({ authToken, authTokenType }) => {
       {userPosts.map((post) => (
         <div className="post" key={post.id}>
           <h3>{post.title}</h3>
-          <p>{post.content}</p>
+          <p className='post_content'>{post.content}</p>
           {post.images.map((image) => (
             <img key={image.id} className="post_image" src={`http://localhost:8000/postimages/${image.id}`} alt="Post Image" />
           ))}
-          <div className="post_actions">
-            <button className="post_reactions">
-              <img src={likeImg} className="likeImg" alt="Like" />
-            </button>
-            <button className="post_reactions">
-              <img src={loveImg} className="loveImg" alt="Love" />
-            </button>
-          </div>
           <div className='post_comments'>
             {post.comments && post.comments
               .filter((comment, index, self) =>
@@ -125,10 +117,18 @@ const Timeline = ({ authToken, authTokenType }) => {
               )
               .map((comment, index) => (
                 <p key={index}>
-                  <strong>{comment.username}:</strong> {comment.text}
+                  <span className="comment-username">{comment.username}:</span> <span className="comment-text">{comment.text}</span>
                 </p>
               ))}
           </div>
+          <div className="post_actions">
+            <button className="post_reactions">
+              <img src={likeImg} className="likeImg" alt="Like" />
+            </button>
+            <button className="post_reactions">
+              <img src={loveImg} className="loveImg" alt="Love" />
+            </button>
+          
           <form className="post_commentbox">
             <input className="post_input"
               type="text"
@@ -144,6 +144,7 @@ const Timeline = ({ authToken, authTokenType }) => {
               Post
             </button>
           </form>
+        </div>
         </div>
       ))}
     </div>

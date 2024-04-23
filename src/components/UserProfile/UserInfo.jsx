@@ -31,8 +31,9 @@ const UserInfo = () => {
         <img key={image.id} className="user_image" src={`http://localhost:8000/users/${userId}/userimage`} alt="User Image" />
       ))}
       <div className="user-info-content">
-        <div className="info-item">
-          <p>{userInfo.username}</p>
+        <div className="info-item-user">
+        <i class="bi bi-person-fill" style={{ color: "#724fc3", fontSize: '25px' }}></i>
+          <p className='info-item-username'>{userInfo.username}</p>
         </div>
         <div className="info-item">
           <p>Email: {userInfo.email}</p>
