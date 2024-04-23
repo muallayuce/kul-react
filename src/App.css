@@ -30,11 +30,14 @@
   flex: 1; /* Make the posts section flexible to take up remaining space */
 }
 
-.app_header {
+.app_header_container {
   position: sticky;
-  display: flex;
   top: 0;
   z-index: 1;
+}
+
+.app_header {
+  display: flex;
   background-color: white;
   border-bottom: 1px solid lightgray;
   object-fit: contain;

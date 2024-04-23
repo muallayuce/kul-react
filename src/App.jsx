@@ -11,6 +11,8 @@ import balam from './assets/balam.png'
 import Logout from './components/Logout';
 import Home from './components/Home';
 import { UserContext } from './context/UserContext';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import ProductDetail from './components/ProductDetail';
 import UserProfile from './components/UserProfile/UserProfile';
 
 // Define your base URL
@@ -27,12 +29,9 @@ function App() {
   const [currentScreen, setCurrentScreen] = useState(null);
   const [showUserProfile, setShowUserProfile] = useState(false); // State to manage whether to display UserProfile component
   
-  
   // useEffect to check if user is logged in and fetch posts and products
   useEffect(() => {
-    const storedToken = localStorage.getItem('token');
-    if (storedToken) {
-      setToken(storedToken);
+    if (token !== null && token !== 'null') {
       setIsLoggedIn(true);
       fetchPosts(); // Fetch posts when user is logged in
     } else {
@@ -48,7 +47,6 @@ function App() {
         const postData = await response.json();
         console.log('Posts:', postData);
         setPosts(postData); // Set posts state
-        setCurrentScreen('posts');
       } else {
         throw new Error('Failed to fetch posts');
       }
@@ -66,7 +64,6 @@ function App() {
         const productsData = await response.json();
         console.log('Products:', productsData);
         setProducts(productsData); // Set products state
-        setCurrentScreen('marketplace');
       } else {
         throw new Error('Failed to fetch products');
       }
@@ -82,7 +79,6 @@ function App() {
     await fetchPosts(); // Fetch posts after login
     setIsLoggedIn(true); // Update isLoggedIn state
     setOpenModal(null); // Close the login modal
-    setCurrentScreen('posts');
   };
 
   // Function to handle signup
@@ -113,85 +109,92 @@ const handleProfile = () => {
 
   
   return (
-    <div className='app'>
-      <header className='app_header'>
-        <div className='app_header_left'>
-          <button className='header_button' onClick={fetchPosts}>
-            <img className='app_header_image' src={headerImg} />
-          </button>
-        </div>
-        {isLoggedIn ? (
-          <>
-            <div className='app_header_center'>
-              <button className='balam_button' onClick={fetchProducts}>
-                <img className='balam_header' src={balam} />
+    <Router>
+      <div className='app'>
+        <div className='app_header_container'>
+          <header className='app_header'>
+            <div className='app_header_left'>
+              <Link to="/posts"> <button className='header_button' onClick={fetchPosts}>
+                <img className='app_header_image' src={headerImg} />
               </button>
+              </Link>
             </div>
-            <div className='app_header_right'>
-              <button className='profile_button' onClick={handleProfile}>Profile</button> {/* Toggle showUserProfile state */}
-              <Logout onLogout={handleLogout} />
-            </div>
-          </>
-        ) : (
-          <>
-            <div className='app_header_right'>
-              <button className='register' onClick={() => setOpenModal('login')}>Log In</button>
-              <button className='register' onClick={() => setOpenModal('signup')}>Sign Up</button>
-            </div>
-          </>
-        )}
-      </header>
 
-       {/* Render UserProfile component if showUserProfile is true */}
+            {isLoggedIn ? (
+              <>
+                <div className='app_header_center'>
+                  <Link to="/marketplace"> <button className='balam_button' onClick={fetchProducts}>
+                    <img className='balam_header' src={balam} alt="Balam" />
+                  </button>
+                  </Link>
+                </div>
+   
+                <div className='app_header_right'>
+           <button className='profile_button' onClick={handleProfile}>Profile</button> {/* Toggle showUserProfile state */}
+                  <Link to="/"> <button className="logout_button" onClick={handleLogout}>Log Out </button></Link>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className='app_header_right'>
+                  <button className='register' onClick={() => setOpenModal('login')}>Log In</button>
+                  <button className='register' onClick={() => setOpenModal('signup')}>Sign Up</button>
+                </div>
+              </>
+            )}
+          </header>
+
+{/* Render UserProfile component if showUserProfile is true */}
       {showUserProfile && (currentScreen === 'profile' || currentScreen === null) && (
         <UserProfile/>
       )}
 
-      {currentScreen === 'posts' && isLoggedIn ? (
-        <div className='app_posts'>
-          {posts.map(post => (
-            <Post key={post.id} post={post} authToken={token} userId={userId}/>
-          ))}
         </div>
-      ) : currentScreen === null && openModal === null && (
-        <Home />
-      )}
 
-      {/* Render Create Post form if currentScreen is 'createPost' */}
-      {currentScreen === 'createPost' && isLoggedIn && (
-        <div className='create_post_form'>
-          {/* Your create post form elements will go here */}
-        </div>
-      )}
+        <Routes>
+          <Route path='/' element={isLoggedIn ? (
+            <div className='home_app_posts'>
+              {posts.map(post => (
+                <Post key={post.id} post={post} authToken={token} userId={userId} />
+              ))}
+            </div>
+          ) : openModal === null && <Home />} />
 
-      {/* Render Create Post button after all posts */}
-      {currentScreen === 'posts' && isLoggedIn && (
-        <div className='create_post_container'>
-          <button className='create_post_button' onClick={() => setCurrentScreen('createPost')}>Create Post</button>
-        </div>
-      )}
+          <Route
+            path="/posts"
+            element={
+              isLoggedIn && posts.length > 0 ? (
+                <div className='app_posts'>
+                  {posts.map(post => (
+                    <Post key={post.id} post={post} authToken={token} userId={userId}/>
+                  ))}
+                </div>
+              ) : null
+            }
+          />
+          <Route path="/marketplace" element={<Marketplace products={products} />} />
+          <Route path="/product/:productId" element={<ProductDetail />} />
+        </Routes>
 
-      {/* Render login or signup modal based on openModal state */}
-      {openModal === 'signup' && <Signup onSignup={handleSignup} />}
+        {/* Render login or signup modal based on openModal state */}
+        {openModal === 'signup' && <Signup onSignup={handleSignup} />}
 
-      {/* Render the Marketplace component if products are available */}
-      {currentScreen === 'marketplace' && <Marketplace products={products} />}
+        {!isLoggedIn && openModal === 'login' && <Login onLogin={handleLogin} />}
 
-      {!isLoggedIn && openModal === 'login' && <Login onLogin={handleLogin} />}
-
-      <footer className='footer'>
-        <nav>
-          <img className='footerImgLeft' src={footerImg} alt="" />
-          <a href="/">Privacy Policy</a>
-          <a href="/terms">Terms of Service</a>
-          <a href="/contact">Contact Us</a>
-          <img className='footerImgRight' src={balamw} alt="" />
-        </nav>
-        <p className='copy'>&copy; 2024 KUL-BALAM. All rights reserved.</p>
-      </footer>
-    </div>
+        <footer className='footer'>
+          <nav>
+            <img className='footerImgLeft' src={footerImg} alt="" />
+            <a href="/">Privacy Policy</a>
+            <a href="/terms">Terms of Service</a>
+            <a href="/contact">Contact Us</a>
+            <img className='footerImgRight' src={balamw} alt="" />
+          </nav>
+          <p className='copy'>&copy; 2024 KUL-BALAM. All rights reserved.</p>
+        </footer>
+      </div>
+    </Router>
   );
+
 }
 
-// Export your App component
 export default App;

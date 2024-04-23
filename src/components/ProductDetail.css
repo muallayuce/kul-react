@@ -1,0 +1,72 @@
+@font-face {
+    font-family: "Logo";
+    src: url("/src/fonts/eras.TTF") format("truetype");
+  }
+  
+  .product-container {
+    height: 50%;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #dddfe2;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  
+  .product-d-name {
+    font-size: 45px;
+    line-height: 1.6;
+    color: var(--color-1);
+    font-weight: bold;
+    font-family: 'Logo';
+    text-transform: capitalize;
+    text-align: start;
+    padding: 0%;
+    margin-bottom: 0%;
+  }
+  
+  .product-d-price {
+    font-size: 40px;
+    line-height: 1.6;
+    color: #1c1e21;
+    font-family: 'Logo';
+  }
+  
+  .product-d-description {
+    font-size: 20px;
+    line-height: 1.6;
+    color: #1c1e21;
+  }
+  
+  .product-d-image {
+    display: block; /* Make the image a block-level element */
+    margin: auto; /* Center the image horizontally */
+    max-width: 800px; 
+    max-height: 500px;
+    height: auto; /* Maintain aspect ratio */
+    margin-bottom: 20px;
+    margin-top: 10px;
+    border-radius: 5%;
+  }
+
+  .product-d-rating {
+    font-size: 25px;
+    line-height: 1.6;
+    color: var(--color-2);
+    text-align: center;
+  }
+
+  .close-button {
+    background-color: var(--color-1);
+    margin: 10px;
+    font-family: "Logo", sans-serif;
+    color: #fafafa;
+  }
+
+  .close-button:hover {
+    background-color: var(--color-2);
+    border: var(--color-3) solid;
+  }
