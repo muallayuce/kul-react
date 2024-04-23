@@ -28,7 +28,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentScreen, setCurrentScreen] = useState(null);
   const [showUserProfile, setShowUserProfile] = useState(false); // State to manage whether to display UserProfile component
-  
+
   // useEffect to check if user is logged in and fetch posts and products
   useEffect(() => {
     if (token !== null && token !== 'null') {
@@ -101,13 +101,13 @@ function App() {
     setShowUserProfile(null);
   };
 
-// Function to handle displaying user profile
-const handleProfile = () => {
-  setShowUserProfile(true);
-  setCurrentScreen('profile'); // Set currentScreen state to 'profile'
-};
+  // Function to handle displaying user profile
+  const handleProfile = () => {
+    setShowUserProfile(true);
+    setCurrentScreen('profile'); // Set currentScreen state to 'profile'
+  };
 
-  
+
   return (
     <Router>
       <div className='app'>
@@ -128,9 +128,9 @@ const handleProfile = () => {
                   </button>
                   </Link>
                 </div>
-   
+
                 <div className='app_header_right'>
-           <button className='profile_button' onClick={handleProfile}>Profile</button> {/* Toggle showUserProfile state */}
+                  <Link to='profile'><button className='profile_button' onClick={handleProfile}>Profile</button></Link>
                   <Link to="/"> <button className="logout_button" onClick={handleLogout}>Log Out </button></Link>
                 </div>
               </>
@@ -143,12 +143,6 @@ const handleProfile = () => {
               </>
             )}
           </header>
-
-{/* Render UserProfile component if showUserProfile is true */}
-      {showUserProfile && (currentScreen === 'profile' || currentScreen === null) && (
-        <UserProfile/>
-      )}
-
         </div>
 
         <Routes>
@@ -166,7 +160,7 @@ const handleProfile = () => {
               isLoggedIn && posts.length > 0 ? (
                 <div className='app_posts'>
                   {posts.map(post => (
-                    <Post key={post.id} post={post} authToken={token} userId={userId}/>
+                    <Post key={post.id} post={post} authToken={token} userId={userId} />
                   ))}
                 </div>
               ) : null
@@ -174,6 +168,7 @@ const handleProfile = () => {
           />
           <Route path="/marketplace" element={<Marketplace products={products} />} />
           <Route path="/product/:productId" element={<ProductDetail />} />
+          <Route path="/profile" element={<UserProfile/>} />
         </Routes>
 
         {/* Render login or signup modal based on openModal state */}
