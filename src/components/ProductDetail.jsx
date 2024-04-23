@@ -3,12 +3,13 @@ import { useParams, Link } from 'react-router-dom';
 import './ProductDetail.css';
 import Reviews from './Reviews.jsx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar, faStarHalfAlt } from "@fortawesome/free-solid-svg-icons";
+import { faStar, faStarHalfAlt, faCommentsDollar } from "@fortawesome/free-solid-svg-icons";
 
 function ProductDetail() {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const [averageScore, setAverageScore] = useState(null);
+  const [openModal, setOpenModal] = useState('description');
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -60,6 +61,33 @@ function ProductDetail() {
     return stars;
   };
 
+  // Función para cambiar el modal abierto
+  const handleModalChange = (modal) => {
+    setOpenModal(modal);
+  };
+
+  // Función para renderizar el contenido del modal abierto
+  const renderModalContent = () => {
+    switch (openModal) {
+      case 'description':
+        return (
+          <div className='description-container'>
+            <p className='description-title'> Description <br/> <span className='description-text'>{product.description}</span></p>
+          </div>
+        );
+      case 'reviews':
+        return <Reviews productId={productId} />;
+      case 'seller':
+        return (
+          <div className='seller-container'>
+            <p className='seller-title'> Seller <br /> <span className='seller-name'> {product.user.username}</span> </p>
+            <button className='seller-button'> <FontAwesomeIcon icon={faCommentsDollar} /> </button>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
 
   return (
     <div className="product-container">
@@ -78,8 +106,15 @@ function ProductDetail() {
           <p> {averageScore.toFixed(1)} {renderStars(averageScore)}</p>
         </div>
       )}
-      <p className='product-d-description'>Description: {product.description}</p>
-      <Reviews productId={productId} />
+      <section className='all-details' id='examples'>
+        <menu>
+          <li><button onClick={() => handleModalChange('description')}>Description</button></li>
+          <li><button onClick={() => handleModalChange('reviews')}>Reviews</button></li>
+          <li><button onClick={() => handleModalChange('seller')}>Seller</button></li>
+        </menu>
+      </section>
+      {/* Renderiza el contenido del modal abierto */}
+      {renderModalContent()}
       <Link to="/marketplace"><button className='close-button'>Close</button></Link>
     </div>
   );
