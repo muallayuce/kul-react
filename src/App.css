@@ -56,6 +56,9 @@
 
 .app_header_right {
   margin-left: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .app_header_image {
@@ -160,8 +163,15 @@
 
 .profile_button {
   background-color: #352473;
-  margin: 10px;
+  margin-right: 10px;
   font-family: "Logo", sans-serif;
   color: #fafafa;
-  font-size: 18px;
+  font-size: 17px;
+}
+
+.chat_button {
+  background-color: transparent;
+  font-family: "Logo", sans-serif;
+  color: #fafafa;
+  border: transparent;
 }
