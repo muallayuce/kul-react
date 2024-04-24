@@ -103,7 +103,7 @@
 
 .button:hover {
   background-color: #724fc3;
-  border: #d90d6c solid;
+  border: var(--color-3) 2px solid;
 }
 
 .button-flat {
@@ -115,7 +115,7 @@
 
 .button-flat:hover {
   background-color: #724fc3;
-  border: #d90d6c solid;
+  border: var(--color-3) 2px solid;
 }
 
 .error-message {

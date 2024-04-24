@@ -36,7 +36,7 @@ body {
 }
 
 .profile_button:hover {
-    border: #D90D6C solid;
+  border: var(--color-3) 2px solid;
     background-color: #724FC3;
 }
 

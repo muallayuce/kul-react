@@ -44,6 +44,7 @@ const Chat = () => {
             <form className="input-container" onSubmit={sendMessage}>
                 <input className="message-input"
                     type="text"
+                    id="input-size"
                     value={inputValue}
                     onChange={handleChange}
                     placeholder="Type your message..."

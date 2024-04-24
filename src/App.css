@@ -92,7 +92,7 @@
 }
 
 .register:hover {
-  border: #D90D6C solid;
+  border: var(--color-3) 2px solid;
   background-color: #724FC3;
 }
 
@@ -103,7 +103,7 @@
 }
 
 .create_post_button:hover {
-  border: #D90D6C solid;
+  border: var(--color-3) 2px solid;
   background-color: #724FC3;
 }
 
@@ -169,9 +169,15 @@
   font-size: 17px;
 }
 
-.chat_button {
+#chat_button {
   background-color: transparent;
   font-family: "Logo", sans-serif;
-  color: #fafafa;
+  color: var(--color-1);
+  font-size: 38px;
   border: transparent;
+  margin-right: 15px;
+}
+
+#chat_button:hover {
+  color: var(--color-2);
 }

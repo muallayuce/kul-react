@@ -135,7 +135,7 @@ function App() {
                 </div>
 
                 <div className='app_header_right'>
-                  <Link to='/chat'> <button className='chat_button'><i className="bi bi-chat-fill" style={{ color: '#352473', fontSize: 'xx-large'}}></i></button></Link> 
+                  <Link to='/chat'> <i className="bi bi-chat-fill" id='chat_button'></i></Link> 
                   <Link to='profile'><button className='profile_button' onClick={handleProfile}>Profile</button></Link>
                   <Link to="/"> <button className="logout_button" onClick={handleLogout}>Log Out </button></Link>
                   

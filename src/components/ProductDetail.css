@@ -67,7 +67,7 @@
 
   .close-button:hover {
     background-color: var(--color-2);
-    border: var(--color-3) solid;
+    border: var(--color-3) 2px solid;
   }
 
   .description-container {
