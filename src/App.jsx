@@ -14,7 +14,7 @@ import { UserContext } from './context/UserContext';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import ProductDetail from './components/ProductDetail';
 import UserProfile from './components/UserProfile/UserProfile';
-import Chat from './components/chat';
+import Chat from './components/Chat';
 import ContactUs from './components/ContactUs';
 import TermsOfService from './components/TermsOfService';
 import PrivacyPolicy from './components/PrivacyPolicy';

@@ -1,0 +1,93 @@
+@font-face {
+    font-family: "Logo";
+    src: url("/src/fonts/eras.TTF") format("truetype");
+  }
+  
+  @font-face {
+    font-family: "Lucida";
+    src: url("/src/fonts/lucida.TTF") format("truetype");
+  }
+
+  .chat-container {
+    height: 50%;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #dddfe2;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  
+  .chat-title {
+    font-size: 40px;
+    line-height: 1.6;
+    color: var(--color-1);
+    font-weight: bold;
+    font-family: 'Logo';
+    text-transform: capitalize;
+    text-align: center;
+  }
+  
+  .messages-container {
+    padding: 15px;
+    font-size: 20px;
+    line-height: 2;
+    color: #1c1e21;
+    font-family: Arial;
+    list-style: none;
+  }
+
+  .input-container {
+    height: auto;
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    border: 1px solid #dddfe2;
+    border-radius: 8px;
+    background-color: #fff;
+  }
+  
+  .message-input {
+    display: block;
+    margin: auto;
+    height: auto;
+    width: 100%;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fafafa;
+    font-family: Arial;
+    color: black;
+  }
+
+  .send-message-button {
+    width: 40px;
+    height: 40px;
+    background-color: var(--color-1);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Logo", sans-serif;
+    font-size: 20px;
+    color: #fafafa;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.send-message-button:hover {
+    background-color: var(--color-2);
+}
+
+.send-message-button i {
+    margin: 0;
+}
