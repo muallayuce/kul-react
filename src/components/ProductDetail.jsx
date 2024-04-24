@@ -81,7 +81,7 @@ function ProductDetail() {
         return (
           <div className='seller-container'>
             <p className='seller-title'> Seller <br /> <span className='seller-name'> {product.user.username}</span> </p>
-            <button className='seller-button'> <FontAwesomeIcon icon={faCommentsDollar} /> </button>
+            <Link to= '/chat'><button className='seller-button'> <FontAwesomeIcon icon={faCommentsDollar} /></button></Link>
           </div>
         );
       default:
