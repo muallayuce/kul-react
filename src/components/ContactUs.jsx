@@ -1,4 +1,5 @@
 import React from 'react';
+import './ContactUs.css'
 
 
 const ContactUs = () => {
@@ -7,9 +8,9 @@ const ContactUs = () => {
       <h2>Contact Us</h2>
       <p>If you have any questions or feedback, please feel free to reach out to us:</p>
       <ul>
-        <li>Email: example@example.com</li>
+        <li>Email: kulbalam@kulbalam.com</li>
         <li>Phone: +1234567890</li>
-        <li>Address: 123 Main Street, City, Country</li>
+        <li>Address: 1364 SL, Amsterdam, Netherland</li>
       </ul>
       <p>You can also use the form below to contact us:</p>
       {/* Add your contact form JSX here */}
