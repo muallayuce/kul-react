@@ -18,6 +18,11 @@
   padding: 0px;
 }
 
+.signup-container {
+  display: flex;
+  flex-direction: column;
+}
+
 .control-row {
   display: flex;
   flex-direction: column;
@@ -79,15 +84,24 @@
   padding-top: 20px;
 }
 
-.checkbox {
+.checkbox-container {
   display: flex;
   flex-direction: column;
+  width: auto;
   margin-bottom: 20px;
-  color:#724fc3;
-  font-size: 20px;
-  font-family: "Logo", sans-serif;
   justify-content: center;
   align-items: center;
+}
+
+.agree-text {
+  color: var(--color-2);
+  font-size: 20px;
+  font-family: "Logo", sans-serif;
+  margin-bottom: 5px;
+}
+
+.agree-checkbox {
+  transform: scale(1.3);
 }
 
 .form-actions {

@@ -3,22 +3,22 @@ import Header from './SignUpHeader';
 import { UserContext } from '../context/UserContext';
 import { useContext, useState } from 'react';
 import ErrorMessage from './ErrorMessage';
-import {BASE_URL} from '../App';
+import { BASE_URL } from '../App';
 
 export default function Signup() {
-  const [email, setEmail] = useState ('');
-  const [password, setPassword] = useState ('');
-  const [confirmPassword, setConfirmPassword] = useState ('');
-  const [username, setUsername] = useState ('');
-  const [errorMessage, setErrorMessage] = useState ('');
-  const [firstname, setFirstname] = useState ('');
-  const [lastname, setLastname] = useState ('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [username, setUsername] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [firstname, setFirstname] = useState('');
+  const [lastname, setLastname] = useState('');
 
   const submitRegistration = async () => {
     const requestOptions = {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({email: email, password: password, username: username})
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email, password: password, username: username })
     };
 
     console.log(BASE_URL);
@@ -26,9 +26,9 @@ export default function Signup() {
     const data = await response.json();
 
     console.log("response: ", response)
-    
+
     if (!response.ok) {
-        setErrorMessage(data.detail);
+      setErrorMessage(data.detail);
     } else {
       handleReset()
     }
@@ -58,25 +58,25 @@ export default function Signup() {
     setLastname('');
   };
 
-    return (
-      <form onSubmit={handleSubmit}>
-        <Header/>
-  
+  return (
+    <form onSubmit={handleSubmit}>
+      <Header />
+      <div className='signup-container'>
         <div className="control-row">
           <div className="control">
-          <label htmlFor="email">Email</label>
-          <input 
-          id="e-mail" type="suemail" name="email" placeholder='Email' 
-          value={email} onChange={(e) => setEmail(e.target.value)} />
+            <label htmlFor="email">Email</label>
+            <input
+              id="e-mail" type="suemail" name="email" placeholder='Email'
+              value={email} onChange={(e) => setEmail(e.target.value)} />
           </div>
-  
+
           <div className="control">
             <label htmlFor="password">Password</label>
-            <input id="supassword" type="password" name="password" placeholder='Password' 
-            value={password} onChange={(e) => setPassword(e.target.value)}
+            <input id="supassword" type="password" name="password" placeholder='Password'
+              value={password} onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-  
+
           <div className="control">
             <label htmlFor="confirm-password">Confirm Password</label>
             <input
@@ -88,38 +88,36 @@ export default function Signup() {
             />
           </div>
         </div>
-  
+
         <hr />
-  
+
         <div className="control-row">
           <div className="control">
             <label htmlFor="first-name" id='firstnametag'>First Name</label>
             <input type="text" id="first-name" value={firstname} name="first-name" placeholder='First Name' onChange={(e) => setFirstname(e.target.value)} />
           </div>
-  
+
           <div className="control">
             <label htmlFor="last-name">Last Name</label>
-            <input type="text" id="last-name" value={lastname} name="last-name" placeholder='Last Name' onChange={(e) => setLastname(e.target.value)}/>
+            <input type="text" id="last-name" value={lastname} name="last-name" placeholder='Last Name' onChange={(e) => setLastname(e.target.value)} />
           </div>
 
           <div className="control">
             <label htmlFor="user-name">User Name</label>
             <input type="text" id="user-name" name="user-name" placeholder='User Name'
-            value={username} onChange={(e) => setUsername(e.target.value)} />
+              value={username} onChange={(e) => setUsername(e.target.value)} />
           </div>
 
         </div>
-  
-        <div className="checkbox">
-          <label htmlFor="terms-and-conditions">
-            <input type="checkbox" id="terms-and-conditions" name="terms" /> I
-            agree to the terms and conditions
-          </label>
+
+        <div className="checkbox-container">
+          <span className='agree-text'>I agree to the terms and conditions </span>
+          <input className='agree-checkbox' type="checkbox" />
         </div>
 
         <div className="form-actions">
-          <ErrorMessage message={errorMessage}/>
-          <br/> 
+          <ErrorMessage message={errorMessage} />
+          <br />
           <button type="submit" className="button" >
             Sign Up
           </button>
@@ -127,6 +125,7 @@ export default function Signup() {
             Reset
           </button>
         </div>
-      </form>
-    );
-  }
+      </div>
+    </form>
+  );
+}
