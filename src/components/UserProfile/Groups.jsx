@@ -4,6 +4,7 @@ import './UserProfile.css';
 const Groups = ({ groups }) => {
   return (
     <div className="groups">
+      <h2  className='groups-text'>GROUPS</h2>
       {groups.map((group, index) => (
         <div key={group.id} className="group">
           <h2>{group.name}</h2>

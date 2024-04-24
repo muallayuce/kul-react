@@ -5,6 +5,12 @@
   src: url("/src/fonts/eras.TTF") format("truetype");
 }
 
+@font-face {
+  font-family: "Slogan";
+  src: url("/src/fonts/mystical.TTF") format("truetype");
+}
+
+
 /* Base colors */
 :root {
   --color-1: #352473; /* Purple */
@@ -91,7 +97,6 @@ body {
   margin-bottom: 10px;
   width: 400px;
   height: 900px;
-  margin-top: 20px;
   margin-bottom: 20px;
 }
 
@@ -143,6 +148,7 @@ body {
   width: 80%;
   padding: 20px;
   background-color: white;
+  border: 1px solid #dddfe2;
   border-radius: 5px;
   margin-bottom: 20px;
   color: #352473;
@@ -241,6 +247,11 @@ color: black;
   margin-bottom: 10px;
   font-size: 18px;
   color: var(--color-1);
+}
+
+.groups-text {
+  font-family: 'Slogan';
+  font-size: 30px;
 }
 
 .group-post {

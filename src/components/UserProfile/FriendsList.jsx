@@ -20,6 +20,7 @@ const FriendsList = ({ friends }) => {
 
   return (
     <div className="friends-list">
+      <hr/>
       <i className="bi bi-people-fill" style={{ color: "#724fc3", fontSize: '25px' }}></i>
       <h2 className='friends-text'>Friends</h2> {/* Removed onClick from Friends heading */}
       {showFriends && (

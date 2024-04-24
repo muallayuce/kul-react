@@ -14,6 +14,7 @@ import { UserContext } from './context/UserContext';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import ProductDetail from './components/ProductDetail';
 import UserProfile from './components/UserProfile/UserProfile';
+import Chat from './components/chat';
 
 // Define your base URL
 export const BASE_URL = 'http://localhost:8000';
@@ -56,6 +57,7 @@ function App() {
       alert('Failed to fetch posts');
     }
   };
+
 
   // Function to fetch products
   const fetchProducts = async () => {
@@ -132,6 +134,7 @@ function App() {
 
                 <div className='app_header_right'>
                   <Link to='profile'><button className='profile_button' onClick={handleProfile}>Profile</button></Link>
+                  <Link to='/chat'> <button className='chat_button'>Chat</button></Link> 
                   <Link to="/"> <button className="logout_button" onClick={handleLogout}>Log Out </button></Link>
                 </div>
               </>
@@ -143,6 +146,7 @@ function App() {
                 </div>
               </>
             )}
+
           </header>
         </div>
 
@@ -170,6 +174,7 @@ function App() {
           <Route path="/marketplace" element={<Marketplace products={products} />} />
           <Route path="/product/:productId" element={<ProductDetail />} />
           <Route path="/profile" element={<UserProfile/>} />
+          <Route path="/chat" element={<Chat/>}/>
         </Routes>
 
         {/* Render login or signup modal based on openModal state */}
