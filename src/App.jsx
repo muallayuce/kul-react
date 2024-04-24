@@ -15,6 +15,9 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import ProductDetail from './components/ProductDetail';
 import UserProfile from './components/UserProfile/UserProfile';
 import Chat from './components/Chat';
+import ContactUs from './components/ContactUs';
+import TermsOfService from './components/TermsOfService';
+import PrivacyPolicy from './components/PrivacyPolicy';
 
 // Define your base URL
 export const BASE_URL = 'http://localhost:8000';
@@ -110,7 +113,6 @@ function App() {
     setCurrentScreen('profile'); // Set currentScreen state to 'profile'
   };
 
-
   return (
     <Router>
       <div className='app'>
@@ -133,9 +135,12 @@ function App() {
                 </div>
 
                 <div className='app_header_right'>
+                  <Link to='/chat'> <button className='chat_button'><i className="bi bi-chat-fill" style={{ color: '#352473', fontSize: 'xx-large'}}></i></button></Link> 
                   <Link to='profile'><button className='profile_button' onClick={handleProfile}>Profile</button></Link>
-                  <Link to='/chat'> <button className='chat_button'>Chat</button></Link> 
                   <Link to="/"> <button className="logout_button" onClick={handleLogout}>Log Out </button></Link>
+                  
+                  <Link></Link>
+                  <Link></Link>
                 </div>
               </>
             ) : (
@@ -175,6 +180,9 @@ function App() {
           <Route path="/product/:productId" element={<ProductDetail />} />
           <Route path="/profile" element={<UserProfile/>} />
           <Route path="/chat" element={<Chat/>}/>
+          <Route path='/contactus' element={<ContactUs/>}/>
+          <Route path='/terms' element={<TermsOfService/>}></Route>
+          <Route path='/privacy' element={<PrivacyPolicy/>}></Route>
         </Routes>
 
         {/* Render login or signup modal based on openModal state */}
@@ -185,9 +193,9 @@ function App() {
         <footer className='footer'>
           <nav>
             <img className='footerImgLeft' src={footerImg} alt="" />
-            <a href="/privacy">Privacy Policy</a>
-            <a href="/terms">Terms of Service</a>
-            <a href="/contact">Contact Us</a>
+            <Link to="/privacy">Privacy Policy</Link>
+            <Link to="/terms">Terms of Service</Link>
+            <Link to="/contactus">Contact Us</Link>
             <img className='footerImgRight' src={balamw} alt="" />
           </nav>
           <p className='copy'>&copy; 2024 KUL-BALAM. All rights reserved.</p>

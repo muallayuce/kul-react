@@ -3,14 +3,15 @@
     src: url("/src/fonts/eras.TTF") format("truetype");
   }
 
-.logout_button {
+  .logout_button {
     background-color:  #352473;
-    margin: 10px;
+    margin-right: 10px;
     font-family: "Logo", sans-serif;
-    color: #fafafa
+    color: #fafafa;
+    font-size: 17px;
   }
   
-.logout_button:hover {
+  .logout_button:hover {
     background-color: #724FC3;
     border: #D90D6C solid;
   }
