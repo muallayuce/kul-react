@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import './Chat.css'
 
 const Chat = () => {
     const [messages, setMessages] = useState([]);
@@ -33,21 +34,21 @@ const Chat = () => {
     };
 
     return (
-        <div>
-            <h1>Chat</h1>
-            <ul>
+        <div className="chat-container">
+            <div className="chat-title">Chat</div>
+            <ul className="messages-container">
                 {messages.map((message, index) => (
-                    <li key={index}>{message}</li>
+                    <li className="message" key={index}>{message}</li>
                 ))}
             </ul>
-            <form onSubmit={sendMessage}>
-                <input
+            <form className="input-container" onSubmit={sendMessage}>
+                <input className="message-input"
                     type="text"
                     value={inputValue}
                     onChange={handleChange}
                     placeholder="Type your message..."
                 />
-                <button type="submit">Send</button>
+                <button className="send-message-button" type="submit"><i class="bi bi-caret-up-fill"></i></button>
             </form>
         </div>
     );
