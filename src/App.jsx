@@ -192,7 +192,6 @@ function App() {
           />
           <Route path='/login' element={isLoggedIn ? <Navigate to="/posts" /> : <Login onLogin={handleLogin} />} />
           <Route path='/signup' element={<Signup onSignup={handleSignup} />} />
-
           <Route path="/marketplace" element={<Marketplace products={products} />} />
           <Route path="/product/:productId" element={<ProductDetail />} />
           <Route path="/profile" element={<UserProfile/>} />
