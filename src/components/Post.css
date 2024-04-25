@@ -139,8 +139,10 @@ color: black;
 }
 
 .post_button:disabled {
-  background-color:var(--color-3);
-  cursor: not-allowed;
+  background-color: transparent;
+  color: transparent;
+  border: transparent;
+  cursor: auto;
 }
 
 
