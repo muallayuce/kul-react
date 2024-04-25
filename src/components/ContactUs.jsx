@@ -9,7 +9,7 @@ const ContactUs = () => {
       <p>If you have any questions or feedback, please feel free to reach out to us:</p>
       <ul>
         <li>Email: kulbalam@kulbalam.com</li>
-        <li>Phone: +1234567890</li>
+        <li>Phone: +0634567890</li>
         <li>Address: 1364 SL, Amsterdam, Netherland</li>
       </ul>
       <p>You can also use the form below to contact us:</p>
