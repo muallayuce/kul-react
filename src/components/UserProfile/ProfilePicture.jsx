@@ -27,7 +27,7 @@ const ProfilePicture = ({ profilePicture }) => {
         <div>
           <input
             type="file"
-            accept="image/*"
+            accept="userimages/*"
             onChange={(e) => setNewPicture(e.target.files[0])}
           />
           <button onClick={handleSave}>Save</button>
