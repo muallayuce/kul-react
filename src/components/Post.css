@@ -129,14 +129,17 @@ color: black;
 .post_button{
   height: 40px;
   margin-left: 20px;
+  background-color: var(--color-1);
+  color: white;
+  font-family: 'Logo';
 }
 
 .post_button:hover {
-  background-color: var(--color-1);
+  background-color: var(--color-2);
 }
 
 .post_button:disabled {
-  background-color:var(--color-1);
+  background-color:var(--color-3);
   cursor: not-allowed;
 }
 
