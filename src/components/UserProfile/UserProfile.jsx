@@ -62,8 +62,8 @@ const UserProfile = ({ user }) => {
   // Dummy group data
   const dummyGroupData = [
     { id: 1, name: "Photography", posts: [{ id: 1, content: "Does anyone want to go on a photo shoot?" }, { id: 2, content: "Hi everyone!!" }] },
-    { id: 2, name: "Museum", posts: [{ id: 1, content: "Hi everyone!!" }, { id: 2, content: "Does anyone wanna go to a museum?" }] },
-    { id: 3, name: "Music", posts: [{ id: 1, content: "Any musiclover?" }, { id: 2, content: "Hi everyone!!" }] },
+    { id: 2, name: "Museum", posts: [{ id: 1, content: "Heey!!" }, { id: 2, content: "Does anyone wanna go to a museum?" }] },
+    { id: 3, name: "Music", posts: [{ id: 1, content: "Does anyone want to go on a record store?" }, { id: 2, content: "Hi everyone!!" }] },
     { id: 4, name: "Books", posts: [{ id: 1, content: "Hi everyone!!" }, { id: 2, content: "Book suggestion?" }] }
   ];
 

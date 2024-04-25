@@ -28,12 +28,12 @@ const FriendsList = ({ friends }) => {
           {friends.map((friend) => (
             <div className="friend" key={friend.id}>
               <div className="friend-info" onClick={() => handleClick(friend.id)}>
-                <i className="bi bi-flower3" style={{ color: "purple" }}></i>
-                <p>{friend.username}</p>
+                <i className="bi bi-person" style={{color: '#724fc3'}}> </i>
+                <p className='friends-names'>{friend.username}</p>
               </div>
               {selectedFriend === friend.id && (
                 <div className="email-modal" onClick={handleModalClick}>
-                  <p>{friend.username}'s Email: {friend.email}</p>
+                  <p><i class="bi bi-envelope-at" style={{fontSize:"25px"}}></i> {friend.email}</p>
                   <button onClick={handleClose}>Close</button>
                 </div>
               )}

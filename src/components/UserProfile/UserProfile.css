@@ -35,6 +35,8 @@ body {
   padding: 20px;
 }
 
+
+
 .profile_button:hover {
   border: var(--color-3) 2px solid;
     background-color: #724FC3;
@@ -101,7 +103,6 @@ body {
 }
 
 .user-info-content {
-  margin-left: 20px; /* Add spacing between profile picture and info */
   text-align: center;
 }
 
@@ -117,17 +118,19 @@ body {
 
 .info-item-user {
   display: flex;
-  margin-top: 20px;
-  margin-left: 60px;
+  margin-top: 10px;
   flex-wrap: nowrap;
-  flex-direction: row;
-  align-items: center;
-  color: var(--color-2);
+    flex-direction: row;
+    align-items: center;
+    color: var(--color-2);
+    justify-content: center;
 }
 
 .info-item-username {
   font-family: 'Logo';
+  font-size: 20px;
   color: var(--color-1);
+  margin-left: 10px;
 }
 
 .info-item h2 {
@@ -141,6 +144,10 @@ body {
   font-size: 18px;
   color: var(--color-1);
   font-family: 'Logo';
+}
+
+.user-email{
+  margin-left: 15px;
 }
 
 /* Timeline component */
@@ -276,6 +283,7 @@ color: black;
   color: var(--color-1);
   position: relative; /* Ensure the parent of the modal is positioned relative */
   text-align: center;
+  font-family: 'Logo';
 }
 
 .friends-list {
@@ -294,6 +302,10 @@ color: black;
 .friends-text {
   font-family: 'Slogan';
   font-size: 20px;
+}
+
+.friends-names {
+  margin-left: 10px;
 }
 
 .friends-profile{

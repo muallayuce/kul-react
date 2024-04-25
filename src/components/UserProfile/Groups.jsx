@@ -11,7 +11,7 @@ const Groups = ({ groups }) => {
           <div className="group-posts">
             {group.posts.map(post => (
               <div key={post.id} className="group-post">
-                <i className="bi bi-balloon-fill" style={{ color: "purple" }}></i> {/* Flower icon */}
+                <i className="bi bi-dot" style={{ color: "purple" }}></i> {/* Flower icon */}
                 {post.content}
               </div>
             ))}

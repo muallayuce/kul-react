@@ -32,11 +32,12 @@ const UserInfo = () => {
       ))}
       <div className="user-info-content">
         <div className="info-item-user">
-        <i class="bi bi-person-fill" style={{ color: "#724fc3", fontSize: '25px' }}></i>
+        <i className="bi bi-person-fill" style={{ color: "#724fc3", fontSize: '30px' }}></i>
           <p className='info-item-username'>{userInfo.username}</p>
         </div>
         <div className="info-item">
-          <p>Email: {userInfo.email}</p>
+          <p><i class="bi bi-envelope-at" style={{fontSize:"20px", color:'#724fc3'}}></i> 
+          <span className='user-email'>{userInfo.email}</span></p>
         </div>
       </div>
     </div>
