@@ -116,6 +116,7 @@ function ProductDetail() {
       {/* Renderiza el contenido del modal abierto */}
       {renderModalContent()}
       <Link to="/marketplace"><button className='close-button'>Close</button></Link>
+      <Link to={`/edit/product/${product.id}`}><button className='edit-button'>Edit</button></Link>
     </div>
   );
 }
