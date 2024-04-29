@@ -67,6 +67,10 @@ function PostProduct() {
                     <label htmlFor="seller_id">Seller ID:</label> <br />
                     <input type="number" id="seller_id" name="seller_id" value={formData.seller_id} onChange={handleChange} />
                 </div>
+                <div className="form-group">
+                    <label htmlFor="image">Images:</label> <br />
+                    <input type="file" id="image" name="image" accept="image/*" onChange={handleChange} />
+                </div>
                 <Tooltip title='Post' placement="top" arrow>
                     <button className='post-button' type="submit">
                         <i class="bi bi-bag-plus-fill" id='post-new-product'></i>
