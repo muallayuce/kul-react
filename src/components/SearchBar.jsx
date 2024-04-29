@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import './SearchBar.css';
 import { BASE_URL } from '../App';
+import { Link } from "react-router-dom";
 
 const SearchBar = ({ setSearchResults }) => {
     const [input, setInput] = useState('');
@@ -36,6 +37,7 @@ const SearchBar = ({ setSearchResults }) => {
                     <FontAwesomeIcon icon={faSearch} id='search-icon' />
                     <input placeholder="Search..." value={input} onChange={(e) => handleChange(e.target.value)}></input>
                 </div>
+                <Link to='/new/product'> <button> + </button> </Link>
             </header>
         </div>
     );
