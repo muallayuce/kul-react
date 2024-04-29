@@ -107,7 +107,7 @@ function PostProduct() {
                     <label htmlFor="image">Image:</label> <br />
                     <input type="file" id="image" name="image" accept="image/*" onChange={handleChange} />
                 </div>
-                <Tooltip title='Post' placement="top" arrow>
+                <Tooltip title='Post' placement="top" arrow id='post-tooltip'>
                     <button className='post-button' type="submit">
                         <i className="bi bi-bag-plus-fill" id='post-new-product'></i>
                     </button>

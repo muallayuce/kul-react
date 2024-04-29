@@ -67,7 +67,8 @@
     font-family: Arial;
 }
 
-#product_name, #image {
+#product_name,
+#image {
     width: 60%;
 }
 
@@ -97,9 +98,13 @@
 #post-new-product {
     color: white;
     font-size: 30px;
-  }
+}
 
 #post-new-product:hover {
     color: white;
     font-size: 30px;
-  }
+}
+
+#post-tooltip .MuiTooltip-tooltip {
+    font-size: 18px;
+}

@@ -103,3 +103,7 @@
     color: white;
     font-size: 30px;
   }
+
+  #update-tooltip .MuiTooltip-tooltip {
+    font-size: 18px;
+  }

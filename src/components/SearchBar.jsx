@@ -39,7 +39,7 @@ const SearchBar = ({ setSearchResults }) => {
                     <input placeholder="Search..." value={input} onChange={(e) => handleChange(e.target.value)}></input>
                 </div>
                 <Link to='/new/product'>
-                    <Tooltip title='Sell a product' placement="top" arrow>
+                    <Tooltip title='Sell a product' placement="top" arrow id="sell-tooltip" >
                         <button className="new-product-button">
                         <i class="bi bi-bag-plus-fill" id='new-product'></i>
                         </button>

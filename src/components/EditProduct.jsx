@@ -91,7 +91,7 @@ function EditProduct() {
                     <label htmlFor="quantity">Quantity:</label> <br />
                     <input type="number" id="quantity" name="quantity" value={formData.quantity} onChange={handleChange} />
                 </div>
-                <Tooltip title='Update' placement="top" arrow>
+                <Tooltip title='Update' placement="top" arrow id='update-tooltip'>
                     <button className='update-button' type="submit">
                     <i className="bi bi-bag-check-fill" id='post-update'></i>
                     </button>
