@@ -7,6 +7,9 @@ import { faStar, faStarHalfAlt, faCommentsDollar } from "@fortawesome/free-solid
 import NoImage from "../assets/balamgray.png"
 import DeleteProduct from './DeleteProduct.jsx';
 import './DeleteProduct.css'
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 function ProductDetail() {
   const { productId } = useParams();
@@ -95,14 +98,22 @@ function ProductDetail() {
       <h2 className='product-d-name'>{product.product_name}</h2>
       <p className='product-d-price'>${product.price}</p>
       {product.images.length > 0 ? (
-        product.images.map(image => (
-          <img
-            key={image.id}
-            className="product-d-image"
-            src={`http://127.0.0.1:8000/images/${image.id}`}
-            alt="Product Image"
-          />
-        ))
+        <Slider
+        dots={true}
+        infinite={true} //Infinite slide
+        speed={500} // Slide speed
+        slidesToShow={1} // Número de imágenes visibles a la vez
+        slidesToScroll={1}>
+          {product.images.map(image => (
+            <div key={image.id}>
+              <img
+                className="product-d-image"
+                src={`http://127.0.0.1:8000/images/${image.id}`}
+                alt="Product Image"
+              />
+            </div>
+          ))}
+        </Slider>
       ) : (
         <img
           className="product-d-image"
@@ -110,6 +121,7 @@ function ProductDetail() {
           alt="Placeholder Image"
         />
       )}
+
       {averageScore !== null ? (
         <div className='product-d-rating'>
           <p> {averageScore.toFixed(1)} {renderStars(averageScore)}</p>
