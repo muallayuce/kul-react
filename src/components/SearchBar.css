@@ -13,7 +13,6 @@
 
 .input-wrapper:hover {
     border: var(--color-3) 2px solid;
-    transform: scale(1.2);
 }
 
 .input-wrapper {
@@ -46,3 +45,26 @@ input:focus{
     color: var(--color-2);
     margin-left: 2%;
 }
+
+#new-product {
+    color: var(--color-1);
+    font-size: 30px;
+  }
+
+#new-product:hover {
+    color: var(--color-2);
+}
+
+.new-product-button {
+    background-color: transparent;
+}
+
+.new-product-button:hover {
+    background-color: transparent;
+    border: transparent;
+    transform: scale(1.2);
+}
+
+.tooltip{
+    font-size: 10rem;
+ }

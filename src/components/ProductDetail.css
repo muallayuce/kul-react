@@ -71,6 +71,18 @@
     border: var(--color-3) 2px solid;
   }
 
+  .edit-button {
+    background-color: var(--color-1);
+    margin: 10px;
+    font-family: "Logo", sans-serif;
+    color: #fafafa;
+  }
+
+  .edit-button:hover {
+    background-color: var(--color-2);
+    border: var(--color-3) 2px solid;
+  }
+
   .description-container {
     height: 50%;
     width: auto;
