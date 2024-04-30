@@ -4,6 +4,7 @@ import './Marketplace.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faStarHalfAlt } from "@fortawesome/free-solid-svg-icons";
 import SearchBar from "./SearchBar";
+import NoImage from "../assets/balamgray.png"
 
 function Marketplace({ products }) {
   const [averageScores, setAverageScores] = useState({});
@@ -72,14 +73,22 @@ function Marketplace({ products }) {
                   <p className="product_name">{product.product_name}</p>
                   <p className="product_price">${product.price}</p>
                   <div className="product_images">
-                    {product.images.map(image => (
+                    {product.images.length > 0 ? (
+                      product.images.map(image => (
+                        <img
+                          key={image.id}
+                          className="product_image"
+                          src={`http://127.0.0.1:8000/images/${image.id}`}
+                          alt="Product Image"
+                        />
+                      ))
+                    ) : (
                       <img
-                        key={image.id}
                         className="product_image"
-                        src={`http://127.0.0.1:8000/images/${image.id}`}
-                        alt="Product Image"
+                        src={NoImage}
+                        alt="Placeholder Image"
                       />
-                    ))}
+                    )}
                   </div>
                   <div className="product_rating">
                     {averageScores[product.id] !== undefined ? renderStars(averageScores[product.id]) : ''}
@@ -96,18 +105,29 @@ function Marketplace({ products }) {
                   <p className="product_name">{product.product_name}</p>
                   <p className="product_price">${product.price}</p>
                   <div className="product_images">
-                    {product.images.map(image => (
+                    {product.images.length > 0 ? (
+                      product.images.map(image => (
+                        <img
+                          key={image.id}
+                          className="product_image"
+                          src={`http://127.0.0.1:8000/images/${image.id}`}
+                          alt="Product Image"
+                        />
+                      ))
+                    ) : (
                       <img
-                        key={image.id}
                         className="product_image"
-                        src={`http://127.0.0.1:8000/images/${image.id}`}
-                        alt="Product Image"
+                        src={NoImage}
+                        alt="Placeholder Image"
                       />
-                    ))}
+                    )}
                   </div>
                   <div className="product_rating">
                     {averageScores[product.id] !== undefined ? renderStars(averageScores[product.id]) : ''}
                   </div>
+                  {averageScores[product.id] === null && (
+                    <div className="product_rating">Be the first to write a review!</div>
+                  )}
                 </div>
               </Link>
             </div>

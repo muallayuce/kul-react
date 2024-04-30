@@ -61,12 +61,10 @@ function ProductDetail() {
     return stars;
   };
 
-  // Función para cambiar el modal abierto
   const handleModalChange = (modal) => {
     setOpenModal(modal);
   };
 
-  // Función para renderizar el contenido del modal abierto
   const renderModalContent = () => {
     switch (openModal) {
       case 'description':
