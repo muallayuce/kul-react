@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import './EditProduct.css';
 
 function EditProduct() {
-    const { id } = useParams(); // Obtener el ID del producto de los parámetros de la URL
+    const { id } = useParams();
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         id: '',

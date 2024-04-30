@@ -5,6 +5,8 @@ import Reviews from './Reviews.jsx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faStarHalfAlt, faCommentsDollar } from "@fortawesome/free-solid-svg-icons";
 import NoImage from "../assets/balamgray.png"
+import DeleteProduct from './DeleteProduct.jsx';
+import './DeleteProduct.css'
 
 function ProductDetail() {
   const { productId } = useParams();
@@ -125,6 +127,7 @@ function ProductDetail() {
       {renderModalContent()}
       <Link to="/marketplace"><button className='close-button'>Close</button></Link>
       <Link to={`/edit/product/${product.id}`}><button className='edit-button'>Edit</button></Link>
+      <DeleteProduct productId={productId} />
     </div>
   );
 }

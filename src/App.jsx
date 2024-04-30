@@ -15,9 +15,9 @@ import { BrowserRouter as Router, Route, Routes, Link, Navigate } from 'react-ro
 import ProductDetail from './components/ProductDetail';
 import UserProfile from './components/UserProfile/UserProfile';
 import Chat from './components/Chat';
-import ContactUs from './components/ContactUs';
-import TermsOfService from './components/TermsOfService';
-import PrivacyPolicy from './components/PrivacyPolicy';
+import ContactUs from './components/Footer/ContactUs';
+import TermsOfService from './components/Footer/TermsOfService';
+import PrivacyPolicy from './components/Footer/PrivacyPolicy';
 import PostProduct from './components/PostProduct';
 import EditProduct from './components/EditProduct';
 
