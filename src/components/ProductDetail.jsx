@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import './ProductDetail.css';
 import Reviews from './Reviews.jsx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { faStar, faStarHalfAlt, faCommentsDollar } from "@fortawesome/free-solid-svg-icons";
 import NoImage from "../assets/balamgray.png"
 import DeleteProduct from './DeleteProduct.jsx';
@@ -16,6 +17,18 @@ function ProductDetail() {
   const [product, setProduct] = useState(null);
   const [averageScore, setAverageScore] = useState(null);
   const [openModal, setOpenModal] = useState('description');
+
+  const PrevArrow = ({ onClick }) => (
+    <button className="slick-arrow prev" onClick={onClick}>
+      <FontAwesomeIcon icon={faArrowLeft} />
+    </button>
+  );
+
+  const NextArrow = ({ onClick }) => (
+    <button className="slick-arrow next" onClick={onClick}>
+      <FontAwesomeIcon icon={faArrowRight} />
+    </button>
+  );
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -103,7 +116,10 @@ function ProductDetail() {
         infinite={true} //Infinite slide
         speed={500} // Slide speed
         slidesToShow={1} // Número de imágenes visibles a la vez
-        slidesToScroll={1}>
+        slidesToScroll={1}
+        nextArrow={<NextArrow />}
+        prevArrow={<PrevArrow />}
+        >
           {product.images.map(image => (
             <div key={image.id}>
               <img
