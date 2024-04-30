@@ -17,6 +17,7 @@ function DeleteProduct({ productId }) {
             }
             console.log('Product deleted successfully!');
             navigate('/marketplace');
+            window.location.reload(); //Refresh the page so that it does not show the deleted product 
         } catch (error) {
             console.error('Error deleting product:', error);
         }
