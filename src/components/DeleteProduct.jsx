@@ -33,10 +33,16 @@ function DeleteProduct({ productId }) {
                     </button>
                 </Tooltip>
             ) : (
-                <div>
-                    <p>Are you sure you want to delete this product?</p>
-                    <button onClick={handleDelete}>Yes</button>
-                    <button onClick={() => setConfirmDelete(false)}>No</button>
+                <div className='delete-check-container'>
+                    <p className='delete-check'>Are you sure you want to delete this product?</p>
+                    <div className='yes-no-container'>
+                    <button className='yes-button' onClick={handleDelete}>
+                    <i className="bi bi-check-circle-fill" id='check-icon'></i>
+                    </button>
+                    <button className='no-button' onClick={() => setConfirmDelete(false)}>
+                        <i className="bi bi-x-circle-fill" id='x-icon'></i>
+                        </button>
+                    </div>
                 </div>
             )}
         </div>
