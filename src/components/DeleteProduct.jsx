@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Tooltip } from "@mui/material";
 import './DeleteProduct.css';
 
 function DeleteProduct({ productId }) {
@@ -26,7 +27,11 @@ function DeleteProduct({ productId }) {
     return (
         <div>
             {!confirmDelete ? (
-                <button onClick={() => setConfirmDelete(true)}>Delete Product</button>
+                <Tooltip title='Delete' placement="top" arrow id='delete-tooltip'>
+                    <button className='delete-button' onClick={() => setConfirmDelete(true)}>
+                        <i className="bi bi-trash3-fill" id='trash-icon'></i>
+                    </button>
+                </Tooltip>
             ) : (
                 <div>
                     <p>Are you sure you want to delete this product?</p>
