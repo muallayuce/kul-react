@@ -3,13 +3,32 @@ import { useParams, Link } from 'react-router-dom';
 import './ProductDetail.css';
 import Reviews from './Reviews.jsx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { faStar, faStarHalfAlt, faCommentsDollar } from "@fortawesome/free-solid-svg-icons";
+import NoImage from "../assets/balamgray.png"
+import DeleteProduct from './DeleteProduct.jsx';
+import './DeleteProduct.css'
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 function ProductDetail() {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const [averageScore, setAverageScore] = useState(null);
   const [openModal, setOpenModal] = useState('description');
+
+  const PrevArrow = ({ onClick }) => (
+    <button className="slick-arrow prev" onClick={onClick}>
+      <FontAwesomeIcon icon={faArrowLeft} />
+    </button>
+  );
+
+  const NextArrow = ({ onClick }) => (
+    <button className="slick-arrow next" onClick={onClick}>
+      <FontAwesomeIcon icon={faArrowRight} />
+    </button>
+  );
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -61,18 +80,16 @@ function ProductDetail() {
     return stars;
   };
 
-  // Función para cambiar el modal abierto
   const handleModalChange = (modal) => {
     setOpenModal(modal);
   };
 
-  // Función para renderizar el contenido del modal abierto
   const renderModalContent = () => {
     switch (openModal) {
       case 'description':
         return (
           <div className='description-container'>
-            <p className='description-title'> Description <br/> <span className='description-text'>{product.description}</span></p>
+            <p className='description-title'> Description <br /> <span className='description-text'>{product.description}</span></p>
           </div>
         );
       case 'reviews':
@@ -81,7 +98,7 @@ function ProductDetail() {
         return (
           <div className='seller-container'>
             <p className='seller-title'> Seller <br /> <span className='seller-name'> {product.user.username}</span> </p>
-            <Link to= '/chat'><button className='seller-button'> <FontAwesomeIcon icon={faCommentsDollar} /></button></Link>
+            <Link to='/chat'><button className='seller-button'> <FontAwesomeIcon icon={faCommentsDollar} /></button></Link>
           </div>
         );
       default:
@@ -93,18 +110,40 @@ function ProductDetail() {
     <div className="product-container">
       <h2 className='product-d-name'>{product.product_name}</h2>
       <p className='product-d-price'>${product.price}</p>
-      {product.images && product.images.map(image => (
+      {product.images.length > 0 ? (
+        <Slider
+        dots={true}
+        infinite={true} //Infinite slide
+        speed={500} // Slide speed
+        slidesToShow={1} // Número de imágenes visibles a la vez
+        slidesToScroll={1}
+        nextArrow={<NextArrow />}
+        prevArrow={<PrevArrow />}
+        >
+          {product.images.map(image => (
+            <div key={image.id}>
+              <img
+                className="product-d-image"
+                src={`http://127.0.0.1:8000/images/${image.id}`}
+                alt="Product Image"
+              />
+            </div>
+          ))}
+        </Slider>
+      ) : (
         <img
-          key={image.id}
-          src={`http://localhost:8000/images/${image.id}`}
-          alt="Product"
-          className='product-d-image'
+          className="product-d-image"
+          src={NoImage}
+          alt="Placeholder Image"
         />
-      ))}
-      {averageScore !== null && (
+      )}
+
+      {averageScore !== null ? (
         <div className='product-d-rating'>
           <p> {averageScore.toFixed(1)} {renderStars(averageScore)}</p>
         </div>
+      ) : (
+        <p className='product-d-rating'>Be the first to write a review!</p>
       )}
       <section className='all-details' id='examples'>
         <menu>
@@ -113,10 +152,10 @@ function ProductDetail() {
           <li><button onClick={() => handleModalChange('seller')}>Seller</button></li>
         </menu>
       </section>
-      {/* Renderiza el contenido del modal abierto */}
       {renderModalContent()}
       <Link to="/marketplace"><button className='close-button'>Close</button></Link>
       <Link to={`/edit/product/${product.id}`}><button className='edit-button'>Edit</button></Link>
+      <DeleteProduct productId={productId} />
     </div>
   );
 }

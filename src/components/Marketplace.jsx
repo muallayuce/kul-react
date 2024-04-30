@@ -4,6 +4,7 @@ import './Marketplace.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faStarHalfAlt } from "@fortawesome/free-solid-svg-icons";
 import SearchBar from "./SearchBar";
+import NoImage from "../assets/balamgray.png"
 
 function Marketplace({ products }) {
   const [averageScores, setAverageScores] = useState({});
@@ -41,9 +42,9 @@ function Marketplace({ products }) {
   // Rating stars
   const renderStars = (score) => {
     const fullStarsCount = Math.floor(score);
-    const hasHalfStar = score % 1 !== 0; 
+    const hasHalfStar = score % 1 !== 0;
     const stars = [];
-    if (score === 0 || score === null ) {
+    if (score === 0 || score === null) {
       return stars;
     }
     for (let i = 0; i < 5; i++) {
@@ -57,7 +58,7 @@ function Marketplace({ products }) {
     }
     return stars;
   };
-  
+
   return (
     <div className="market">
       <div className="search-bar-container">
@@ -72,14 +73,22 @@ function Marketplace({ products }) {
                   <p className="product_name">{product.product_name}</p>
                   <p className="product_price">${product.price}</p>
                   <div className="product_images">
-                    {product.images.map(image => (
+                    {product.images.length > 0 ? (
+                      product.images.map(image => (
+                        <img
+                          key={image.id}
+                          className="product_image"
+                          src={`http://127.0.0.1:8000/images/${image.id}`}
+                          alt="Product Image"
+                        />
+                      ))
+                    ) : (
                       <img
-                        key={image.id}
                         className="product_image"
-                        src={`http://127.0.0.1:8000/images/${image.id}`}
-                        alt="Product Image"
+                        src={NoImage}
+                        alt="Placeholder Image"
                       />
-                    ))}
+                    )}
                   </div>
                   <div className="product_rating">
                     {averageScores[product.id] !== undefined ? renderStars(averageScores[product.id]) : ''}
@@ -96,18 +105,27 @@ function Marketplace({ products }) {
                   <p className="product_name">{product.product_name}</p>
                   <p className="product_price">${product.price}</p>
                   <div className="product_images">
-                    {product.images.map(image => (
+                    {product.images.length > 0 ? (
                       <img
-                        key={image.id}
+                        key={product.images[0].id}
                         className="product_image"
-                        src={`http://127.0.0.1:8000/images/${image.id}`}
+                        src={`http://127.0.0.1:8000/images/${product.images[0].id}`}
                         alt="Product Image"
                       />
-                    ))}
+                    ) : (
+                      <img
+                        className="product_image"
+                        src={NoImage}
+                        alt="Placeholder Image"
+                      />
+                    )}
                   </div>
                   <div className="product_rating">
                     {averageScores[product.id] !== undefined ? renderStars(averageScores[product.id]) : ''}
                   </div>
+                  {averageScores[product.id] === null && (
+                    <div className="product_rating">Be the first to write a review!</div>
+                  )}
                 </div>
               </Link>
             </div>
