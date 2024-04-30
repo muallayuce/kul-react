@@ -6,15 +6,31 @@ import Groups from './Groups';
 import './UserProfile.css';
 import UserInfo from './UserInfo';
 
+const BASE_URL = 'http://localhost:8000';
 
 const UserProfile = ({ user }) => {
   const [isEditing, setIsEditing] = useState(false);
   const userId = localStorage.getItem("user_id");
   const [friends, setFriends] = useState([]);
-  console.log("t",friends)
+  const [groups, setGroups] = useState([]);
+
+  const fetchGroups = async () => {
+    try {
+      const response = await fetch(BASE_URL + '/groups/all');
+      if (response.ok) {
+        const groupsData = await response.json();
+        console.log('Groups:', groupsData);
+        setGroups(groupsData);
+      } else {
+        throw new Error('Failed to fetch groups');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Failed to fetch groups');
+    }
+  };
 
   useEffect(() => {
-
     const fetchFriends = async () => {
       try {
         const response = await fetch(`http://localhost:8000/users/${userId}/friends`);
@@ -38,10 +54,9 @@ const UserProfile = ({ user }) => {
 
     if (userId) {
       fetchFriends();
+      fetchGroups(); // Call fetchGroups here
     }
   }, [userId]);
-
-  
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -59,27 +74,19 @@ const UserProfile = ({ user }) => {
     setIsEditing(false);
   };
 
-  // Dummy group data
-  const dummyGroupData = [
-    { id: 1, name: "Photography", posts: [{ id: 1, content: "Does anyone want to go on a photo shoot?" }, { id: 2, content: "Hi everyone!!" }] },
-    { id: 2, name: "Museum", posts: [{ id: 1, content: "Heey!!" }, { id: 2, content: "Does anyone wanna go to a museum?" }] },
-    { id: 3, name: "Music", posts: [{ id: 1, content: "Does anyone want to go on a record store?" }, { id: 2, content: "Hi everyone!!" }] },
-    { id: 4, name: "Books", posts: [{ id: 1, content: "Hi everyone!!" }, { id: 2, content: "Book suggestion?" }] }
-  ];
-
   return (
     <div className="user-profile">
       <div className="profile-body">
         <div className="left-column">
-             { /* <button className='edit-profile' onClick={handleEdit}>Edit Profile</button> */}
-              <UserInfo user={user} /> {/* Render UserInfo component here */}
-              {friends.length > 0 && <FriendsList friends={friends}/>}
+          {/* <button className='edit-profile' onClick={handleEdit}>Edit Profile</button> */}
+          <UserInfo user={user} /> {/* Render UserInfo component here */}
+          {friends.length > 0 && <FriendsList friends={friends}/>}
         </div>
         <div className="middle-column">
-        <Timeline/>
+          <Timeline/>
         </div>
         <div className="right-column">
-          <Groups groups={dummyGroupData} />
+          <Groups groups={groups} />
         </div>
       </div>
       {/* Edit Profile Modal */}
