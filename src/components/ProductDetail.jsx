@@ -4,6 +4,7 @@ import './ProductDetail.css';
 import Reviews from './Reviews.jsx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faStarHalfAlt, faCommentsDollar } from "@fortawesome/free-solid-svg-icons";
+import NoImage from "../assets/balamgray.png"
 
 function ProductDetail() {
   const { productId } = useParams();
@@ -70,7 +71,7 @@ function ProductDetail() {
       case 'description':
         return (
           <div className='description-container'>
-            <p className='description-title'> Description <br/> <span className='description-text'>{product.description}</span></p>
+            <p className='description-title'> Description <br /> <span className='description-text'>{product.description}</span></p>
           </div>
         );
       case 'reviews':
@@ -79,7 +80,7 @@ function ProductDetail() {
         return (
           <div className='seller-container'>
             <p className='seller-title'> Seller <br /> <span className='seller-name'> {product.user.username}</span> </p>
-            <Link to= '/chat'><button className='seller-button'> <FontAwesomeIcon icon={faCommentsDollar} /></button></Link>
+            <Link to='/chat'><button className='seller-button'> <FontAwesomeIcon icon={faCommentsDollar} /></button></Link>
           </div>
         );
       default:
@@ -91,18 +92,28 @@ function ProductDetail() {
     <div className="product-container">
       <h2 className='product-d-name'>{product.product_name}</h2>
       <p className='product-d-price'>${product.price}</p>
-      {product.images && product.images.map(image => (
+      {product.images.length > 0 ? (
+        product.images.map(image => (
+          <img
+            key={image.id}
+            className="product-d-image"
+            src={`http://127.0.0.1:8000/images/${image.id}`}
+            alt="Product Image"
+          />
+        ))
+      ) : (
         <img
-          key={image.id}
-          src={`http://localhost:8000/images/${image.id}`}
-          alt="Product"
-          className='product-d-image'
+          className="product-d-image"
+          src={NoImage}
+          alt="Placeholder Image"
         />
-      ))}
-      {averageScore !== null && (
+      )}
+      {averageScore !== null ? (
         <div className='product-d-rating'>
           <p> {averageScore.toFixed(1)} {renderStars(averageScore)}</p>
         </div>
+      ) : (
+        <p className='product-d-rating'>Be the first to write a review!</p>
       )}
       <section className='all-details' id='examples'>
         <menu>
@@ -111,7 +122,6 @@ function ProductDetail() {
           <li><button onClick={() => handleModalChange('seller')}>Seller</button></li>
         </menu>
       </section>
-      {/* Renderiza el contenido del modal abierto */}
       {renderModalContent()}
       <Link to="/marketplace"><button className='close-button'>Close</button></Link>
       <Link to={`/edit/product/${product.id}`}><button className='edit-button'>Edit</button></Link>
