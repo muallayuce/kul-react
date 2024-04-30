@@ -42,9 +42,9 @@ function Marketplace({ products }) {
   // Rating stars
   const renderStars = (score) => {
     const fullStarsCount = Math.floor(score);
-    const hasHalfStar = score % 1 !== 0; 
+    const hasHalfStar = score % 1 !== 0;
     const stars = [];
-    if (score === 0 || score === null ) {
+    if (score === 0 || score === null) {
       return stars;
     }
     for (let i = 0; i < 5; i++) {
@@ -58,7 +58,7 @@ function Marketplace({ products }) {
     }
     return stars;
   };
-  
+
   return (
     <div className="market">
       <div className="search-bar-container">
@@ -106,14 +106,12 @@ function Marketplace({ products }) {
                   <p className="product_price">${product.price}</p>
                   <div className="product_images">
                     {product.images.length > 0 ? (
-                      product.images.map(image => (
-                        <img
-                          key={image.id}
-                          className="product_image"
-                          src={`http://127.0.0.1:8000/images/${image.id}`}
-                          alt="Product Image"
-                        />
-                      ))
+                      <img
+                        key={product.images[0].id}
+                        className="product_image"
+                        src={`http://127.0.0.1:8000/images/${product.images[0].id}`}
+                        alt="Product Image"
+                      />
                     ) : (
                       <img
                         className="product_image"
