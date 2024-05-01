@@ -106,7 +106,9 @@ function Post({ post, authToken, authTokenType}) {
         <div>
           <p className="post_username">{post.username}</p>
           <p className="post_timestamp">{formatTimestamp(post.timestamp)}</p>
-          <button onClick={handleDelete}>Delete</button>
+          </div>
+          <div className="delete-button-container">
+          <button className="delete_post" onClick={handleDelete}><i className="bi bi-trash3-fill" id='trash-post-icon'></i></button>
         </div>
       </div>
       <p className="post_content">{post.content}</p>
