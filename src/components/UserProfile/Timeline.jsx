@@ -126,7 +126,7 @@ const Timeline = ({ post, authToken, authTokenType }) => {
       <h2>Timeline</h2>
       {userPosts.map((post) => (
         <div className="post" key={post.id}>
-          <button onClick={(event) => handleDelete(post.id, event)}>Delete</button>
+          <button className='delete_post_timeline' onClick={(event) => handleDelete(post.id, event)}><i className="bi bi-trash3-fill" id='trash-timeline-icon'></i></button>
           <h3>{post.title}</h3>
           <p className='post_content'>{post.content}</p>
           {post.images.map((image) => (
