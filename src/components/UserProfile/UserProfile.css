@@ -159,6 +159,7 @@ body {
   border-radius: 5px;
   margin-bottom: 20px;
   color: #352473;
+  margin-left: 20px;
 }
 
 .timeline h2 {
@@ -181,7 +182,6 @@ body {
   font-size: 14px;
   color: var(--color-1);
 }
-
 
 #trash-icon {
   color: var(--color-1);
@@ -271,8 +271,7 @@ color: black;
   border: 1px solid #dddfe2; /* Border color */
   border-radius: 5px;
   padding: 20px;
-  margin-bottom: 20px;
-  width: 400px;
+  margin: 20px;
   color: #352473;
 }
 
@@ -285,6 +284,11 @@ color: black;
   margin-bottom: 10px;
   font-size: 18px;
   color: var(--color-1);
+}
+
+.create_groups{
+  background-color: var(--color-1);
+  color: white;
 }
 
 .groups-text {
@@ -307,6 +311,7 @@ color: black;
   border: 1px dotted gray;
   border-radius: 10px;
   margin-top: 10px;
+  width: 500px;
 }
 
 .group-posts{

@@ -83,12 +83,7 @@ const UserProfile = ({ user }) => {
           <UserInfo user={user} /> {/* Render UserInfo component here */}
           {friends.length > 0 && <FriendsList friends={friends}/>}
         </div>
-        <div className="middle-column">
           <Timeline/>
-        </div>
-        <div className="right-column">
-          <Groups groups={groups} />
-        </div>
       </div>
       {/* Edit Profile Modal */}
       {isEditing && (
