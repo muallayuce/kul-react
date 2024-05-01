@@ -4,7 +4,7 @@ import './UserProfile.css';
 import likeImg from '../../assets/like.png';
 import loveImg from '../../assets/heart.png';
 
-const Timeline = ({ authToken, authTokenType }) => {
+const Timeline = ({ post, authToken, authTokenType }) => {
   const [userPosts, setUserPosts] = useState([]);
   const [commentInputs, setCommentInputs] = useState({}); // State to store comment inputs
 
@@ -59,8 +59,29 @@ const Timeline = ({ authToken, authTokenType }) => {
   
     fetchUserPosts();
   }, []);
+
   
+  const handleDelete = (postId, event) => {
+    event?.preventDefault();
   
+    const requestOptions = {
+      method: 'DELETE',
+      headers: new Headers({
+        'Authorization': authTokenType + ' ' + authToken
+      })
+    }
+  
+    fetch(BASE_URL + `/posts/${postId}`, requestOptions)
+      .then(response => {
+        if(response.ok) {
+          window.location.reload()
+        }
+        throw response
+      })
+      .catch(error => {
+        console.log(error);
+      })
+  }
   
 
   const postComment = async (postId, event) => {
@@ -105,6 +126,7 @@ const Timeline = ({ authToken, authTokenType }) => {
       <h2>Timeline</h2>
       {userPosts.map((post) => (
         <div className="post" key={post.id}>
+          <button onClick={(event) => handleDelete(post.id, event)}>Delete</button>
           <h3>{post.title}</h3>
           <p className='post_content'>{post.content}</p>
           {post.images.map((image) => (
