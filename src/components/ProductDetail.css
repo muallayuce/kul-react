@@ -57,6 +57,7 @@
     line-height: 1.6;
     color: var(--color-2);
     text-align: center;
+    margin-top: 3%;
   }
 
   .close-button {
