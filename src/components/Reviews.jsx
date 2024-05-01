@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import './Reviews.css'
+import { Link } from 'react-router-dom';
 
 function Reviews({ productId }) {
     const [reviews, setReviews] = useState([]);
@@ -40,6 +41,7 @@ function Reviews({ productId }) {
     return (
         <div className="reviews-container">
             <h3 className='reviews-title'>Reviews</h3>
+            <p className='write-review'> <Link to={`/product/${productId}/review`} id='write-review'> Write a review </Link> </p>
             {reviews.map(review => (
                 <div key={review.creator_id} className="review-display">
                     <p className='review-username'> {review.creator_username.username}</p>

@@ -1,61 +1,73 @@
 @font-face {
-    font-family: "Logo";
-    src: url("/src/fonts/eras.TTF") format("truetype");
-  }
+  font-family: "Logo";
+  src: url("/src/fonts/eras.TTF") format("truetype");
+}
 
-  @font-face {
-    font-family: "Slogan";
-    src: url("/src/fonts/mystical.TTF") format("truetype");
-  }
+@font-face {
+  font-family: "Slogan";
+  src: url("/src/fonts/mystical.TTF") format("truetype");
+}
 
-  .reviews-container {
-    height: 50%;
-    width: auto;
-    display: flex;
-    flex-direction: column;
-    margin: 10px;
-    padding: 10px;
-    border: 1px solid #dddfe2;
-    border-radius: 8px;
-    background-color: #fff;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
-  }
-  
-  .review-display {
-    width: auto;
-    margin: 5px;
-    padding: 10px;
-    border: 1px solid #dddfe2;
-    border-radius: 8px;
-    background-color: #fff;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
-  }
-  
-  .reviews-title {
-    font-size: 30px;
-    line-height: 1.6;
-    color: var(--color-2);
-    font-weight: bold;
-    font-family: 'Slogan';
-    text-transform: capitalize;
-    margin-left: 1%;
-  }
-  
-  .review-username {
-    font-size: 20px;
-    line-height: 1.6;
-    color: var(--color-1);
-    font-family: 'Logo';
-  }
-  
-  .review-rating {
-    font-size: 18px;
-    line-height: 1.6;
-    color: var(--color-2);
-  }
+.reviews-container {
+  height: 50%;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #dddfe2;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+}
 
-  .review-comment {
-    font-size: 18px;
-    line-height: 1.6;
-    color: black;
-  }
+.review-display {
+  width: auto;
+  margin: 5px;
+  padding: 10px;
+  border: 1px solid #dddfe2;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.reviews-title {
+  font-size: 30px;
+  line-height: 1.6;
+  color: var(--color-2);
+  font-weight: bold;
+  font-family: 'Slogan';
+  text-transform: capitalize;
+  margin-left: 1%;
+}
+
+#write-review {
+  font-size: 18px;
+  margin-left: 1%;
+  font-family: 'Arial';
+  color: var(--color-2);
+}
+
+#write-review:hover {
+  color: var(--color-1);
+  text-decoration: underline;
+}
+
+.review-username {
+  font-size: 20px;
+  line-height: 1.6;
+  color: var(--color-1);
+  font-family: 'Logo';
+}
+
+.review-rating {
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--color-2);
+}
+
+.review-comment {
+  font-size: 18px;
+  line-height: 1.6;
+  color: black;
+}

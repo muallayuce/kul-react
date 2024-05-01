@@ -20,6 +20,7 @@ import TermsOfService from './components/Footer/TermsOfService';
 import PrivacyPolicy from './components/Footer/PrivacyPolicy';
 import PostProduct from './components/PostProduct';
 import EditProduct from './components/EditProduct';
+import PostReview from './components/PostReview';
 
 // Define your base URL
 export const BASE_URL = 'http://localhost:8000';
@@ -203,6 +204,7 @@ function App() {
           <Route path='/contactus' element={<ContactUs/>}/>
           <Route path='/terms' element={<TermsOfService/>}></Route>
           <Route path='/privacy' element={<PrivacyPolicy/>}></Route>
+          <Route path='/product/:productId/review' element={<PostReview/>} />
         </Routes>
 
         {/* Render login or signup modal based on openModal state */}
