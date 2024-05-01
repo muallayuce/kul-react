@@ -182,11 +182,6 @@ body {
   color: var(--color-1);
 }
 
-
-#trash-icon {
-  color: var(--color-1);
-}
-
 .delete_post_timeline {
   background-color: transparent;
   float: right;
