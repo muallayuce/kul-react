@@ -11,6 +11,7 @@ import './DeleteProduct.css'
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { Tooltip } from '@mui/material';
 
 function ProductDetail() {
   const { productId } = useParams();
@@ -107,8 +108,12 @@ function ProductDetail() {
   };
 
   return (
+    
     <div className="product-container">
-      <h2 className='product-d-name'>{product.product_name}</h2>
+      <div className='title-trash-container'>
+      <h2 className='product-d-name'>{product.product_name} </h2>
+      <DeleteProduct productId={productId} />
+      </div>
       <p className='product-d-price'>${product.price}</p>
       {product.images.length === 1 ? (
         <img
@@ -121,7 +126,7 @@ function ProductDetail() {
           dots={true}
           infinite={true} //Infinite slide
           speed={500} // Slide speed
-          slidesToShow={1} 
+          slidesToShow={1}
           slidesToScroll={1}
           nextArrow={<NextArrow />}
           prevArrow={<PrevArrow />}
@@ -143,7 +148,7 @@ function ProductDetail() {
           alt="Placeholder Image"
         />
       )}
-  
+
       {averageScore !== null ? (
         <div className='product-d-rating'>
           <p> {averageScore.toFixed(1)} {renderStars(averageScore)}</p>
@@ -151,6 +156,7 @@ function ProductDetail() {
       ) : (
         <p className='product-d-rating'>Be the first to write a review!</p>
       )}
+
       <section className='all-details' id='examples'>
         <menu>
           <li><button onClick={() => handleModalChange('description')}>Description</button></li>
@@ -158,13 +164,19 @@ function ProductDetail() {
           <li><button onClick={() => handleModalChange('seller')}>Seller</button></li>
         </menu>
       </section>
-      {renderModalContent()}
-      <Link to="/marketplace"><button className='close-button'>Close</button></Link>
-      <Link to={`/edit/product/${product.id}`}><button className='edit-button'>Edit</button></Link>
-      <DeleteProduct productId={productId} />
+      <Link to='/mycart'>
+        {renderModalContent()}
+        <Link to="/marketplace"><button className='close-button'>Close</button></Link>
+        <Link to={`/edit/product/${product.id}`}><button className='edit-button'>Edit</button></Link>
+        <Tooltip title='Add to cart' placement="top" arrow id="add-cart-tooltip" >
+          <button className="add-cart-button">
+            <i class="bi bi-cart-plus-fill" id='add-cart-icon'></i>
+          </button>
+        </Tooltip>
+      </Link>
     </div>
   );
-  
+
 }
 
 export default ProductDetail;
