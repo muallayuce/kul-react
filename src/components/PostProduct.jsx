@@ -29,7 +29,7 @@ function PostProduct() {
             }));
         }
     };
-    
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -42,7 +42,7 @@ function PostProduct() {
                 published: formData.published,
                 seller_id: formData.seller_id
             };
-    
+
             const response = await fetch('http://localhost:8000/products', {
                 method: 'POST',
                 headers: {
@@ -50,34 +50,36 @@ function PostProduct() {
                 },
                 body: JSON.stringify(productData)
             });
-    
+
             if (!response.ok) {
                 throw new Error('Failed to add product');
             }
-    
+
             const responseData = await response.json();
             console.log('Product added successfully!', responseData);
-    
+
             //Once the product has been added and fetches the product ID and sends the image
             const productId = responseData.id;
-            const imagesFormData = new FormData();
-            imagesFormData.append('image', formData.image);
-    
-            const imagesResponse = await fetch(`http://localhost:8000/products/${productId}/images`, {
-                method: 'POST',
-                body: imagesFormData
-            });
-    
-            if (!imagesResponse.ok) {
-                throw new Error('Failed to add image for the product');
+            if (formData.image) {
+                const imagesFormData = new FormData();
+                imagesFormData.append('image', formData.image);
+
+                const imagesResponse = await fetch(`http://localhost:8000/products/${productId}/images`, {
+                    method: 'POST',
+                    body: imagesFormData
+                });
+
+                if (!imagesResponse.ok) {
+                    throw new Error('Failed to add image for the product');
+                }
             }
-    
+
             navigate(`/product/${productId}`);
         } catch (error) {
             console.error('Error adding product:', error);
         }
     };
-    
+
 
     return (
         <div className="post-product-container">
