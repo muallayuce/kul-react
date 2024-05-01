@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Tooltip } from "@mui/material";
 import { useParams, useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 import './PostReview.css';
 
 const StarRating = ({ initialRating, onChange }) => {
@@ -12,21 +14,22 @@ const StarRating = ({ initialRating, onChange }) => {
   };
 
   return (
-    <div>
+    <div className='review-stars'>
       {[...Array(5)].map((_, index) => {
         const starValue = index + 1;
         return (
           <span
             key={index}
             onClick={() => handleClick(starValue)}
-            style={{ cursor: 'pointer', color: starValue <= rating ? 'gold' : 'gray' }}
+            style={{ cursor: 'pointer', color: starValue <= rating ? 'var(--color-2)' : '#ded0fd'}}
           >
-            ★
+            <FontAwesomeIcon icon={faStar} />
           </span>
         );
       })}
     </div>
-  )};
+  );
+};
 
   function PostReview() {
     const { productId } = useParams();

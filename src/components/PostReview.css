@@ -56,6 +56,11 @@
     margin-left: 1%;
 }
 
+.review-stars {
+    margin-left: 1%;
+    font-size: 25px;
+}
+
 .form-group textarea {
     padding: 10px;
     border: 1px solid #ccc;
