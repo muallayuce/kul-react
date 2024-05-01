@@ -110,15 +110,21 @@ function ProductDetail() {
     <div className="product-container">
       <h2 className='product-d-name'>{product.product_name}</h2>
       <p className='product-d-price'>${product.price}</p>
-      {product.images.length > 0 ? (
+      {product.images.length === 1 ? (
+        <img
+          className="product-d-image"
+          src={`http://127.0.0.1:8000/images/${product.images[0].id}`}
+          alt="Product Image"
+        />
+      ) : product.images.length > 1 ? (
         <Slider
-        dots={true}
-        infinite={true} //Infinite slide
-        speed={500} // Slide speed
-        slidesToShow={1} // Número de imágenes visibles a la vez
-        slidesToScroll={1}
-        nextArrow={<NextArrow />}
-        prevArrow={<PrevArrow />}
+          dots={true}
+          infinite={true} //Infinite slide
+          speed={500} // Slide speed
+          slidesToShow={1} 
+          slidesToScroll={1}
+          nextArrow={<NextArrow />}
+          prevArrow={<PrevArrow />}
         >
           {product.images.map(image => (
             <div key={image.id}>
@@ -137,7 +143,7 @@ function ProductDetail() {
           alt="Placeholder Image"
         />
       )}
-
+  
       {averageScore !== null ? (
         <div className='product-d-rating'>
           <p> {averageScore.toFixed(1)} {renderStars(averageScore)}</p>
@@ -158,6 +164,7 @@ function ProductDetail() {
       <DeleteProduct productId={productId} />
     </div>
   );
+  
 }
 
 export default ProductDetail;
