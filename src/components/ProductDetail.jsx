@@ -121,7 +121,7 @@ function ProductDetail() {
           dots={true}
           infinite={true} //Infinite slide
           speed={500} // Slide speed
-          slidesToShow={1} // Número de imágenes visibles a la vez
+          slidesToShow={1} 
           slidesToScroll={1}
           nextArrow={<NextArrow />}
           prevArrow={<PrevArrow />}
