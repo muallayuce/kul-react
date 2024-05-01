@@ -9,17 +9,20 @@ import { Tooltip } from "@mui/material";
 const SearchBar = ({ setSearchResults }) => {
     const [input, setInput] = useState('');
 
-    const fetchData = (value) => {
-        fetch(`${BASE_URL}/products/?product_name=${encodeURIComponent(value)}`)
-            .then((response) => response.json())
-            .then((data) => {
-                setSearchResults(data); // Utiliza setSearchResults de las props
-            })
-            .catch((error) => {
-                console.error("Error fetching search results:", error);
-            });
-    };
-
+const fetchData = (value) => {
+    fetch(`${BASE_URL}/products/?product_name=${encodeURIComponent(value)}`)
+        .then((response) => response.json())
+        .then((data) => {
+            const firstImage = data.map(product => ({
+                ...product,
+                images: product.images.length > 0 ? [product.images[0]] : [] 
+            }));
+            setSearchResults(firstImage);
+        })
+        .catch((error) => {
+            console.error("Error fetching search results:", error);
+        });
+};
 
     const handleChange = (value) => {
         setInput(value);
@@ -42,6 +45,13 @@ const SearchBar = ({ setSearchResults }) => {
                     <Tooltip title='Sell a product' placement="top" arrow id="sell-tooltip" >
                         <button className="new-product-button">
                         <i class="bi bi-bag-plus-fill" id='new-product'></i>
+                        </button>
+                    </Tooltip>
+                </Link>
+                <Link to='/mycart'>
+                    <Tooltip title='My cart' placement="top" arrow id="kart-tooltip" >
+                        <button className="kart-button">
+                        <i class="bi bi-cart4" id='kart-icon'></i>
                         </button>
                     </Tooltip>
                 </Link>
