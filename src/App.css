@@ -181,3 +181,32 @@
 #chat_button:hover {
   color: var(--color-2);
 }
+
+
+.app_posts {
+  display: flex;
+}
+
+.sidebar {
+  height: 40px;
+}
+
+.bi-person-video2 {
+  color: #352473;
+  font-size: xxx-large;
+}
+
+.post_container {
+  flex: 1;
+  padding: 0 20px; /* Adjust padding as needed */
+}
+
+.create_posts {
+  background-color: var(--color-1);
+  color: white;
+  width: 60px;
+  margin-top: 20px;
+  margin-left: 20px;
+  float: right;
+
+}

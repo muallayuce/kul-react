@@ -1,3 +1,4 @@
+// UserProfile.js
 import React, { useState, useEffect } from 'react';
 import Timeline from './Timeline';
 import FriendsList from './FriendsList';
@@ -78,21 +79,17 @@ const UserProfile = ({ user }) => {
     <div className="user-profile">
       <div className="profile-body">
         <div className="left-column">
-          {/* <button className='edit-profile' onClick={handleEdit}>Edit Profile</button> */}
+          <button className='edit-profile' onClick={handleEdit}>Edit Profile</button>
           <UserInfo user={user} /> {/* Render UserInfo component here */}
           {friends.length > 0 && <FriendsList friends={friends}/>}
         </div>
-        <div className="middle-column">
           <Timeline/>
-        </div>
-        <div className="right-column">
-          <Groups groups={groups} />
-        </div>
       </div>
       {/* Edit Profile Modal */}
       {isEditing && (
         <EditProfileModal
           user={user}
+          onClick={handleEdit}
           onSave={handleSave}
           onCancel={handleCancel}
         />

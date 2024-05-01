@@ -21,6 +21,7 @@ import PrivacyPolicy from './components/Footer/PrivacyPolicy';
 import PostProduct from './components/PostProduct';
 import EditProduct from './components/EditProduct';
 import PostReview from './components/PostReview';
+import Groups from './components/UserProfile/Groups';
 
 // Define your base URL
 export const BASE_URL = 'http://localhost:8000';
@@ -185,13 +186,22 @@ function App() {
             path="/posts"
             element={
               isLoggedIn && posts.length > 0 ? (
+                <>
+                <button className='create_posts'><i class="bi bi-pencil-square"></i></button>
                 <div className='app_posts'>
-                  {posts.map(post => (
-                    <Post key={post.id} post={post} authToken={token} userId={userId} />
-                  ))}
+                  <div className='sidebar'>
+                    <Link to="/groups"><i className="bi bi-person-video2" title='Groups'></i></Link>
+                  </div>
+                  <div className='post_container'>
+                    {posts.map(post => (
+                      <Post key={post.id} post={post} authToken={token} userId={userId} />
+                    ))}
+                  </div>
                 </div>
+                </>
               ) : null
             }
+          
           />
           <Route path='/login' element={isLoggedIn ? <Navigate to="/posts" /> : <Login onLogin={handleLogin} />} />
           <Route path='/signup' element={<Signup onSignup={handleSignup} />} />
@@ -205,6 +215,7 @@ function App() {
           <Route path='/terms' element={<TermsOfService/>}></Route>
           <Route path='/privacy' element={<PrivacyPolicy/>}></Route>
           <Route path='/product/:productId/review' element={<PostReview/>} />
+          <Route path='/groups' element={<Groups/>}></Route>
         </Routes>
 
         {/* Render login or signup modal based on openModal state */}

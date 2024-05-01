@@ -96,6 +96,7 @@ const Groups = () => {
 
   return (
     <div className="groups">
+      <button className='create_groups'>Create Groups</button>
       <h2 className="groups-text">GROUPS</h2>
       {groups.map((group, index) => (
         <div key={group.id} className="group">
