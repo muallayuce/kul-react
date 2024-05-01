@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Tooltip } from "@mui/material";
 import { useParams, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -31,7 +31,7 @@ const StarRating = ({ initialRating, onChange }) => {
   );
 };
 
-  function PostReview() {
+function PostReview() {
     const { productId } = useParams();
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
@@ -39,6 +39,7 @@ const StarRating = ({ initialRating, onChange }) => {
         score: 0,
         comment: ''
     });
+    const [error, setError] = useState('');
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -71,11 +72,15 @@ const StarRating = ({ initialRating, onChange }) => {
                 })
             });
             if (!response.ok) {
+                if (response.status === 409) {
+                    throw new Error('You have already created a review for this product');
+                }
                 throw new Error('Failed to post review');
             }
             console.log('Review posted successfully!');
             navigate(`/product/${productId}`);
         } catch (error) {
+            setError(error.message);
             console.error('Error posting review:', error);
         }
     };
@@ -84,6 +89,7 @@ const StarRating = ({ initialRating, onChange }) => {
         <div className="post-review-container">
             <h2 className='post-review-title'>Your review</h2>
             <form onSubmit={handleSubmit}>
+                {error && <p className="error-message-review">{error}</p>}
                 <div className="form-group">
                     <label htmlFor="creator_id">Your ID:</label> <br />
                     <input type="text" id="creator_id" name="creator_id" value={formData.creator_id} onChange={handleChange} />
@@ -93,7 +99,7 @@ const StarRating = ({ initialRating, onChange }) => {
                     <StarRating initialRating={formData.score} onChange={handleRatingChange} />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="comment">Comment:</label> <br />
+                    <label htmlFor="comment">Review:</label> <br />
                     <textarea id="comment" name="comment" value={formData.comment} onChange={handleChange} />
                 </div>
                 <Tooltip title='Submit review' placement="top" arrow id='review-tooltip'>
