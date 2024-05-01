@@ -19,6 +19,28 @@ function Post({ post, authToken, authTokenType}) {
     setComments(post.comments)
   }, [])
 
+  const handleDelete = (event) => {
+    event?.preventDefault();
+
+    const requestOptions = {
+      method: 'DELETE',
+      headers: new Headers({
+        'Authorization': authTokenType + ' ' + authToken
+      })
+    }
+
+    fetch(BASE_URL + `/posts/${post.id}`, requestOptions)
+      .then(response => {
+        if(response.ok) {
+          window.location.reload()
+        }
+        throw response
+      })
+      .catch(error => {
+        console.log(error);
+      })
+  }
+
   function formatTimestamp(timestamp) {
     const date = new Date(timestamp);
     const day = date.getDate().toString().padStart(2, '0');
@@ -84,6 +106,7 @@ function Post({ post, authToken, authTokenType}) {
         <div>
           <p className="post_username">{post.username}</p>
           <p className="post_timestamp">{formatTimestamp(post.timestamp)}</p>
+          <button onClick={handleDelete}>Delete</button>
         </div>
       </div>
       <p className="post_content">{post.content}</p>
