@@ -116,11 +116,11 @@ function EditProduct() {
                 </div>
                 <div className="form-group">
                     <label htmlFor="price">Price:</label> <br />
-                    <input type="number" id="price" name="price" value={formData.price} onChange={handleChange} />
+                    <input type="number" id="price" name="price" min="0" value={formData.price} onChange={handleChange} />
                 </div>
                 <div className="form-group">
                     <label htmlFor="quantity">Quantity:</label> <br />
-                    <input type="number" id="quantity" name="quantity" value={formData.quantity} onChange={handleChange} />
+                    <input type="number" id="quantity" name="quantity" min="0" value={formData.quantity} onChange={handleChange} />
                 </div>
                 <div className="form-group">
                     <label htmlFor="image">Image:</label> <br />
