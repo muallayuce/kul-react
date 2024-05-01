@@ -11,7 +11,8 @@ function EditProduct() {
         product_name: '',
         description: '',
         price: 0,
-        quantity: 0
+        quantity: 0,
+        image: null
     });
 
     useEffect(() => {
@@ -38,11 +39,18 @@ function EditProduct() {
     
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prevState => ({
-            ...prevState,
-            [name]: value
-        }));
+        const { name, value, files } = e.target;
+        if (name === 'image') {
+            setFormData(prevState => ({
+                ...prevState,
+                [name]: files[0]
+            }));
+        } else {
+            setFormData(prevState => ({
+                ...prevState,
+                [name]: value
+            }));
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -52,17 +60,40 @@ function EditProduct() {
                 console.error('No product ID found');
                 return;
             }
-            const { product_name, description, price, quantity } = formData;
-            const url = `http://localhost:8000/products/${id}?product_name=${product_name}&description=${description}&price=${price}&quantity=${quantity}`;
-            const response = await fetch(url, {
+            const { product_name, description, price, quantity, image } = formData;
+
+            // Update product data
+            const productUpdateData = {
+                product_name,
+                description,
+                price,
+                quantity
+            };
+            const updateUrl = `http://localhost:8000/products/${id}?product_name=${product_name}&description=${description}&price=${price}&quantity=${quantity}`;
+            const updateResponse = await fetch(updateUrl, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
-                }
+                },
             });
-            if (!response.ok) {
-                throw new Error('Failed to update product');
+            if (!updateResponse.ok) {
+                throw new Error('Failed to update product data');
             }
+
+            // Upload image if available
+            if (image) {
+                const formData = new FormData();
+                formData.append('image', image);
+                const imageUrl = `http://localhost:8000/products/${id}/images`;
+                const imageResponse = await fetch(imageUrl, {
+                    method: 'POST',
+                    body: formData
+                });
+                if (!imageResponse.ok) {
+                    throw new Error('Failed to upload image');
+                }
+            }
+
             console.log('Product updated successfully!');
             navigate(`/product/${id}`);
         } catch (error) {
@@ -91,9 +122,13 @@ function EditProduct() {
                     <label htmlFor="quantity">Quantity:</label> <br />
                     <input type="number" id="quantity" name="quantity" value={formData.quantity} onChange={handleChange} />
                 </div>
+                <div className="form-group">
+                    <label htmlFor="image">Image:</label> <br />
+                    <input type="file" id="image" name="image" accept="image/*" onChange={handleChange} />
+                </div>
                 <Tooltip title='Update' placement="top" arrow id='update-tooltip'>
                     <button className='update-button' type="submit">
-                    <i className="bi bi-bag-check-fill" id='post-update'></i>
+                        <i className="bi bi-bag-check-fill" id='post-update'></i>
                     </button>
                 </Tooltip>
             </form>
