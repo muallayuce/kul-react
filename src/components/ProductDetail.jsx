@@ -170,7 +170,7 @@ function ProductDetail() {
         <Link to={`/edit/product/${product.id}`}><button className='edit-button'>Edit</button></Link>
         <Tooltip title='Add to cart' placement="top" arrow id="add-cart-tooltip" >
           <button className="add-cart-button">
-            <i class="bi bi-cart-plus-fill" id='add-cart-icon'></i>
+            <i class="bi bi-cart-plus" id='add-cart-icon'></i>
           </button>
         </Tooltip>
       </Link>
