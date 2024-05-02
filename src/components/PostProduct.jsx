@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Tooltip } from "@mui/material";
 import { useNavigate } from 'react-router-dom';
 import './PostProduct.css';
+import { UserContext } from '../context/UserContext';
 
 function PostProduct() {
     const navigate = useNavigate();
@@ -11,9 +12,9 @@ function PostProduct() {
         price: 0,
         quantity: 0,
         published: true,
-        seller_id: 0,
         image: null,
     });
+    const [token] = useContext(UserContext);
 
     const handleChange = (e) => {
         const { name, value, files } = e.target;
@@ -40,12 +41,12 @@ function PostProduct() {
                 price: formData.price,
                 quantity: formData.quantity,
                 published: formData.published,
-                seller_id: formData.seller_id
             };
 
-            const response = await fetch('http://localhost:8000/products', {
+            const response = await fetch('http://localhost:8000/products/', {
                 method: 'POST',
                 headers: {
+                    'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(productData)
@@ -100,10 +101,6 @@ function PostProduct() {
                 <div className="form-group">
                     <label htmlFor="quantity">Quantity:</label> <br />
                     <input type="number" id="quantity" name="quantity" min="0" value={formData.quantity} onChange={handleChange} />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="seller_id">Seller ID:</label> <br />
-                    <input type="number" id="seller_id" name="seller_id" min="0" value={formData.seller_id} onChange={handleChange} />
                 </div>
                 <div className="form-group">
                     <label htmlFor="image">Image:</label> <br />
