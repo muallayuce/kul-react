@@ -21,6 +21,8 @@ const Groups = () => {
     created_at: new Date().toISOString()
   });
   const [newPostContent, setNewPostContent] = useState('');
+  const [openCreatePost, setOpenCreatePost] = useState(false);
+  const [selectedGroup, setSelectedGroup] = useState(null);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -59,7 +61,12 @@ const Groups = () => {
     }
   };
 
-  const handleCreatePost = async (groupId) => {
+  const handleCreatePost = async () => {
+    if (!newPostContent) {
+      alert('Please provide post content.');
+      return;
+    }
+
     try {
       const response = await fetch(`${BASE_URL}/group_posts/`, {
         method: 'POST',
@@ -68,7 +75,7 @@ const Groups = () => {
         },
         body: JSON.stringify({
           content: newPostContent,
-          group_id: groupId,
+          group_id: selectedGroup.id,
           author_id: parseInt(userId),
           created_at: new Date().toISOString()
         })
@@ -76,6 +83,7 @@ const Groups = () => {
       if (response.ok) {
         fetchGroups();
         setNewPostContent('');
+        handleCloseCreatePost();
       } else {
         throw new Error('Failed to create post');
       }
@@ -181,6 +189,15 @@ const Groups = () => {
     setOpen(true);
   };
 
+  const handleCloseCreatePost = () => {
+    setOpenCreatePost(false);
+  };
+
+  const handleOpenCreatePost = (group) => {
+    setSelectedGroup(group);
+    setOpenCreatePost(true);
+  };
+
   return (
     <div className="groups">
       <Button variant="outlined" onClick={handleOpen}>
@@ -232,16 +249,7 @@ const Groups = () => {
           </div>
           <p className='group-description'>Description: {group.description}</p>
           <div className="group-add-post">
-            <TextField
-              id={`postContent_${group.id}`}
-              name={`postContent_${group.id}`}
-              label="Add Post"
-              type="text"
-              value={newPostContent}
-              onChange={(e) => setNewPostContent(e.target.value)}
-              className="modal-input"
-            />
-            <Button onClick={() => handleCreatePost(group.id)} variant="contained" color="primary">Post</Button>
+            <Button onClick={() => handleOpenCreatePost(group)} variant="contained" color="primary">Add Post</Button>
           </div>
           <div className="group-posts">GROUP POSTS
             {group.posts &&
@@ -259,6 +267,22 @@ const Groups = () => {
           )}
         </div>
       ))}
+      <Dialog open={openCreatePost} onClose={handleCloseCreatePost} className="modal-container">
+        <DialogTitle className="modal-title">Create Post</DialogTitle>
+        <TextField
+          id="postContent"
+          name="postContent"
+          label="Post Content"
+          type="text"
+          value={newPostContent}
+          onChange={(e) => setNewPostContent(e.target.value)}
+          className="modal-input"
+        />
+        <DialogActions className="modal-actions">
+          <Button onClick={handleCloseCreatePost}>Cancel</Button>
+          <Button onClick={handleCreatePost} variant="contained" color="primary">Post</Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };
