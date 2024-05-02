@@ -1,0 +1,78 @@
+:root{
+    --color-1:#352473;
+    --color-2:#724fc3; 
+    --color-3:#d90d6c;
+  }
+
+
+  /* Textarea for post content */
+  .post-textarea {
+    background-color:transparent;
+    color: var(--color-1);
+    width: 100%;
+    min-height: 200px;
+    margin-bottom: 20px;
+    border-radius: 8px; 
+    border-color: #352473;
+    font-size: 20px; 
+    margin-top: 20px;
+  }
+
+  .post-textarea:hover {
+    border-color: var(--color-1);
+  }
+ 
+ 
+
+  /* Error message */
+  .error-message {
+    color: #ff0000; /* Red color */
+    font-size: 14px; /* Adjusted font size */
+    margin-bottom: 10px; /* Increased margin */
+  }
+  
+  /* Loading message */
+  .loading-message {
+    font-style: italic;
+  }
+  
+  /* Button container */
+  .button-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  /* Button styles */
+  .create-post-button,
+  .cancel-button {
+    padding: 12px 24px; /* Increased padding */
+    margin: 0 10px; /* Adjusted margin */
+    border: none;
+    border-radius: 8px; /* Increased border radius */
+    cursor: pointer;
+    font-size: 16px; /* Increased font size */
+  }
+  
+  .create-post-button {
+    background-color: #007bff; /* Blue color */
+    color: #fff; /* White color */
+  }
+  
+  .create-post-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  
+  .cancel-button {
+    background-color: #ccc; /* Gray color */
+    color: #333; /* Dark gray color */
+  }
+  
+  .cancel-button:hover {
+    background-color: #bbb; /* Lighter gray on hover */
+  }
+  
+  /* Modal styles */
+  .MuiDialog-paper {
+    width: 100%; 
+    padding: 20px; /* Increased padding */
+  }
