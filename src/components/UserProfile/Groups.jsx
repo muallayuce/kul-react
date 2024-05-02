@@ -20,6 +20,7 @@ const Groups = () => {
     creator_id: userId ? parseInt(userId) : 0,
     created_at: new Date().toISOString()
   });
+  const [newPostContent, setNewPostContent] = useState('');
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -55,6 +56,32 @@ const Groups = () => {
     } catch (error) {
       console.error(error);
       alert('Failed to create group');
+    }
+  };
+
+  const handleCreatePost = async (groupId) => {
+    try {
+      const response = await fetch(`${BASE_URL}/group_posts/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          content: newPostContent,
+          group_id: groupId,
+          author_id: parseInt(userId),
+          created_at: new Date().toISOString()
+        })
+      });
+      if (response.ok) {
+        fetchGroups();
+        setNewPostContent('');
+      } else {
+        throw new Error('Failed to create post');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Failed to create post');
     }
   };
 
@@ -204,6 +231,18 @@ const Groups = () => {
             )}
           </div>
           <p className='group-description'>Description: {group.description}</p>
+          <div className="group-add-post">
+            <TextField
+              id={`postContent_${group.id}`}
+              name={`postContent_${group.id}`}
+              label="Add Post"
+              type="text"
+              value={newPostContent}
+              onChange={(e) => setNewPostContent(e.target.value)}
+              className="modal-input"
+            />
+            <Button onClick={() => handleCreatePost(group.id)} variant="contained" color="primary">Post</Button>
+          </div>
           <div className="group-posts">GROUP POSTS
             {group.posts &&
               group.posts.map((post) => (
