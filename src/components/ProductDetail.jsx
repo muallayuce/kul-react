@@ -18,7 +18,10 @@ function ProductDetail() {
   const [product, setProduct] = useState(null);
   const [averageScore, setAverageScore] = useState(null);
   const [openModal, setOpenModal] = useState('description');
-
+ const isSeller = (product) => {
+  console.log('Getting user id...', localStorage.getItem("user_id"), product);
+  return localStorage.getItem("user_id")==product.user.id;
+ };
   const PrevArrow = ({ onClick }) => (
     <button className="slick-arrow prev" onClick={onClick}>
       <FontAwesomeIcon icon={faArrowLeft} />
@@ -112,7 +115,7 @@ function ProductDetail() {
     <div className="product-container">
       <div className='title-trash-container'>
       <h2 className='product-d-name'>{product.product_name} </h2>
-      <DeleteProduct productId={productId} />
+      {isSeller(product) && <DeleteProduct productId={productId} />}
       </div>
       <p className='product-d-price'>${product.price}</p>
       {product.images.length === 1 ? (

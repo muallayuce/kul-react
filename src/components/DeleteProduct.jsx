@@ -1,18 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Tooltip } from "@mui/material";
 import './DeleteProduct.css';
+import { UserContext } from '../context/UserContext';
 
 function DeleteProduct({ productId }) {
     const navigate = useNavigate();
     const [confirmDelete, setConfirmDelete] = useState(false);
+    const [token] = useContext(UserContext);
 
     const handleDelete = async () => {
         console.log('Deleting product...');
         try {
             const response = await fetch(`http://localhost:8000/products/${productId}`, {
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
             });
+
             if (!response.ok) {
                 throw new Error('Failed to delete product');
             }
