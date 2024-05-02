@@ -74,13 +74,33 @@ const UserProfile = ({ user }) => {
     setIsEditing(false);
   };
 
+  const handleUnfriend = async (friendId) => {
+    try {
+      const response = await fetch(`http://localhost:8000/friends/${friendId}`, {
+        method: 'DELETE',
+      });
+      if (response.ok) {
+        // Remove the unfriended friend from the list
+        const updatedFriends = friends.filter((friend) => friend.id !== friendId);
+        setFriends(updatedFriends);
+        console.log(`Unfriended user with ID: ${friendId}`);
+      } else {
+        throw new Error('Failed to unfriend user');
+      }
+    } catch (error) {
+      console.error('Error unfriending user:', error.message);
+      alert('Failed to unfriend user');
+    }
+  };
+  
+
   return (
     <div className="user-profile">
       <div className="profile-body">
         <div className="left-column">
           <button className='edit-profile' onClick={handleEdit}>Edit Profile</button>
           <UserInfo user={user} /> {/* Render UserInfo component here */}
-          {friends.length > 0 && <FriendsList friends={friends}/>}
+          {friends.length > 0 && <FriendsList friends={friends} onUnfriend={handleUnfriend}/>}
         </div>
           <Timeline/>
       </div>
