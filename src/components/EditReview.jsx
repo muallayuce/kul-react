@@ -94,6 +94,23 @@ const { productId, reviewId } = useParams();;
     }
   };
 
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const handleDelete = async () => {
+    try {
+      const response = await fetch(`http://localhost:8000/reviews/${reviewId}`, {
+        method: 'DELETE'
+      });
+      if (!response.ok) {
+        throw new Error('Failed to delete review');
+      }
+      console.log('Review deleted successfully!');
+      navigate(`/product/${productId}`);
+    } catch (error) {
+      setError(error.message);
+      console.error('Error deleting review:', error);
+    }
+  };
+
   return (
     <div className="edit-review-container">
       <h2 className='edit-review-title'>Edit your review</h2>
@@ -107,11 +124,32 @@ const { productId, reviewId } = useParams();;
           <label htmlFor="comment">Review:</label> <br />
           <textarea id="comment" name="comment" value={formData.comment} onChange={handleChange} />
         </div>
+        <div className='delete-edit-buttons-container'>
         <Tooltip title='Update review' placement="left" arrow id='edit-review-tooltip'>
           <button className='edit-review-button' type="submit">
             <i className="bi bi-pencil-square" id='edit-review-icon'></i>
           </button>
         </Tooltip>
+        {!confirmDelete ? (
+        <Tooltip title='Delete review' placement="left" arrow id='delete-review-tooltip'>
+        <button className='delete-review-button' onClick={() => setConfirmDelete(true)}>
+          <i className="bi bi-trash3-fill" id='delete-review-icon'></i>
+        </button>
+      </Tooltip>
+       ) : (
+        <div className='delete-check-container'>
+            <p className='delete-check'>Are you sure you want to delete this review?</p>
+            <div className='yes-no-container'>
+            <button className='yes-button' onClick={handleDelete}>
+            <i className="bi bi-check-circle-fill" id='check-icon'></i>
+            </button>
+            <button className='no-button' onClick={() => setConfirmDelete(false)}>
+                <i className="bi bi-x-circle-fill" id='x-icon'></i>
+                </button>
+            </div>
+        </div>
+    )}
+      </div>
       </form>
     </div>
   );
