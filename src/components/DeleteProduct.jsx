@@ -33,7 +33,7 @@ function DeleteProduct({ productId }) {
     return (
         <div>
             {!confirmDelete ? (
-                <Tooltip title='Delete' placement="top" arrow id='delete-tooltip'>
+                <Tooltip title='Delete' placement='bottom' arrow id='delete-tooltip'>
                     <button className='delete-button' onClick={() => setConfirmDelete(true)}>
                         <i className="bi bi-trash3-fill" id='trash-icon'></i>
                     </button>

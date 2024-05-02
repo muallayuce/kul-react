@@ -252,8 +252,44 @@
   font-size: 18px;
 }
 
-.title-trash-container {
+.title-buttons-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.edit-delete-container{
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-product-button {
+  background-color: var(--color-1);
+  margin: 10px;
+  font-family: "Logo", sans-serif;
+  color: #fafafa;
+  float: right;
+  border-radius: 100%;
+  width: 70px;
+  height: 65px;
+}
+
+.edit-product-button:hover {
+  background-color: var(--color-2);
+  border: none;
+  transform: scale(1.3);
+}
+
+#edit-product-icon {
+  color: white;
+  font-size: 30px;
+}
+
+#edit-product-icon {
+  color: white;
+  font-size: 30px;
+}
+
+#edit-product-tooltip .MuiTooltip-tooltip {
+  font-size: 18px;
 }
