@@ -1,22 +1,27 @@
-// EditProfileModal.js
+// EditProfileModal.jsx
 import React, { useState } from 'react';
 import './UserProfile.css';
-
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
 
 const BASE_URL = 'http://localhost:8000';
 
 const EditProfileModal = ({ user, onSave, onCancel }) => {
-  const [editedUser, setEditedUser] = useState({ ...user });
+  const initialUser = user || { username: '', email: '', password: '' };
+  const [editedUser, setEditedUser] = useState(initialUser);
+  const userId = localStorage.getItem("user_id");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setEditedUser({ ...editedUser, [name]: value });
+    setEditedUser((prevUser) => ({
+      ...prevUser,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${BASE_URL}/users/${user.id}`, {
+      const response = await fetch(`${BASE_URL}/users/${userId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -26,7 +31,6 @@ const EditProfileModal = ({ user, onSave, onCancel }) => {
       if (!response.ok) {
         throw new Error('Failed to update user profile');
       }
-      // Optionally, you can handle success or notify the user
       onSave(editedUser);
     } catch (error) {
       console.error('Error updating user profile:', error.message);
@@ -34,10 +38,9 @@ const EditProfileModal = ({ user, onSave, onCancel }) => {
   };
 
   return (
-    <div className="modal">
-      <div className="modal-content">
-        <span className="close" onClick={onCancel}>&times;</span>
-        <h2>Edit Profile</h2>
+    <Dialog open={true} onClose={onCancel}>
+      <DialogTitle>Edit Profile</DialogTitle>
+      <DialogContent>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="username">Username:</label>
@@ -52,12 +55,12 @@ const EditProfileModal = ({ user, onSave, onCancel }) => {
             <input type="password" id="password" name="password" value={editedUser.password} onChange={handleChange} />
           </div>
           <div className="button-group">
-            <button type="submit">Save</button>
-            <button type="button" onClick={onCancel}>Cancel</button>
+            <Button type="submit">Save</Button>
+            <Button type="button" onClick={onCancel}>Cancel</Button>
           </div>
         </form>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 };
 

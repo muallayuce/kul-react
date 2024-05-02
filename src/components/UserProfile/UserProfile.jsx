@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import Timeline from './Timeline';
 import FriendsList from './FriendsList';
 import EditProfileModal from './EditProfileModal';
-import Groups from './Groups';
 import './UserProfile.css';
 import UserInfo from './UserInfo';
 
@@ -89,7 +88,6 @@ const UserProfile = ({ user }) => {
       {isEditing && (
         <EditProfileModal
           user={user}
-          onClick={handleEdit}
           onSave={handleSave}
           onCancel={handleCancel}
         />
