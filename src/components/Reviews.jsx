@@ -42,7 +42,6 @@ function Reviews({ productId }) {
             }
         }
         return stars;
-
     };
 
     return (
@@ -51,6 +50,11 @@ function Reviews({ productId }) {
             {!hasReviewd(reviews) &&
                 <p className='write-review'>
                     <Link to={`/product/${productId}/review`} id='write-review'> Write a review </Link>
+                </p>
+            }
+            {hasReviewd(reviews) &&
+                <p className='write-review'>
+                    <Link to={`/product/${productId}/review/${hasReviewd(reviews).id}/edit`} id='write-review'> Edit your review </Link>
                 </p>
             }
             {reviews.map(review => (
