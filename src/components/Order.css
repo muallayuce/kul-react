@@ -130,6 +130,13 @@
     margin-bottom: 10px;
 }
 
+.orderline-image {
+    max-width: 95%;
+    object-fit: contain;
+    border-radius: 5%;
+    max-block-size: -webkit-fill-available;
+}
+
 .product-name {
     font-size: 28px;
     line-height: 1.6;

@@ -66,21 +66,21 @@ function Orders() {
                     <button className='pay-button' onClick={() => console.log('Paying...')}><i class="bi bi-cash"></i>Pay</button>
                     <h3 className='mycart-tile'> <i class="bi bi-cart4"></i> My Cart:</h3>
                     <div className='orderlines-container'>
-                        {order.order_lines.map((line, index) => (
-                            <div key={index} className="orderline">
-                                Product: {line.product_id} | Quantity: {line.quantity} | Price: {line.total}
-                                {productsDetails[line.product_id] && (
-                                    <div className="order-header">
-                                        <div className="product-image-container">
-                                            {productsDetails[line.product_id].images.length > 0 ? (
-                                                <img
-                                                    className="product_image"
+                    {order.order_lines.map((line, index) => (
+                        <div key={index} className="orderline">
+                            {productsDetails[line.product_id] && (
+                                <div className="order-header">
+                                    <p>Product: {productsDetails[line.product_id].product_name} | Quantity: {line.quantity} | Price: ${productsDetails[line.product_id].price}</p>
+                                    <div className="product-image-container">
+                                        {productsDetails[line.product_id].images.length > 0 ? (
+                                            <img
+                                                    className="orderline-image"
                                                     src={`http://127.0.0.1:8000/${productsDetails[line.product_id].images[0].file_path}`}
                                                     alt="Product Image"
                                                 />
                                             ) : (
                                                 <img
-                                                    className="product_image"
+                                                    className="orderline-image"
                                                     src={NoImage}
                                                     alt="Placeholder Image"
                                                 />
