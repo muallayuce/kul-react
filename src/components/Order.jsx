@@ -66,14 +66,13 @@ function Orders() {
                     <button className='pay-button' onClick={() => console.log('Paying...')}><i class="bi bi-cash"></i>Pay</button>
                     <h3 className='mycart-tile'> <i class="bi bi-cart4"></i> My Cart:</h3>
                     <div className='orderlines-container'>
-                    {order.order_lines.map((line, index) => (
-                        <div key={index} className="orderline">
-                            {productsDetails[line.product_id] && (
-                                <div className="order-header">
-                                    <p>Product: {productsDetails[line.product_id].product_name} | Quantity: {line.quantity} | Price: ${productsDetails[line.product_id].price}</p>
-                                    <div className="product-image-container">
-                                        {productsDetails[line.product_id].images.length > 0 ? (
-                                            <img
+                        {order.order_lines.map((line, index) => (
+                            <div key={index} className="orderline">
+                                {productsDetails[line.product_id] && (
+                                    <div className="line-container">
+                                        <div className="orderline-image-container">
+                                            {productsDetails[line.product_id].images.length > 0 ? (
+                                                <img
                                                     className="orderline-image"
                                                     src={`http://127.0.0.1:8000/${productsDetails[line.product_id].images[0].file_path}`}
                                                     alt="Product Image"
@@ -86,7 +85,10 @@ function Orders() {
                                                 />
                                             )}
                                         </div>
+                                        <div className='orderline-text-container'>
+                                        <p>Product: {productsDetails[line.product_id].product_name} | Quantity: {line.quantity} | Price: ${productsDetails[line.product_id].price}</p>
                                         <p className="product-price">Subtotal: ${line.total}</p>
+                                        </div>
                                     </div>
                                 )}
                             </div>
