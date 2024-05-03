@@ -93,6 +93,9 @@ function Marketplace({ products }) {
                   <div className="product_rating">
                     {averageScores[product.id] !== undefined ? renderStars(averageScores[product.id]) : ''}
                   </div>
+                  {averageScores[product.id] === null && (
+                    <div className="product_rating">Be the first to write a review!</div>
+                  )}
                 </div>
               </Link>
             </div>
