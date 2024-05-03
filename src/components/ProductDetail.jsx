@@ -18,7 +18,10 @@ function ProductDetail() {
   const [product, setProduct] = useState(null);
   const [averageScore, setAverageScore] = useState(null);
   const [openModal, setOpenModal] = useState('description');
-
+ const isSeller = (product) => {
+  console.log('Getting user id...', localStorage.getItem("user_id"), product);
+  return localStorage.getItem("user_id")==product.user.id;
+ };
   const PrevArrow = ({ onClick }) => (
     <button className="slick-arrow prev" onClick={onClick}>
       <FontAwesomeIcon icon={faArrowLeft} />
@@ -110,11 +113,21 @@ function ProductDetail() {
   return (
     
     <div className="product-container">
-      <div className='title-trash-container'>
+      <div className='title-buttons-container'>
+        <div className='name-price-container'>
       <h2 className='product-d-name'>{product.product_name} </h2>
-      <DeleteProduct productId={productId} />
-      </div>
       <p className='product-d-price'>${product.price}</p>
+      </div>
+      <div className='edit-delete-container'>
+      {isSeller(product) && <Link to={`/edit/product/${product.id}`}>
+        <Tooltip title='Edit product' placement="top" arrow id='edit-product-tooltip'>
+                    <button className='edit-product-button'>
+                        <i className="bi bi-pencil-square" id='edit-product-icon'></i>
+                    </button>
+                </Tooltip></Link>}
+      {isSeller(product) && <DeleteProduct productId={productId} />}
+      </div>
+      </div>
       {product.images.length === 1 ? (
         <img
           className="product-d-image"
@@ -164,16 +177,13 @@ function ProductDetail() {
           <li><button onClick={() => handleModalChange('seller')}>Seller</button></li>
         </menu>
       </section>
-      <Link to='/mycart'>
         {renderModalContent()}
         <Link to="/marketplace"><button className='close-button'>Close</button></Link>
-        <Link to={`/edit/product/${product.id}`}><button className='edit-button'>Edit</button></Link>
         <Tooltip title='Add to cart' placement="top" arrow id="add-cart-tooltip" >
           <button className="add-cart-button">
             <i class="bi bi-cart-plus" id='add-cart-icon'></i>
           </button>
         </Tooltip>
-      </Link>
     </div>
   );
 
