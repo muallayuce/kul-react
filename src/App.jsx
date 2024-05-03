@@ -22,6 +22,7 @@ import PostProduct from './components/PostProduct';
 import EditProduct from './components/EditProduct';
 import PostReview from './components/PostReview';
 import Groups from './components/UserProfile/Groups';
+import EditReview from './components/EditReview';
 
 // Define your base URL
 export const BASE_URL = 'http://localhost:8000';
@@ -215,6 +216,7 @@ function App() {
           <Route path='/terms' element={<TermsOfService/>}></Route>
           <Route path='/privacy' element={<PrivacyPolicy/>}></Route>
           <Route path='/product/:productId/review' element={<PostReview/>} />
+          <Route path='/product/:productId/review/:reviewId/edit' element={<EditReview />} />
           <Route path='/groups' element={<Groups/>}></Route>
         </Routes>
 

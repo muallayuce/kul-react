@@ -1,0 +1,154 @@
+@font-face {
+    font-family: "Logo";
+    src: url("/src/fonts/eras.TTF") format("truetype");
+}
+
+@font-face {
+    font-family: "Lucida";
+    src: url("/src/fonts/lucida.TTF") format("truetype");
+}
+
+@font-face {
+    font-family: "Slogan";
+    src: url("/src/fonts/mystical.TTF") format("truetype");
+}
+
+.edit-review-container {
+    height: 50%;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #dddfe2;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.edit-review-title {
+    font-family: 'Slogan';
+    font-size: 30px;
+    margin-bottom: 20px;
+    color: var(--color-2);
+    text-align: center;
+}
+
+.form-group {
+    margin-top: 1%;
+    margin-left: 3%;
+}
+
+.form-group label {
+    font-family: 'Logo';
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: var(--color-1);
+}
+
+.form-group input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fafafa;
+    color: black;
+    width: 10rem;
+    margin-left: 1%;
+}
+
+.review-stars {
+    margin-left: 1%;
+    font-size: 25px;
+}
+
+.form-group textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fafafa;
+    color: black;
+    width: auto;
+    margin-left: 1%;
+    font-family: Arial;
+}
+
+#comment {
+    width: 60%;
+    min-height: 120px;
+    font-size: 1.25rem;
+}
+
+.edit-review-button {
+    background-color: var(--color-1);
+    margin: 10px;
+    font-family: "Logo", sans-serif;
+    color: #fafafa;
+    float: right;
+    border-radius: 100%;
+    width: 70px;
+    height: 65px;
+}
+
+.edit-review-button:hover {
+    background-color: var(--color-2);
+    border: none;
+    transform: scale(1.3);
+}
+
+#edit-review-icon {
+    color: white;
+    font-size: 30px;
+}
+
+#edit-review-icon:hover {
+    color: white;
+    font-size: 30px;
+}
+
+#edit-review-tooltip .MuiTooltip-tooltip {
+    font-size: 18px;
+}
+
+.error-message-review {
+    font-family: Arial;
+    color: var(--color-3);
+    text-align: center;
+    font-size: 20px;
+}
+
+.delete-review-button {
+    background-color: var(--color-1);
+    margin: 10px;
+    font-family: "Logo", sans-serif;
+    color: #fafafa;
+    float: right;
+    border-radius: 100%;
+    width: 70px;
+    height: 65px;
+}
+
+.delete-review-button:hover {
+    background-color: var(--color-2);
+    border: none;
+    transform: scale(1.3);
+}
+
+#delete-review-icon {
+    color: white;
+    font-size: 30px;
+}
+
+#delete-review-icon:hover {
+    color: white;
+    font-size: 30px;
+}
+
+#delete-review-tooltip .MuiTooltip-tooltip {
+    font-size: 18px;
+}
+
+.delete-edit-buttons-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}

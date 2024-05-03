@@ -4,8 +4,15 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import './Reviews.css'
 import { Link } from 'react-router-dom';
 
+
 function Reviews({ productId }) {
     const [reviews, setReviews] = useState([]);
+    const hasReviewd = (reviews) => {
+        const current_user_id = localStorage.getItem("user_id");
+        console.log('Getting user review...', current_user_id, reviews);
+        const found=reviews.find((review)=> current_user_id == review.creator_id);
+        return found;
+    };
 
     useEffect(() => {
         const fetchReviews = async () => {
@@ -35,13 +42,21 @@ function Reviews({ productId }) {
             }
         }
         return stars;
-
     };
 
     return (
         <div className="reviews-container">
             <h3 className='reviews-title'>Reviews</h3>
-            <p className='write-review'> <Link to={`/product/${productId}/review`} id='write-review'> Write a review </Link> </p>
+            {!hasReviewd(reviews) &&
+                <p className='write-review'>
+                    <Link to={`/product/${productId}/review`} id='write-review'> Write a review </Link>
+                </p>
+            }
+            {hasReviewd(reviews) &&
+                <p className='write-review'>
+                    <Link to={`/product/${productId}/review/${hasReviewd(reviews).id}/edit`} id='write-review'> Edit your review </Link>
+                </p>
+            }
             {reviews.map(review => (
                 <div key={review.creator_id} className="review-display">
                     <p className='review-username'> {review.creator_username.username}</p>
