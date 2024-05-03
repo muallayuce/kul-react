@@ -21,7 +21,7 @@ function Orders() {
                 if (response.ok) {
                     const data = await response.json();
                     setOrder(data);
-                    // Obtener detalles de los productos
+
                     const productsDetails = {};
                     for (const line of data.order_lines) {
                         const productDetails = await getProductDetails(line.product_id);
@@ -39,7 +39,6 @@ function Orders() {
         fetchOrder();
     }, [token]);
 
-    // Función para obtener detalles del producto por ID
     const getProductDetails = async (productId) => {
         try {
             const response = await fetch(`http://localhost:8000/products/${productId}`);
@@ -69,22 +68,34 @@ function Orders() {
                     <div className='orderlines-container'>
                         {order.order_lines.map((line, index) => (
                             <div key={index} className="orderline">
-                                 Product: {line.product_name} | Quantity: {line.quantity} | Price: ${productsDetails[line.product_id].price}
+                                Product: {line.product_id} | Quantity: {line.quantity} | Price: {line.total}
                                 {productsDetails[line.product_id] && (
                                     <div className="order-header">
                                         <div className="product-image-container">
-                                            <img src={productsDetails[line.product_id].image || NoImage} alt="Product" className="product-image" />
+                                            {productsDetails[line.product_id].images.length > 0 ? (
+                                                <img
+                                                    className="product_image"
+                                                    src={`http://127.0.0.1:8000/${productsDetails[line.product_id].images[0].file_path}`}
+                                                    alt="Product Image"
+                                                />
+                                            ) : (
+                                                <img
+                                                    className="product_image"
+                                                    src={NoImage}
+                                                    alt="Placeholder Image"
+                                                />
+                                            )}
                                         </div>
-                                        <p className="product-price">Price: ${line.total}</p>
+                                        <p className="product-price">Subtotal: ${line.total}</p>
                                     </div>
                                 )}
                             </div>
                         ))}
-                    </div>    
                     </div>
-      )}
                 </div>
-            );
+            )}
+        </div>
+    );
 }
 
-            export default Orders;
+export default Orders;
