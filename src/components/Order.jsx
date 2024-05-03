@@ -86,8 +86,11 @@ function Orders() {
                                             )}
                                         </div>
                                         <div className='orderline-text-container'>
-                                        <p>Product: {productsDetails[line.product_id].product_name} | Quantity: {line.quantity} | Price: ${productsDetails[line.product_id].price}</p>
-                                        <p className="product-price">Subtotal: ${line.total}</p>
+                                        <p className='orderline-text'> 
+                                        <span className='orderline-label'> <i class="bi bi-bag-heart"></i> Product: </span> {productsDetails[line.product_id].product_name} | 
+                                        <span className='orderline-label'> <i class="bi bi-basket"></i>  Quantity: </span> {line.quantity} | 
+                                        <span className='orderline-label'> <i class="bi bi-cash-coin"></i>  Price: </span> ${productsDetails[line.product_id].price}</p> <br/>
+                                        <p className="subtotal-label"> <u>Subtotal:</u> <span className='subtotal-text'> ${line.total}</span></p>
                                         </div>
                                     </div>
                                 )}
