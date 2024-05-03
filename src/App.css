@@ -210,3 +210,10 @@
   float: right;
 
 }
+
+.bi-pencil-square{
+  display: flex;
+  font-size: xx-large;
+  margin-top: 20px;
+  color: var(--color-1);
+}

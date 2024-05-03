@@ -23,6 +23,8 @@ import EditProduct from './components/EditProduct';
 import PostReview from './components/PostReview';
 import Groups from './components/UserProfile/Groups';
 import EditReview from './components/EditReview';
+import CreatePost from './components/CreatePost';
+
 
 // Define your base URL
 export const BASE_URL = 'http://localhost:8000';
@@ -188,7 +190,7 @@ function App() {
             element={
               isLoggedIn && posts.length > 0 ? (
                 <>
-                <button className='create_posts'><i class="bi bi-pencil-square"></i></button>
+                <CreatePost authToken={token} fetchPosts={fetchPosts}/>
                 <div className='app_posts'>
                   <div className='sidebar'>
                     <Link to="/groups"><i className="bi bi-person-video2" title='Groups'></i></Link>
@@ -218,6 +220,7 @@ function App() {
           <Route path='/product/:productId/review' element={<PostReview/>} />
           <Route path='/product/:productId/review/:reviewId/edit' element={<EditReview />} />
           <Route path='/groups' element={<Groups/>}></Route>
+
         </Routes>
 
         {/* Render login or signup modal based on openModal state */}

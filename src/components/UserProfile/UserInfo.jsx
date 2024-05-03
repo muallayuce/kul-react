@@ -36,7 +36,7 @@ const UserInfo = () => {
           <p className='info-item-username'>{userInfo.username}</p>
         </div>
         <div className="info-item">
-          <p><i class="bi bi-envelope-at" style={{fontSize:"20px", color:'#724fc3'}}></i> 
+          <p><i className="bi bi-envelope-at" style={{fontSize:"20px", color:'#724fc3'}}></i> 
           <span className='user-email'>{userInfo.email}</span></p>
         </div>
       </div>
