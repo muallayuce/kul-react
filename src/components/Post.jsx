@@ -9,7 +9,7 @@ function Post({ post, authToken, authTokenType}) {
   const [newComment, setNewComment] = useState('');
 
   const userId = localStorage.getItem("user_id");
-  const username= localStorage.getItem('username');
+  const username = localStorage.getItem('username');
 
   useEffect(() => {
     fetchComments();
@@ -21,6 +21,12 @@ function Post({ post, authToken, authTokenType}) {
 
   const handleDelete = (event) => {
     event?.preventDefault();
+
+    // Check if the post belongs to the logged-in user before deletion
+    if (post.user_id !== parseInt(userId)) {
+      alert('You can only delete your own posts.');
+      return;
+    }
 
     const requestOptions = {
       method: 'DELETE',
@@ -53,12 +59,12 @@ function Post({ post, authToken, authTokenType}) {
 
   const fetchComments = async () => {
     try{
-    const response = await fetch(`http://127.0.0.1:8000/comments/all/${post.id}`)
-    if (response.ok) {
-      const data= await response.json()
-      console.log("data",data)
-      setComments(data);
-    }
+      const response = await fetch(`http://127.0.0.1:8000/comments/all/${post.id}`)
+      if (response.ok) {
+        const data= await response.json()
+        console.log("data",data)
+        setComments(data);
+      }
     } catch (error) {
       console.log(error)
     }
@@ -106,10 +112,12 @@ function Post({ post, authToken, authTokenType}) {
         <div>
           <p className="post_username">{post.username}</p>
           <p className="post_timestamp">{formatTimestamp(post.timestamp)}</p>
-          </div>
-          <div className="delete-button-container">
-          <button className="delete_post" onClick={handleDelete}><i className="bi bi-trash3-fill" id='trash-post-icon'></i></button>
         </div>
+        {post.user_id === parseInt(userId) && ( // Display delete button only if the post belongs to the logged-in user
+          <div className="delete-button-container">
+            <button className="delete_post" onClick={handleDelete}><i className="bi bi-trash3-fill" id='trash-post-icon'></i></button>
+          </div>
+        )}
       </div>
       <p className="post_content">{post.content}</p>
       {post.id && (

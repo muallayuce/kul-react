@@ -13,20 +13,16 @@ const BASE_URL = 'http://localhost:8000';
 const Groups = () => {
   const [groups, setGroups] = useState([]);
   const [open, setOpen] = useState(false);
+  const userId = localStorage.getItem('user_id');
   const [newGroupData, setNewGroupData] = useState({
     name: '',
     description: '',
-    creator_id: 0,
+    creator_id: userId ? parseInt(userId) : 0,
     created_at: new Date().toISOString()
   });
   const [newPostContent, setNewPostContent] = useState('');
   const [openCreatePost, setOpenCreatePost] = useState(false);
   const [selectedGroup, setSelectedGroup] = useState(null);
-  const [userId, setUserId] = useState(localStorage.getItem('user_id')); // Declare userId state once
-
-  useEffect(() => {
-    setUserId(localStorage.getItem('user_id')); // Update userId when user info changes
-  }, [localStorage.getItem('user_id')]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
