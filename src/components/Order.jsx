@@ -91,7 +91,7 @@ function Orders() {
             {order && (
                 <div>
                     <div className='order-info-container'>
-                        <p className='order-price'><u>Total:</u>  <span className='order-price-info'>${order.total}</span></p>
+                        <p className='order-price'><u>Total:</u>  <span className='order-price-info'>{order.total.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</span></p>
                         <p className='order-status'>Status: <span className='order-status-info'>{order.order_status}</span></p>
                     </div>
                     <button className='pay-button' onClick={() => console.log('Paying...')}><i class="bi bi-cash"></i>Pay</button>
@@ -127,12 +127,12 @@ function Orders() {
                                                     <div className='orderline-text'>
                                                         <span>{productsDetails[line.product_id].product_name}</span>
                                                         <span>{line.quantity}</span>
-                                                        <span>${productsDetails[line.product_id].price}</span>
+                                                        <span>{productsDetails[line.product_id].price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</span>
                                                     </div>
                                                 </div>
                                                 <div className='subtotal-container'>
                                                     <p className="subtotal-label">
-                                                        <u>Subtotal:</u> <span className='subtotal-text'> ${line.total}</span>
+                                                        <u>Subtotal:</u> <span className='subtotal-text'> {line.total.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</span>
                                                     </p>
                                                 </div>
                                             </div>

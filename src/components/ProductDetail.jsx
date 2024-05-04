@@ -116,7 +116,7 @@ function ProductDetail() {
       <div className='title-buttons-container'>
         <div className='name-price-container'>
       <h2 className='product-d-name'>{product.product_name} </h2>
-      <p className='product-d-price'>${product.price}</p>
+      <p className='product-d-price'>{product.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</p>
       </div>
       <div className='edit-delete-container'>
       {isSeller(product) && <Link to={`/edit/product/${product.id}`}>
