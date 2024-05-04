@@ -72,7 +72,7 @@ function Orders() {
     
             console.log('Orderline deleted successfully!');
             
-            // Updates Orderlines the see the change
+            
 
     
         } catch (error) {

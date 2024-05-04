@@ -22,6 +22,7 @@ function DeleteOrderline({ orderlineId, onDelete }) {
             }
             console.log('Orderline deleted successfully!');
             onDelete(orderlineId);
+            window.location.reload(); //Refresh the page so that it does not show the deleted product
         } catch (error) {
             console.error('Error deleting orderline:', error);
         }
@@ -30,14 +31,14 @@ function DeleteOrderline({ orderlineId, onDelete }) {
     return (
         <div>
             {!confirmDelete ? (
-                <Tooltip title='Delete' placement='bottom' arrow id='delete-tooltip'>
+                <Tooltip title='Delete' placement='top' arrow id='delete-tooltip'>
                     <button className='delete-button' onClick={() => setConfirmDelete(true)}>
                         <i className="bi bi-trash3-fill" id='trash-icon'></i>
                     </button>
                 </Tooltip>
             ) : (
                 <div className='delete-check-container'>
-                    <p className='delete-check'>Are you sure you want to delete this orderline?</p>
+                    <p className='delete-check'>Delete this product from order?</p>
                     <div className='yes-no-container'>
                         <button className='yes-button' onClick={handleDelete}>
                             <i className="bi bi-check-circle-fill" id='check-icon'></i>
