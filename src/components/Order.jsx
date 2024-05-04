@@ -112,7 +112,7 @@ function Orders() {
                                 )}
                                 </Link>
                                 <DeleteOrderline orderlineId={line.id} />
-                                <EditOrderline orderlineId={line.id} productId={line.product_id}/>
+                                <EditOrderline orderlineId={line.id} productId={line.product_id} initialQuantity={line.quantity}/>
                             </div>
                         ))}
                     </div>
