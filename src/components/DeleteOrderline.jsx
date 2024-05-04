@@ -30,9 +30,9 @@ function DeleteOrderline({ orderlineId }) {
     return (
         <div>
             {!confirmDelete ? (
-                <Tooltip title='Delete' placement='top' arrow id='delete-tooltip'>
-                    <button className='delete-button' onClick={() => setConfirmDelete(true)}>
-                        <i className="bi bi-trash3-fill" id='trash-icon'></i>
+                <Tooltip title='Delete' placement='top' arrow id='delete-orderline-tooltip'>
+                    <button className='delete-orderline-button' onClick={() => setConfirmDelete(true)}>
+                        <i className="bi bi-trash3-fill" id='orderline-trash-icon'></i>
                     </button>
                 </Tooltip>
             ) : (
