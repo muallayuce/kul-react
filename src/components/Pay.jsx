@@ -101,6 +101,7 @@ const Pay = () => {
                                 e.target.value = value;
                             }}
                         />
+                        <button className='pay-card-button'>Pay</button>
                     </div>
                 );
             default:
@@ -117,6 +118,7 @@ const Pay = () => {
                     <p className="total-amount">{total ? total.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : 'Loading...'}</p>
                 </div>
             </div>
+            <div class="vertical-line"></div>
             <div className="payment-methods">
                 <h2 className="payment-heading">Payment Method</h2>
                 <div className="payment-options">

@@ -100,8 +100,27 @@
     font-size: 1.2rem;
 }
 
-.payment-card-form{
+.payment-card-form {
     display: flex;
     flex-direction: column;
     align-items: baseline;
-  }
+}
+
+.pay-card-button {
+    margin-top: 1%;
+    background-color: var(--color-1);
+    color: white;
+    font-family: 'Logo';
+    border-radius: 20%;
+}
+
+.pay-card-button:hover {
+    background-color: var(--color-2);
+    border: var(--color-3) 2px solid;
+}
+
+.vertical-line {
+    border-left: 3px solid #dddfe2;
+    height: 90%;
+    margin-top: 1.5%;
+}
