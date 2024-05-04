@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { UserContext } from '../context/UserContext';
 import NoImage from "../assets/balamgray.png";
+import { Link } from "react-router-dom";
 import './Order.css';
 
 function Orders() {
@@ -68,6 +69,7 @@ function Orders() {
                     <div className='orderlines-container'>
                         {order.order_lines.map((line, index) => (
                             <div key={index} className="orderline">
+                                <Link to={`/product/${line.product_id}`} className="product-link" key={index}>
                                 {productsDetails[line.product_id] && (
                                     <div className="line-container">
                                         <div className="orderline-image-container">
@@ -107,6 +109,7 @@ function Orders() {
 
                                     </div>
                                 )}
+                                </Link>
                             </div>
                         ))}
                     </div>
