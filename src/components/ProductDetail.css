@@ -1,202 +1,205 @@
 @font-face {
-    font-family: "Logo";
-    src: url("/src/fonts/eras.TTF") format("truetype");
-  }
-  
-  @font-face {
-    font-family: "Lucida";
-    src: url("/src/fonts/lucida.TTF") format("truetype");
-  }
+  font-family: "Logo";
+  src: url("/src/fonts/eras.TTF") format("truetype");
+}
 
-  .product-container {
-    height: 50%;
-    width: auto;
-    display: flex;
-    flex-direction: column;
-    margin: 10px;
-    padding: 10px;
-    border: 1px solid #dddfe2;
-    border-radius: 8px;
-    background-color: #fff;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
-  }
-  
-  .product-d-name {
-    font-size: 45px;
-    line-height: 1.6;
-    color: var(--color-1);
-    font-weight: bold;
-    font-family: 'Logo';
-    text-transform: capitalize;
-    text-align: start;
-    padding: 0%;
-    margin-bottom: 0%;
-  }
-  
-  .product-d-price {
-    font-size: 40px;
-    line-height: 1.6;
-    color: #1c1e21;
-    font-family: 'Logo';
-    margin-left: 15px;
-  }
-  
-  .product-d-image {
-    display: block; /* Make the image a block-level element */
-    margin: auto; /* Center the image horizontally */
-    max-width: 800px; 
-    max-height: 500px;
-    height: auto; /* Maintain aspect ratio */
-    margin-bottom: 20px;
-    margin-top: 10px;
-    border-radius: 5%;
-  }
+@font-face {
+  font-family: "Lucida";
+  src: url("/src/fonts/lucida.TTF") format("truetype");
+}
 
-  .product-d-rating {
-    font-size: 25px;
-    line-height: 1.6;
-    color: var(--color-2);
-    text-align: center;
-    margin-top: 3%;
-  }
+.product-container {
+  height: 50%;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #dddfe2;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+}
 
-  .close-button {
-    background-color: var(--color-1);
-    margin: 10px;
-    font-family: "Logo", sans-serif;
-    color: #fafafa;
-  }
+.product-d-name {
+  font-size: 45px;
+  line-height: 1.6;
+  color: var(--color-1);
+  font-weight: bold;
+  font-family: 'Logo';
+  text-transform: capitalize;
+  text-align: start;
+  padding: 0%;
+  margin-bottom: 0%;
+}
 
-  .close-button:hover {
-    background-color: var(--color-2);
-    border: var(--color-3) 2px solid;
-  }
+.product-d-price {
+  font-size: 40px;
+  line-height: 1.6;
+  color: #1c1e21;
+  font-family: 'Logo';
+  margin-left: 15px;
+}
 
-  .edit-button {
-    background-color: var(--color-1);
-    margin: 10px;
-    font-family: "Logo", sans-serif;
-    color: #fafafa;
-  }
+.product-d-image {
+  display: block;
+  /* Make the image a block-level element */
+  margin: auto;
+  /* Center the image horizontally */
+  max-width: 800px;
+  max-height: 500px;
+  height: auto;
+  /* Maintain aspect ratio */
+  margin-bottom: 20px;
+  margin-top: 10px;
+  border-radius: 5%;
+}
 
-  .edit-button:hover {
-    background-color: var(--color-2);
-    border: var(--color-3) 2px solid;
-  }
+.product-d-rating {
+  font-size: 25px;
+  line-height: 1.6;
+  color: var(--color-2);
+  text-align: center;
+  margin-top: 3%;
+}
 
-  .description-container {
-    height: 50%;
-    width: auto;
-    display: flex;
-    flex-direction: row;
-    margin: 10px;
-    padding: 10px;
-    border: 1px solid #dddfe2;
-    border-radius: 8px;
-    background-color: #fff;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
-  }
+.close-button {
+  background-color: var(--color-1);
+  margin: 10px;
+  font-family: "Logo", sans-serif;
+  color: #fafafa;
+}
 
-  .description-title {
-    font-size: 30px;
-    line-height: 1.6;
-    color: var(--color-2);
-    font-weight: bold;
-    font-family: 'Slogan';
-    margin-left: 1%;
-  }
+.close-button:hover {
+  background-color: var(--color-2);
+  border: var(--color-3) 2px solid;
+}
 
-  .description-text {
-    font-size: 20px;
-    line-height: 1.6;
-    color: black;
-    font-family: Arial, sans-serif;
-  }
+.edit-button {
+  background-color: var(--color-1);
+  margin: 10px;
+  font-family: "Logo", sans-serif;
+  color: #fafafa;
+}
 
-  .seller-container {
-    height: 50%;
-    width: auto;
-    display: flex;
-    flex-direction: row;
-    margin: 10px;
-    padding: 10px;
-    border: 1px solid #dddfe2;
-    border-radius: 8px;
-    background-color: #fff;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
-  }
+.edit-button:hover {
+  background-color: var(--color-2);
+  border: var(--color-3) 2px solid;
+}
 
-  .seller-title {
-    font-size: 30px;
-    line-height: 1.6;
-    color: var(--color-2);
-    font-weight: bold;
-    font-family: 'Slogan';
-    margin-left: 1%;
-  }
+.description-container {
+  height: 50%;
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #dddfe2;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+}
 
-  .seller-name {
-    font-size: 30px;
-    line-height: 1.6;
-    color: var(--color-1);
-    font-family: 'Logo';
-  }
+.description-title {
+  font-size: 30px;
+  line-height: 1.6;
+  color: var(--color-2);
+  font-weight: bold;
+  font-family: 'Slogan';
+  margin-left: 1%;
+}
 
-  .seller-button {
-    font-size: 50px;
-    color: var(--color-2);
-    background: transparent;
-    margin-left: 2%;
-  }
+.description-text {
+  font-size: 20px;
+  line-height: 1.6;
+  color: black;
+  font-family: Arial, sans-serif;
+}
 
-  .seller-button:hover {
-    transform: scale(1.3);
-    border: transparent;
-  }
+.seller-container {
+  height: 50%;
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #dddfe2;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+}
 
-  #examples {
-    margin: 3rem auto;
-  }
-  
-  #examples menu {
-    display: flex;
-    gap: 0.5rem;
-    list-style: none;
-  }
-  
-  #examples menu button {
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 6px;
-    width: 200px;
-    background-color: #e4e6ea;
-    color: var(--color-2);
-    font-family: "Logo";
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-  }
-  
-  #examples menu button:hover {
-    background-color: #1b082f;
-    color: #ebe7ef;
-  }
-  
-  #examples menu button.active {
-    background-color: var(--color-1);
-    color: #ebe7ef;
-  }
+.seller-title {
+  font-size: 30px;
+  line-height: 1.6;
+  color: var(--color-2);
+  font-weight: bold;
+  font-family: 'Slogan';
+  margin-left: 1%;
+}
 
-  /* Carousel arrows */
+.seller-name {
+  font-size: 30px;
+  line-height: 1.6;
+  color: var(--color-1);
+  font-family: 'Logo';
+}
+
+.seller-button {
+  font-size: 50px;
+  color: var(--color-2);
+  background: transparent;
+  margin-left: 2%;
+}
+
+.seller-button:hover {
+  transform: scale(1.3);
+  border: transparent;
+}
+
+#examples {
+  margin: 3rem auto;
+}
+
+#examples menu {
+  display: flex;
+  gap: 0.5rem;
+  list-style: none;
+}
+
+#examples menu button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  width: 200px;
+  background-color: #e4e6ea;
+  color: var(--color-2);
+  font-family: "Logo";
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+#examples menu button:hover {
+  background-color: #1b082f;
+  color: #ebe7ef;
+}
+
+#examples menu button.active {
+  background-color: var(--color-1);
+  color: #ebe7ef;
+}
+
+/* Carousel arrows */
 .slick-arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 99; 
-  width: 70px; 
-  height: 70px; 
+  z-index: 99;
+  width: 70px;
+  height: 70px;
   background-color: rgb(122, 120, 120, 0.2);
-  border: none; 
+  border: none;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -219,6 +222,11 @@
 .slick-arrow svg {
   color: var(--color-2);
   font-size: 30px;
+}
+
+.add-cart-button-container {
+  display: flex;
+  flex-direction: row-reverse;
 }
 
 .add-cart-button {
@@ -258,7 +266,7 @@
   justify-content: space-between;
 }
 
-.edit-delete-container{
+.edit-delete-container {
   display: flex;
   flex-direction: column;
 }

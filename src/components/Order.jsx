@@ -61,7 +61,7 @@ function Orders() {
             {order && (
                 <div>
                     <div className='order-info-container'>
-                        <p className='order-price'>Total: <span className='order-price-info'>${order.total}</span></p>
+                        <p className='order-price'><u>Total:</u>  <span className='order-price-info'>${order.total}</span></p>
                         <p className='order-status'>Status: <span className='order-status-info'>{order.order_status}</span></p>
                     </div>
                     <button className='pay-button' onClick={() => console.log('Paying...')}><i class="bi bi-cash"></i>Pay</button>

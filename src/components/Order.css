@@ -57,7 +57,7 @@
 
 .order-price {
     font-family: 'Logo';
-    font-size: 30px;
+    font-size: 32px;
     margin-bottom: 20px;
     color: var(--color-1);
 }
@@ -72,7 +72,7 @@
 
 .order-price-info {
     font-family: 'Logo';
-    font-size: 30px;
+    font-size: 38px;
     margin-bottom: 20px;
     color: black;
 }
