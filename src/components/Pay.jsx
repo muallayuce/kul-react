@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { UserContext } from '../context/UserContext';
 import './Pay.css';
+import Balam from '../assets/balam.png'
 
 const Pay = () => {
     const [total, setTotal] = useState(null);
@@ -116,6 +117,9 @@ const Pay = () => {
                 <div className='total-container'>
                     <p className="total-label"><u>Total:</u></p>
                     <p className="total-amount">{total ? total.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : 'Loading...'}</p>
+                <div className='balam-container'>
+                <img src={Balam} className='balam'></img> 
+                </div>
                 </div>
             </div>
             <div class="vertical-line"></div>
