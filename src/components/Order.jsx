@@ -10,6 +10,7 @@ function Orders() {
     const [order, setOrder] = useState(null);
     const [productsDetails, setProductsDetails] = useState({});
     const [token] = useContext(UserContext);
+    const [orderLines, setOrderLines] = useState([]);
 
     useEffect(() => {
         const fetchOrder = async () => {
@@ -57,6 +58,26 @@ function Orders() {
         }
     };
 
+    const updateOrderLineQuantity = (orderlineId, newQuantity) => {
+        setOrderLines(prevOrderLines =>
+            prevOrderLines.map(orderLine =>
+                orderLine.id === orderlineId ? { ...orderLine, quantity: newQuantity } : orderLine
+            )
+        );
+    
+        const updatedOrder = { ...order };
+        updatedOrder.order_lines = updatedOrder.order_lines.map(line => {
+            if (line.id === orderlineId) {
+                line.quantity = newQuantity;
+                line.total = line.quantity * productsDetails[line.product_id].price;
+            }
+            return line;
+        });
+        updatedOrder.total = updatedOrder.order_lines.reduce((total, line) => total + line.total, 0);
+        setOrder(updatedOrder);
+    };
+
+
     return (
         <div className="orders-container">
             <h2 className='my-order-title'> <i class="bi bi-box2-heart"></i> My Order</h2>
@@ -72,47 +93,51 @@ function Orders() {
                         {order.order_lines.map((line, index) => (
                             <div key={index} className="orderline">
                                 <Link to={`/product/${line.product_id}`} className="product-link" key={index}>
-                                {productsDetails[line.product_id] && (
-                                    <div className="line-container">
-                                        <div className="orderline-image-container">
-                                            {productsDetails[line.product_id].images.length > 0 ? (
-                                                <img
-                                                    className="orderline-image"
-                                                    src={`http://127.0.0.1:8000/${productsDetails[line.product_id].images[0].file_path}`}
-                                                    alt="Product Image"
-                                                />
-                                            ) : (
-                                                <img
-                                                    className="orderline-image"
-                                                    src={NoImage}
-                                                    alt="Placeholder Image"
-                                                />
-                                            )}
-                                        </div>
-                                        <div className='orderline-info'>
-                                            <div className='orderline-text-container'>
-                                                <div className='orderline-labels'>
-                                                    <span className='orderline-label'> <i class="bi bi-bag-heart"></i> Product: </span> <br/>
-                                                    <span className='orderline-label'> <i class="bi bi-basket"></i>  Quantity: </span> <br/>
-                                                    <span className='orderline-label'> <i class="bi bi-cash-coin"></i>  Price: </span> <br/>
+                                    {productsDetails[line.product_id] && (
+                                        <div className="line-container">
+                                            <div className="orderline-image-container">
+                                                {productsDetails[line.product_id].images.length > 0 ? (
+                                                    <img
+                                                        className="orderline-image"
+                                                        src={`http://127.0.0.1:8000/${productsDetails[line.product_id].images[0].file_path}`}
+                                                        alt="Product Image"
+                                                    />
+                                                ) : (
+                                                    <img
+                                                        className="orderline-image"
+                                                        src={NoImage}
+                                                        alt="Placeholder Image"
+                                                    />
+                                                )}
+                                            </div>
+                                            <div className='orderline-info'>
+                                                <div className='orderline-text-container'>
+                                                    <div className='orderline-labels'>
+                                                        <span className='orderline-label'> <i class="bi bi-bag-heart"></i> Product: </span> <br />
+                                                        <span className='orderline-label'> <i class="bi bi-basket"></i>  Quantity: </span> <br />
+                                                        <span className='orderline-label'> <i class="bi bi-cash-coin"></i>  Price: </span> <br />
+                                                    </div>
+                                                    <div className='orderline-text'>
+                                                        <span>{productsDetails[line.product_id].product_name}</span>
+                                                        <span>{line.quantity}</span>
+                                                        <span>${productsDetails[line.product_id].price}</span>
+                                                    </div>
                                                 </div>
-                                                <div className='orderline-text'>
-                                                    <span>{productsDetails[line.product_id].product_name}</span>
-                                                    <span>{line.quantity}</span>
-                                                    <span>${productsDetails[line.product_id].price}</span>
+                                                <div className='subtotal-container'>
+                                                    <p className="subtotal-label">
+                                                        <u>Subtotal:</u> <span className='subtotal-text'> ${line.total}</span>
+                                                    </p>
                                                 </div>
                                             </div>
-                                            <div className='subtotal-container'>
-                                            <p className="subtotal-label">
-                                                <u>Subtotal:</u> <span className='subtotal-text'> ${line.total}</span>
-                                            </p>
-                                            </div>
                                         </div>
-                                    </div>
-                                )}
+                                    )}
                                 </Link>
                                 <DeleteOrderline orderlineId={line.id} />
-                                <EditOrderline orderlineId={line.id} productId={line.product_id} initialQuantity={line.quantity}/>
+                                <EditOrderline
+                                    orderlineId={line.id}
+                                    productId={line.product_id}
+                                    initialQuantity={line.quantity}
+                                    onUpdateQuantity={(newQuantity) => updateOrderLineQuantity(line.id, newQuantity)} />
                             </div>
                         ))}
                     </div>

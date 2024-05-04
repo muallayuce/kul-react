@@ -3,7 +3,7 @@ import { Tooltip } from "@mui/material";
 import './EditOrderline.css';
 import { UserContext } from '../context/UserContext';
 
-function EditOrderline({ productId, orderlineId, initialQuantity }) {
+function EditOrderline({ productId, orderlineId, initialQuantity, onUpdateQuantity }) {
     const [quantity, setQuantity] = useState(parseInt(initialQuantity)); //parseInt Changes str to int
     const [token] = useContext(UserContext);
     const [confirmEdit, setConfirmEdit] = useState(false);
@@ -27,7 +27,7 @@ function EditOrderline({ productId, orderlineId, initialQuantity }) {
                 throw new Error('Failed to update product');
             }
             console.log('Product updated successfully!');
-            window.location.reload(); //Refresh the page
+            onUpdateQuantity(quantity);
         } catch (error) {
             console.error('Error updating product:', error);
         }
@@ -45,16 +45,20 @@ function EditOrderline({ productId, orderlineId, initialQuantity }) {
                 <div className='set-quantity-container'>
                     <input className='quantity-orderline-input'
                         type="number"
-                        value={quantity}
                         min="1"
-                        onChange={(e) => setQuantity(e.target.value)}
+                        value={quantity}
+                        onChange={(e) => {
+                            let newValue = e.target.value;
+                            // Only allows empty string and integer >= 1
+                            if (newValue === '' || (parseInt(newValue) >= 1 && !isNaN(newValue))) {
+                                setQuantity(newValue === '' ? '' : parseInt(newValue));
+                            }
+                        }}
                     />
-
-                    <button className='yes-button' onClick={handleUpdate}>
+                    <button className='yes-button' onClick={() => { handleUpdate(); setConfirmEdit(false); }}>
                         <i className="bi bi-check-circle-fill" id='check-icon'></i>
                     </button>
                 </div>
-
             )}
         </div>
     );
