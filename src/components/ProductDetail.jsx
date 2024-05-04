@@ -12,6 +12,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Tooltip } from '@mui/material';
+import CreateOrderline from './CreateOrderline.jsx';
 
 function ProductDetail() {
   const { productId } = useParams();
@@ -180,11 +181,7 @@ function ProductDetail() {
         {renderModalContent()}
         <Link to="/marketplace"><button className='close-button'>Close</button></Link>
         <div className='add-cart-button-container'>
-        <Tooltip title='Add to cart' placement="top" arrow id="add-cart-tooltip" >
-          <button className="add-cart-button">
-            <i class="bi bi-cart-plus" id='add-cart-icon'></i>
-          </button>
-        </Tooltip>
+        <CreateOrderline productId={productId}/>
         </div>
     </div>
   );
