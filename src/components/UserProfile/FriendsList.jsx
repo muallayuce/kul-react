@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './UserProfile.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import { UserContext } from '../../context/UserContext';
 
 const FriendsList = ({ friends, onUnfriend }) => {
   const [selectedFriend, setSelectedFriend] = useState(null);
   const [showFriends, setShowFriends] = useState(true); // Set initial state to true
+
+
+  console.log("Friends:", friends);
 
   const handleClick = (friendId) => {
     setSelectedFriend(selectedFriend === friendId ? null : friendId);
@@ -18,10 +22,12 @@ const FriendsList = ({ friends, onUnfriend }) => {
     e.stopPropagation();
   };
 
-  const handleUnfriendClick = (friendId) => {
-    // Call the onUnfriend function passed from the parent component
+  const handleUnfriendClick = (friendship_id) => {
+    console.log("friendship_id:", friendship_id);
+    
     if (window.confirm('Are you sure you want to unfriend this user?')) {
-      onUnfriend(friendId);
+      // Pass the token directly instead of authTokenType and authToken
+      onUnfriend(friendship_id);
     }
   };
 
@@ -45,7 +51,7 @@ const FriendsList = ({ friends, onUnfriend }) => {
                 </div>
               )}
               {/* Add an unfriend button */}
-              <button onClick={() => handleUnfriendClick(friend.id)}>Unfriend</button>
+              <button onClick={() => handleUnfriendClick(friend.friendship_id)}>Unfriend</button>
             </div>
           ))}
         </>
