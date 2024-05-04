@@ -4,6 +4,7 @@ import NoImage from "../assets/balamgray.png";
 import { Link } from "react-router-dom";
 import './Order.css';
 import DeleteOrderline from './DeleteOrderline';
+import EditOrderline from './EditOrderline';
 
 function Orders() {
     const [order, setOrder] = useState(null);
@@ -111,6 +112,7 @@ function Orders() {
                                 )}
                                 </Link>
                                 <DeleteOrderline orderlineId={line.id} />
+                                <EditOrderline orderlineId={line.id} productId={line.product_id}/>
                             </div>
                         ))}
                     </div>
