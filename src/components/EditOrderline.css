@@ -68,20 +68,19 @@
     align-items: center;
 }
 
-.add-basket-button {
+.update-basket-button {
     background-color: transparent;
     color: white;
-    font-weight: bold;
-    margin-right: 20px;
+    border: transparent;
 }
 
-.add-basket-button:hover {
+.update-basket-button:hover {
     background-color:transparent;
-    border: none;
     transform: scale(1.2);
+    border: transparent
 }
 
-#add-basket-icon {
+#update-basket-icon {
     font-size: 40px;
     color: var(--color-2);
 }

@@ -55,8 +55,8 @@ function EditOrderline({ productId, orderlineId, initialQuantity, onUpdateQuanti
                             }
                         }}
                     />
-                    <button className='add-basket-button' onClick={() => { handleUpdate(); setConfirmEdit(false); }}>
-                    <i class="bi bi-arrow-repeat" id='add-basket-icon'></i> <i className="bi bi-basket-fill" id='add-basket-icon'></i>
+                    <button className='update-basket-button' onClick={() => { handleUpdate(); setConfirmEdit(false); }}>
+                    <i class="bi bi-arrow-repeat" id='update-basket-icon'></i> <i className="bi bi-basket-fill" id='update-basket-icon'></i>
                     </button>
                 </div>
             )}
