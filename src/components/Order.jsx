@@ -85,13 +85,26 @@ function Orders() {
                                                 />
                                             )}
                                         </div>
-                                        <div className='orderline-text-container'>
-                                        <p className='orderline-text'> 
-                                        <span className='orderline-label'> <i class="bi bi-bag-heart"></i> Product: </span> {productsDetails[line.product_id].product_name} | 
-                                        <span className='orderline-label'> <i class="bi bi-basket"></i>  Quantity: </span> {line.quantity} | 
-                                        <span className='orderline-label'> <i class="bi bi-cash-coin"></i>  Price: </span> ${productsDetails[line.product_id].price}</p> <br/>
-                                        <p className="subtotal-label"> <u>Subtotal:</u> <span className='subtotal-text'> ${line.total}</span></p>
+                                        <div className='orderline-info'>
+                                            <div className='orderline-text-container'>
+                                                <div className='orderline-labels'>
+                                                    <span className='orderline-label'> <i class="bi bi-bag-heart"></i> Product: </span> <br/>
+                                                    <span className='orderline-label'> <i class="bi bi-basket"></i>  Quantity: </span> <br/>
+                                                    <span className='orderline-label'> <i class="bi bi-cash-coin"></i>  Price: </span> <br/>
+                                                </div>
+                                                <div className='orderline-text'>
+                                                    <span>{productsDetails[line.product_id].product_name}</span>
+                                                    <span>{line.quantity}</span>
+                                                    <span>${productsDetails[line.product_id].price}</span>
+                                                </div>
+                                            </div>
+                                            <div className='subtotal-container'>
+                                            <p className="subtotal-label">
+                                                <u>Subtotal:</u> <span className='subtotal-text'> ${line.total}</span>
+                                            </p>
+                                            </div>
                                         </div>
+
                                     </div>
                                 )}
                             </div>
