@@ -217,3 +217,10 @@
   margin-top: 20px;
   color: var(--color-1);
 }
+
+
+#all_users {
+  display: flex;
+  font-size: xxx-large;
+  color: #352473;
+}

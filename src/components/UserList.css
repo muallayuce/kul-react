@@ -1,0 +1,55 @@
+/* UserList.css */
+
+.user-list-container {
+    width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .user-card {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .username {
+    margin-top: 0;
+    font-size: 1.2em;
+    color: #333;
+  }
+  
+  .user-image {
+    max-width: 100px;
+    border-radius: 50%;
+  }
+  
+  .email {
+    margin-bottom: 10px;
+    color: #666;
+  }
+  
+  .posts-header {
+    margin-top: 15px;
+    font-size: 1.1em;
+    color: #333;
+  }
+  
+  .posts-list {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  .post {
+    margin-bottom: 5px;
+    color: #555;
+  }
+  
+  .divider {
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 20px 0;
+  }
+  

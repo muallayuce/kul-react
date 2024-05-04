@@ -229,6 +229,52 @@ const Groups = () => {
     }
   };
 
+  
+  const handleDeleteGroupPost = async (post) => {
+    try {
+      // Check if the post belongs to the logged-in user before deletion
+      if (post.author_id !== parseInt(userId)) {
+        alert('You can only delete your own posts.');
+        return;
+      }
+  
+      console.log('Post:', post); // Add this console log
+  
+      // Ensure that post.id and post.group_id are not undefined
+      console.log('Post ID:', post.id); // Add this console log
+      console.log('Group ID:', post.group_id); // Add this console log
+      console.log('User ID:', userId); // Add this console log
+  
+      const requestOptions = {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      };
+  
+      const response = await fetch(`${BASE_URL}/group_posts/${post.id}?group_id=${post.group_id}&user_id=${userId}`, requestOptions);
+      
+      if (response.ok) {
+        // Remove the deleted post from the UI
+        const updatedGroups = groups.map(group => {
+          if (group.id === selectedGroup.id) {
+            const updatedPosts = group.posts.filter(p => p.id !== post.id);
+            return { ...group, posts: updatedPosts };
+          }
+          return group;
+        });
+        setGroups(updatedGroups);
+      } else {
+        throw new Error('Failed to delete post');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Failed to delete post');
+    }
+  };
+  
+  
+
   useEffect(() => {
     fetchGroups();
   }, []);
@@ -322,6 +368,9 @@ const Groups = () => {
                 <div key={post.id} className="group-post">
                   <span className="post-author">{post.username}:</span>
                   <span className="post-content">{post.content}</span>
+                  {post.author_id === parseInt(userId) && (
+                  <button onClick={() => handleDeleteGroupPost(post)}>Delete</button>
+                  )}
                 </div>
               ))}
           </div>
