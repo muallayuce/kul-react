@@ -87,7 +87,7 @@ function Orders() {
 
     return (
         <div className="orders-container">
-            <h2 className='my-order-title'> <i class="bi bi-box2-heart"></i> My Order</h2>
+            <h2 className='my-order-title'> <i class="bi bi-box2-heart" style={{ color: "var(--color-3)" }}></i> My Order</h2>
             {order && (
                 <div>
                     <div className='order-info-container'>

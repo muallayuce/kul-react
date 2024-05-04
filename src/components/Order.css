@@ -29,7 +29,7 @@
 
 .my-order-title {
     font-family: 'Slogan';
-    font-size: 30px;
+    font-size: 40px;
     margin-bottom: 20px;
     color: var(--color-2);
     text-align: center;
@@ -96,7 +96,7 @@
 
 .mycart-tile {
     font-family: 'Slogan';
-    font-size: 30px;
+    font-size: 40px;
     margin-bottom: 20px;
     color: var(--color-2);
     text-align: center;
@@ -105,7 +105,7 @@
 .orderlines-container {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
 }
 
 .orderline {
@@ -182,6 +182,10 @@
     flex-direction: column;
     flex: 0 0 auto;
     gap: 5px;
+    max-width: 50rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .subtotal-container {

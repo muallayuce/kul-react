@@ -36,7 +36,7 @@ function EditOrderline({ productId, orderlineId, initialQuantity, onUpdateQuanti
     return (
         <div>
             {!confirmEdit ? (
-                <Tooltip title='Change quantity' placement='top' arrow id='update-orderline-tooltip'>
+                <Tooltip title='Change quantity' placement='right' arrow id='update-orderline-tooltip'>
                     <button className='update-orderline-button' onClick={() => setConfirmEdit(true)}>
                         <i className="bi bi-plus-slash-minus" id='update-orderline-icon'></i>
                     </button>
@@ -55,9 +55,11 @@ function EditOrderline({ productId, orderlineId, initialQuantity, onUpdateQuanti
                             }
                         }}
                     />
+                    <Tooltip title='Update quantity' placement='right' arrow id='update-orderline-tooltip'>
                     <button className='update-basket-button' onClick={() => { handleUpdate(); setConfirmEdit(false); }}>
                     <i class="bi bi-arrow-repeat" id='update-basket-icon'></i> <i className="bi bi-basket-fill" id='update-basket-icon'></i>
                     </button>
+                    </Tooltip>
                 </div>
             )}
         </div>
