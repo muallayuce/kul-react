@@ -23,6 +23,12 @@ const UserList = () => {
     return user.username.toLowerCase().includes(searchQuery.toLowerCase());
   });
 
+  // Function to handle adding a user as a friend
+  const addFriend = (userId) => {
+    // Implement the logic to add the user as a friend
+    console.log(`User with ID ${userId} added as a friend.`);
+  };
+
   return (
     <div className="user-list-container">
       <h1>User List</h1>
@@ -39,7 +45,7 @@ const UserList = () => {
       <ul className="user-list">
         {filteredUsers.map(user => (
           <li key={user.id} className="user-card">
-            <Link to={`/profile/${user.id}`} className="user-link">
+            <Link to={`/profile/`} className="user-link">
               {user.images && user.images.map(image => (
                 <img key={image.id} className="user-image" src={`http://localhost:8000/users/${user.id}/userimage`} alt="User Image" />
               ))}
@@ -53,6 +59,8 @@ const UserList = () => {
               ))}
             </ul>
             <hr className="divider" />
+            {/* Add Friend Button */}
+            <button className="add-friend-button" onClick={() => addFriend(user.id)}>Add Friend</button>
           </li>
         ))}
       </ul>

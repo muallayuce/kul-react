@@ -215,7 +215,7 @@ function App() {
           <Route path="/product/:productId" element={<ProductDetail />} />
           <Route path='/new/product' element={< PostProduct />} />
           <Route path='/edit/product/:id' element={<EditProduct />} />
-          <Route path="/profile/:userId" element={<UserProfile />} />
+          <Route path="/profile/" element={<UserProfile />} />
           <Route path="/chat" element={<Chat />} />
           <Route path='/contactus' element={<ContactUs />} />
           <Route path='/terms' element={<TermsOfService />}></Route>
