@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './UserProfile.css';
 import {
   Button,
   Dialog,
@@ -7,11 +6,14 @@ import {
   DialogTitle,
   TextField
 } from '@mui/material';
+import './UserProfile.css';
 
 const BASE_URL = 'http://localhost:8000';
 
 const Groups = () => {
   const [groups, setGroups] = useState([]);
+  const [filteredGroups, setFilteredGroups] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
   const [open, setOpen] = useState(false);
   const userId = localStorage.getItem('user_id');
   const username = localStorage.getItem("username");
@@ -24,6 +26,23 @@ const Groups = () => {
   const [newPostContent, setNewPostContent] = useState('');
   const [openCreatePost, setOpenCreatePost] = useState(false);
   const [selectedGroup, setSelectedGroup] = useState(null);
+
+  useEffect(() => {
+    fetchGroups();
+  }, []);
+
+  useEffect(() => {
+    // Filter groups based on search query
+    const filtered = groups.filter(group =>
+      group.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredGroups(filtered);
+  }, [groups, searchQuery]);
+
+  // Function to handle changes in the search input
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -275,10 +294,6 @@ const Groups = () => {
   
   
 
-  useEffect(() => {
-    fetchGroups();
-  }, []);
-
   const toggleMemberList = (group) => {
     const updatedGroups = groups.map((grp) => {
       if (grp.id === group.id) {
@@ -308,6 +323,12 @@ const Groups = () => {
 
   return (
     <div className="groups">
+      <TextField
+        type="text"
+        placeholder="Search groups..."
+        value={searchQuery}
+        onChange={handleSearchChange}
+      />
       <Button variant="outlined" onClick={handleOpen}>
         Create Group
       </Button>
@@ -338,7 +359,7 @@ const Groups = () => {
         </DialogActions>
       </Dialog>
       <h2 className="groups-text">GROUPS</h2>
-      {groups.map((group, index) => (
+      {filteredGroups.map((group, index) => (
         <div key={group.id} className="group">
           <div className='name-photos-container'>
             <h2 className='group-name'>{group.name}</h2>
