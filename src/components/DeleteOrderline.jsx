@@ -10,7 +10,7 @@ function DeleteOrderline({ orderlineId, onDelete }) {
     const handleDelete = async () => {
         console.log('Deleting orderline...');
         try {
-            const response = await fetch(`http://localhost:8000/orderlines/${orderlineId}`, {
+            const response = await fetch(`http://localhost:8000/order_lines/${orderlineId}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`,

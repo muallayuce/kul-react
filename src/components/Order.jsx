@@ -59,7 +59,7 @@ function Orders() {
     const handleDeleteOrderline = async (orderlineId) => {
         console.log('Deleting orderline with ID:', orderlineId);
         try {
-            const response = await fetch(`http://localhost:8000/orderlines/${orderlineId}`, {
+            const response = await fetch(`http://localhost:8000/order_lines/${orderlineId}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -73,10 +73,7 @@ function Orders() {
             console.log('Orderline deleted successfully!');
             
             // Updates Orderlines the see the change
-            setOrder(order => ({
-                ...order,
-                order_lines: order.order_lines.filter(line => line.id !== orderlineId)
-            }));
+
     
         } catch (error) {
             console.error('Error deleting orderline:', error);
@@ -133,12 +130,11 @@ function Orders() {
                                                 <u>Subtotal:</u> <span className='subtotal-text'> ${line.total}</span>
                                             </p>
                                             </div>
-                                            <DeleteOrderline orderlineId={line.id} onDelete={handleDeleteOrderline} />
                                         </div>
-
                                     </div>
                                 )}
                                 </Link>
+                                <DeleteOrderline orderlineId={line.id} onDelete={handleDeleteOrderline} />
                             </div>
                         ))}
                     </div>
