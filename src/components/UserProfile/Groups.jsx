@@ -14,6 +14,7 @@ const Groups = () => {
   const [groups, setGroups] = useState([]);
   const [open, setOpen] = useState(false);
   const userId = localStorage.getItem('user_id');
+  const username = localStorage.getItem("username");
   const [newGroupData, setNewGroupData] = useState({
     name: '',
     description: '',
@@ -34,32 +35,66 @@ const Groups = () => {
       alert('Please provide both group name and description.');
       return;
     }
-
+  
     try {
-      const response = await fetch(`${BASE_URL}/groups/`, {
+      const queryParams = new URLSearchParams({
+        user_id: userId,
+        username: username
+      });
+  
+      const response = await fetch(`${BASE_URL}/groups/?${queryParams.toString()}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(newGroupData)
-      });
-      if (response.ok) {
-        fetchGroups();
-        setNewGroupData({
-          name: '',
-          description: '',
-          creator_id: 0,
+        body: JSON.stringify({
+          name: newGroupData.name,
+          description: newGroupData.description,
+          creator_id: parseInt(userId) || 0,
           created_at: new Date().toISOString()
-        });
-        handleClose();
-      } else {
-        throw new Error('Failed to create group');
+        })
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to create group');
       }
+  
+      const newGroup = await response.json();
+  
+      // Fetch the username of the creator
+      const creatorUsername = await fetchUsername(newGroup.creator_id);
+  
+      // Create a new member object for the creator
+      const creatorMember = {
+        id: newGroup.creator_id,
+        username: creatorUsername
+      };
+  
+      // Add the creator as a member of the group
+      const updatedGroup = {
+        ...newGroup,
+        members: [creatorMember],
+        creatorUsername
+      };
+  
+      setGroups([...groups, updatedGroup]);
+      setNewGroupData({
+        name: '',
+        description: '',
+        creator_id: parseInt(userId) || 0,
+        created_at: new Date().toISOString()
+      });
+      handleClose();
     } catch (error) {
       console.error(error);
-      alert('Failed to create group');
+      alert(error.message || 'Failed to create group');
     }
   };
+  
+  
+  
+  
 
   const handleCreatePost = async () => {
     if (!newPostContent) {
