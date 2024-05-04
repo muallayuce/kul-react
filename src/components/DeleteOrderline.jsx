@@ -3,7 +3,7 @@ import { Tooltip } from "@mui/material";
 import './DeleteOrderline.css';
 import { UserContext } from '../context/UserContext';
 
-function DeleteOrderline({ orderlineId, onDelete }) {
+function DeleteOrderline({ orderlineId }) {
     const [confirmDelete, setConfirmDelete] = useState(false);
     const [token] = useContext(UserContext);
 
@@ -21,7 +21,6 @@ function DeleteOrderline({ orderlineId, onDelete }) {
                 throw new Error('Failed to delete orderline');
             }
             console.log('Orderline deleted successfully!');
-            onDelete(orderlineId);
             window.location.reload(); //Refresh the page so that it does not show the deleted product
         } catch (error) {
             console.error('Error deleting orderline:', error);

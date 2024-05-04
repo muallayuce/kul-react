@@ -56,30 +56,6 @@ function Orders() {
         }
     };
 
-    const handleDeleteOrderline = async (orderlineId) => {
-        console.log('Deleting orderline with ID:', orderlineId);
-        try {
-            const response = await fetch(`http://localhost:8000/order_lines/${orderlineId}`, {
-                method: 'DELETE',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
-            });
-    
-            if (!response.ok) {
-                throw new Error('Failed to delete orderline');
-            }
-    
-            console.log('Orderline deleted successfully!');
-            
-            
-
-    
-        } catch (error) {
-            console.error('Error deleting orderline:', error);
-        }
-    };
-
     return (
         <div className="orders-container">
             <h2 className='my-order-title'> <i class="bi bi-box2-heart"></i> My Order</h2>
@@ -134,7 +110,7 @@ function Orders() {
                                     </div>
                                 )}
                                 </Link>
-                                <DeleteOrderline orderlineId={line.id} onDelete={handleDeleteOrderline} />
+                                <DeleteOrderline orderlineId={line.id} />
                             </div>
                         ))}
                     </div>
