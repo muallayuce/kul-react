@@ -3,6 +3,7 @@ import { UserContext } from '../context/UserContext';
 import NoImage from "../assets/balamgray.png";
 import { Link } from "react-router-dom";
 import './Order.css';
+import DeleteOrderline from './DeleteOrderline';
 
 function Orders() {
     const [order, setOrder] = useState(null);
@@ -52,6 +53,33 @@ function Orders() {
         } catch (error) {
             console.error(`Error fetching product details for product ID ${productId}:`, error);
             return null;
+        }
+    };
+
+    const handleDeleteOrderline = async (orderlineId) => {
+        console.log('Deleting orderline with ID:', orderlineId);
+        try {
+            const response = await fetch(`http://localhost:8000/orderlines/${orderlineId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+    
+            if (!response.ok) {
+                throw new Error('Failed to delete orderline');
+            }
+    
+            console.log('Orderline deleted successfully!');
+            
+            // Updates Orderlines the see the change
+            setOrder(order => ({
+                ...order,
+                order_lines: order.order_lines.filter(line => line.id !== orderlineId)
+            }));
+    
+        } catch (error) {
+            console.error('Error deleting orderline:', error);
         }
     };
 
@@ -105,6 +133,7 @@ function Orders() {
                                                 <u>Subtotal:</u> <span className='subtotal-text'> ${line.total}</span>
                                             </p>
                                             </div>
+                                            <DeleteOrderline orderlineId={line.id} onDelete={handleDeleteOrderline} />
                                         </div>
 
                                     </div>

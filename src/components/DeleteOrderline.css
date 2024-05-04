@@ -1,0 +1,86 @@
+.delete-button {
+    background-color: var(--color-1);
+    margin: 10px;
+    font-family: "Logo", sans-serif;
+    color: #fafafa;
+    float: right;
+    border-radius: 100%;
+    width: 70px;
+    height: 65px;
+}
+
+.delete-button:hover {
+    background-color: var(--color-2);
+    border: none;
+    transform: scale(1.3);
+}
+
+#trash-icon {
+    color: white;
+    font-size: 30px;
+}
+
+#trash-icon:hover {
+    color: white;
+    font-size: 30px;
+}
+
+#delete-tooltip .MuiTooltip-tooltip {
+    font-size: 18px;
+}
+
+.delete-check-container {
+    float: right;
+    font-family: Arial;
+    font-weight: bold;
+    color: var(--color-3);
+}
+
+.yes-no-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.yes-button {
+    background-color: transparent;
+    color: white;
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+.yes-button:hover {
+    background-color:transparent;
+    border: none;
+    transform: scale(1.3);
+}
+
+.no-button {
+    background-color: transparent;
+    color: white;
+    font-weight: bold;
+}
+
+.no-button:hover {
+    background-color: transparent;
+    border: none;
+    transform: scale(1.3);
+}
+
+#x-icon {
+    font-size: 40px;
+    color: var(--color-1);
+}
+
+#x-icon:hover {
+    color: var(--color-2);
+}
+
+#check-icon {
+    font-size: 40px;
+    color: var(--color-3);
+}
+
+#check-icon:hover {
+    color: #f74799;
+}
