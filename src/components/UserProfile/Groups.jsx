@@ -91,10 +91,37 @@ const Groups = () => {
       alert(error.message || 'Failed to create group');
     }
   };
-  
-  
-  
-  
+
+  const handleJoinGroup = async (groupId) => {
+    try {
+      const queryParams = new URLSearchParams({
+        group_id: groupId,
+        user_id: userId,
+        username: username
+      });
+
+      const response = await fetch(`${BASE_URL}/groups/${groupId}/join_group?${queryParams.toString()}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          user_id: parseInt(userId)
+        })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || 'Failed to join group');
+      }
+
+      // Optionally, you can update the UI to reflect the user joining the group
+      fetchGroups();
+    } catch (error) {
+      console.error(error);
+      alert(error.message || 'Failed to join group');
+    }
+  };
 
   const handleCreatePost = async () => {
     if (!newPostContent) {
@@ -285,6 +312,9 @@ const Groups = () => {
           <p className='group-description'>Description: {group.description}</p>
           <div className="group-add-post">
             <Button onClick={() => handleOpenCreatePost(group)} variant="contained" color="primary">Add Post</Button>
+            {!group.members.some(member => member.id === parseInt(userId)) && (
+              <Button onClick={() => handleJoinGroup(group.id)} variant="contained" color="secondary">Join Group</Button>
+            )}
           </div>
           <div className="group-posts">GROUP POSTS
             {group.posts &&
