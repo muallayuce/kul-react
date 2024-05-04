@@ -52,6 +52,15 @@ const Pay = () => {
                             id="cardNumber"
                             name="cardNumber"
                             placeholder="Enter your card number"
+                            maxLength="19" // Max including numbers and dash
+                            onChange={(e) => {
+                                // Only allows numbers
+                                let value = e.target.value.replace(/\D/g, '');
+                                // Adds a dash after 4 numbers
+                                value = value.replace(/(.{4})/g, '$1-');
+                                value = value.replace(/-$/, '');
+                                e.target.value = value;
+                            }}
                         />
                         <label className="payment-card-label" htmlFor="cardName">Name on Card:</label>
                         <input
@@ -66,12 +75,18 @@ const Pay = () => {
                             className="payment-card-input"
                             type="text"
                             inputmode="numeric"
-                            pattern="[0-4\s]"
                             id="cardExpiration"
                             name="cardExpiration"
                             placeholder="MM/YY"
-                            maxLength="4"
+                            maxLength="5"
                             title="Please enter a valid expiration date in the format MM/YY"
+                            onChange={(e) => {
+                                const value = e.target.value.replace(/\D/g, ''); // No letters
+                                const formattedValue = value
+                                    .replace(/^(\d{2})/, '$1/')
+                                    .replace(/^(\d{2})\/(\d{2}).*$/, '$1/$2');
+                                e.target.value = formattedValue;
+                            }}
                         />
                         <label className="payment-card-label" htmlFor="cardCvc">CVC:</label>
                         <input
@@ -81,6 +96,10 @@ const Pay = () => {
                             name="cardCvc"
                             placeholder="Enter CVC"
                             maxLength="3"
+                            onChange={(e) => {
+                                const value = e.target.value.replace(/\D/g, ''); // No letters
+                                e.target.value = value;
+                            }}
                         />
                     </div>
                 );
@@ -101,10 +120,6 @@ const Pay = () => {
             <div className="payment-methods">
                 <h2 className="payment-heading">Payment Method</h2>
                 <div className="payment-options">
-                    <div className={`payment-option ${activeMethods['card'] ? 'active' : ''}`} onClick={() => handlePaymentMethod('card')}>
-                        <i className="bi bi-credit-card payment-icon"></i>
-                        <span className="payment-text">Credit Card</span>
-                    </div>
                     <div className={`payment-option ${activeMethods['cash'] ? 'active' : ''}`} onClick={() => handlePaymentMethod('cash')}>
                         <i className="bi bi-cash payment-icon"></i>
                         <span className="payment-text">Cash</span>
@@ -112,6 +127,10 @@ const Pay = () => {
                     <div className={`payment-option ${activeMethods['chat'] ? 'active' : ''}`} onClick={() => handlePaymentMethod('chat')}>
                         <i className="bi bi-chat-dots payment-icon"></i>
                         <span className="payment-text">Chat with Seller</span>
+                    </div>
+                    <div className={`payment-option ${activeMethods['card'] ? 'active' : ''}`} onClick={() => handlePaymentMethod('card')}>
+                        <i className="bi bi-credit-card payment-icon"></i>
+                        <span className="payment-text">Credit Card</span>
                     </div>
                 </div>
                 {renderPaymentForm()}
