@@ -5,12 +5,20 @@ import './UserList.css'; // Import CSS file for styling
 const UserList = () => {
   const [users, setUsers] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [loggedInUserId, setLoggedInUserId] = useState(null); // Add state for logged-in user ID
 
   useEffect(() => {
+    // Fetch the list of users
     fetch('http://localhost:8000/users')
       .then(response => response.json())
       .then(data => setUsers(data))
       .catch(error => console.error('Error fetching users:', error));
+
+    // Simulate getting the logged-in user ID (replace with actual implementation)
+    const loggedInUserIdFromLocalStorage = localStorage.getItem('user_id');
+    if (loggedInUserIdFromLocalStorage) {
+      setLoggedInUserId(parseInt(loggedInUserIdFromLocalStorage));
+    }
   }, []);
 
   // Function to handle changes in the search input
@@ -24,11 +32,30 @@ const UserList = () => {
   });
 
   // Function to handle adding a user as a friend
-  const addFriend = (userId) => {
-    // Implement the logic to add the user as a friend
-    console.log(`User with ID ${userId} added as a friend.`);
+  const addFriend = async (userId) => {
+    try {
+      if (!loggedInUserId) {
+        throw new Error('User is not logged in');
+      }
+      
+      // Make an API request to add the user as a friend
+      const response = await fetch(`http://localhost:8000/friendships?from_user_id=${loggedInUserId}&to_user_id=${userId}`, {
+        method: 'POST',
+        // Add any required headers or body parameters here
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to add friend');
+      }
+  
+      // Optionally, update the UI to reflect the successful addition of the user as a friend
+      console.log(`User with ID ${userId} added as a friend.`);
+    } catch (error) {
+      console.error('Error adding friend:', error.message);
+      // Optionally, display an error message to the user
+    }
   };
-
+  
   return (
     <div className="user-list-container">
       <h1>User List</h1>
@@ -45,7 +72,7 @@ const UserList = () => {
       <ul className="user-list">
         {filteredUsers.map(user => (
           <li key={user.id} className="user-card">
-            <Link to={`/profile/`} className="user-link">
+            <Link to={`/profile/${user.id}`} className="user-link">
               {user.images && user.images.map(image => (
                 <img key={image.id} className="user-image" src={`http://localhost:8000/users/${user.id}/userimage`} alt="User Image" />
               ))}
