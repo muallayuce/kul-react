@@ -77,6 +77,13 @@ function Orders() {
         setOrder(updatedOrder);
     };
 
+    const handleDeleteOrderline = (orderlineId) => {
+        // Filters and updates the order when an orderline is deleted
+        const updatedOrderLines = order.order_lines.filter(line => line.id !== orderlineId);
+        const updatedOrder = { ...order, order_lines: updatedOrderLines };
+        updatedOrder.total = updatedOrderLines.reduce((total, line) => total + line.total, 0);
+        setOrder(updatedOrder);
+    };
 
     return (
         <div className="orders-container">
@@ -132,7 +139,7 @@ function Orders() {
                                         </div>
                                     )}
                                 </Link>
-                                <DeleteOrderline orderlineId={line.id} />
+                                <DeleteOrderline orderlineId={line.id} onDelete={handleDeleteOrderline} />
                                 <EditOrderline
                                     orderlineId={line.id}
                                     productId={line.product_id}
