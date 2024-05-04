@@ -25,6 +25,7 @@ import Groups from './components/UserProfile/Groups';
 import EditReview from './components/EditReview';
 import CreatePost from './components/CreatePost';
 import Order from './components/Order';
+import Pay from './components/Pay';
 
 
 // Define your base URL
@@ -222,6 +223,7 @@ function App() {
           <Route path='/product/:productId/review/:reviewId/edit' element={<EditReview />} />
           <Route path='/mycart' element={<Order/>}></Route>
           <Route path='/groups' element={<Groups/>}></Route>
+          <Route path="/pay" element={<Pay />} />
 
         </Routes>
 

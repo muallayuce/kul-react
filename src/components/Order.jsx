@@ -94,7 +94,9 @@ function Orders() {
                         <p className='order-price'><u>Total:</u>  <span className='order-price-info'>{order.total.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</span></p>
                         <p className='order-status'>Status: <span className='order-status-info'>{order.order_status}</span></p>
                     </div>
+                    <Link to={'/pay'}>
                     <button className='pay-button' onClick={() => console.log('Paying...')}><i class="bi bi-cash"></i>Pay</button>
+                    </Link>
                     <h3 className='mycart-tile'> <i class="bi bi-cart4"></i> My Cart:</h3>
                     <div className='orderlines-container'>
                         {order.order_lines.map((line, index) => (
