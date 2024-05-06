@@ -119,6 +119,13 @@ function EditProduct() {
         </button>
     );
 
+    const updateImageSlider = (deletedImageId) => {
+        setFormData(prevState => ({
+            ...prevState,
+            images: prevState.images.filter(image => image.id !== deletedImageId)
+        }));
+    };
+
     return (
         <div className="edit-product-container">
             <h2 className='edit-product-title'>Edit your product</h2>
@@ -146,7 +153,7 @@ function EditProduct() {
                         src={`http://127.0.0.1:8000/images/${formData.images[0].id}`}
                         alt="Product Image"
                     /> 
-                    <DeleteProductImage imageId={formData.images[0].id}/>
+                    <DeleteProductImage imageId={formData.images[0].id} onDelete={updateImageSlider}/>
                     </div>
                 ) : formData.images && formData.images.length > 1 ? (
                     <Slider
@@ -165,7 +172,7 @@ function EditProduct() {
                                     src={`http://127.0.0.1:8000/images/${image.id}`}
                                     alt="Product Image"
                                 />
-                                 <DeleteProductImage imageId={image.id}/>
+                                 <DeleteProductImage imageId={image.id} onDelete={updateImageSlider}/>
                             </div>
                         ))}
                     </Slider>
