@@ -5,7 +5,7 @@ import Reviews from './Reviews.jsx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { faStar, faStarHalfAlt, faCommentsDollar } from "@fortawesome/free-solid-svg-icons";
-import NoImage from "../assets/balamgray.png"
+import NoImage from "../assets/balamgray.png";
 import DeleteProduct from './DeleteProduct.jsx';
 import './DeleteProduct.css'
 import Slider from "react-slick";
@@ -19,10 +19,10 @@ function ProductDetail() {
   const [product, setProduct] = useState(null);
   const [averageScore, setAverageScore] = useState(null);
   const [openModal, setOpenModal] = useState('description');
- const isSeller = (product) => {
-  console.log('Getting user id...', localStorage.getItem("user_id"), product);
-  return localStorage.getItem("user_id")==product.user.id;
- };
+  const isSeller = (product) => {
+    console.log('Getting user id...', localStorage.getItem("user_id"), product);
+    return localStorage.getItem("user_id") == product.user.id;
+  };
   const PrevArrow = ({ onClick }) => (
     <button className="slick-arrow prev" onClick={onClick}>
       <FontAwesomeIcon icon={faArrowLeft} />
@@ -112,22 +112,22 @@ function ProductDetail() {
   };
 
   return (
-    
+
     <div className="product-container">
       <div className='title-buttons-container'>
         <div className='name-price-container'>
-      <h2 className='product-d-name'>{product.product_name} </h2>
-      <p className='product-d-price'>{product.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</p>
-      </div>
-      <div className='edit-delete-container'>
-      {isSeller(product) && <Link to={`/edit/product/${product.id}`}>
-        <Tooltip title='Edit product' placement="top" arrow id='edit-product-tooltip'>
-                    <button className='edit-product-button'>
-                        <i className="bi bi-pencil-square" id='edit-product-icon'></i>
-                    </button>
-                </Tooltip></Link>}
-      {isSeller(product) && <DeleteProduct productId={productId} />}
-      </div>
+          <h2 className='product-d-name'>{product.product_name} </h2>
+          <p className='product-d-price'>{product.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</p>
+        </div>
+        <div className='edit-delete-container'>
+          {isSeller(product) && <Link to={`/edit/product/${product.id}`}>
+            <Tooltip title='Edit product' placement="top" arrow id='edit-product-tooltip'>
+              <button className='edit-product-button'>
+                <i className="bi bi-pencil-square" id='edit-product-icon'></i>
+              </button>
+            </Tooltip></Link>}
+          {isSeller(product) && <DeleteProduct productId={productId} />}
+        </div>
       </div>
       {product.images.length === 1 ? (
         <img
@@ -178,11 +178,11 @@ function ProductDetail() {
           <li><button onClick={() => handleModalChange('seller')}>Seller</button></li>
         </menu>
       </section>
-        {renderModalContent()}
-        <Link to="/marketplace"><button className='close-button'>Close</button></Link>
-        <div className='add-cart-button-container'>
-        <CreateOrderline productId={productId}/>
-        </div>
+      {renderModalContent()}
+      <Link to="/marketplace"><button className='close-button'>Close</button></Link>
+      <div className='add-cart-button-container'>
+        <CreateOrderline productId={productId} />
+      </div>
     </div>
   );
 
