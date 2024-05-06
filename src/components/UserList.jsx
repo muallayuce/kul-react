@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom'; // Import useParams
+import { Link, useParams } from 'react-router-dom';
 import './UserList.css';
 
 const UserList = () => {
@@ -7,27 +7,27 @@ const UserList = () => {
   const [friendRequests, setFriendRequests] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [loggedInUserId, setLoggedInUserId] = useState(null);
-  const { userId } = useParams(); // Access URL parameters
-
-  console.log(friendRequests)
+  const [loggedInUsername, setLoggedInUsername] = useState(null);
+  const [addedFriendId, setAddedFriendId] = useState(null); // State to store the ID of the added friend
+  const { userId } = useParams();
 
   useEffect(() => {
-    // Fetch the list of users
     fetch('http://localhost:8000/users')
       .then(response => response.json())
       .then(data => setUsers(data))
       .catch(error => console.error('Error fetching users:', error));
 
-    // Simulate getting the logged-in user ID (replace with actual implementation)
-    const loggedInUserIdFromLocalStorage = localStorage.getItem('user_id');
-    if (loggedInUserIdFromLocalStorage) {
-      setLoggedInUserId(parseInt(loggedInUserIdFromLocalStorage));
-    }
+      const loggedInUserIdFromLocalStorage = localStorage.getItem('user_id');
+      console.log('loggedInUserIdFromLocalStorage:', loggedInUserIdFromLocalStorage); // Add this line
+      const loggedInUsernameFromLocalStorage = localStorage.getItem('username');
+      if (loggedInUserIdFromLocalStorage) {
+        setLoggedInUserId(parseInt(loggedInUserIdFromLocalStorage));
+        setLoggedInUsername(loggedInUsernameFromLocalStorage);
+      }
   }, []);
 
   useEffect(() => {
     if (loggedInUserId) {
-      // Fetch friend requests for the logged-in user
       fetch(`http://localhost:8000/friendshiprequests?user_id=${loggedInUserId}`)
         .then(response => response.json())
         .then(data => setFriendRequests(data))
@@ -46,17 +46,19 @@ const UserList = () => {
 
   const addFriend = async (userId) => {
     try {
-      if (!loggedInUserId) {
+      if (!loggedInUserId || !loggedInUsername) {
         throw new Error('User is not logged in');
       }
 
-      const response = await fetch(`http://localhost:8000/friendships?from_user_id=${loggedInUserId}&to_user_id=${userId}`, {
+      const response = await fetch(`http://localhost:8000/friendships?from_user_id=${loggedInUserId}&to_user_id=${userId}&sender_username=${loggedInUsername}`, {
         method: 'POST',
       });
 
       if (!response.ok) {
         throw new Error('Failed to send friend request');
       }
+
+      setAddedFriendId(userId); // Store the ID of the added friend
 
       // Refresh the friend requests after sending the request
       fetch(`http://localhost:8000/friendshiprequests?user_id=${loggedInUserId}`)
@@ -136,7 +138,7 @@ const UserList = () => {
         ))}
         {filteredUsers.map(user => (
           <li key={user.id} className="user-card">
-            <Link to={`/profile/${user.id}`} className="user-link"> {/* Link to user profile */}
+            <Link to={`/profile/${user.id}`} className="user-link">
               {user.images && user.images.map(image => (
                 <img key={image.id} className="user-image" src={`http://localhost:8000/users/${user.id}/userimage`} alt="User Image" />
               ))}
@@ -150,8 +152,13 @@ const UserList = () => {
               ))}
             </ul>
             <hr className="divider" />
-            {loggedInUserId && (
-              <button className="add-friend-button" onClick={() => addFriend(user.id)}>Add Friend</button>
+            {loggedInUserId !== user.id && (
+              <>
+                {!friendRequests.some(request => request.sender_id === user.id) && ( // Check if there's no friend request pending
+                  <button className="add-friend-button" onClick={() => addFriend(user.id)}>Add Friend</button>
+                )}
+                {addedFriendId === user.id && <p>Friend added!</p>} {/* Display "Friend added!" only for the added friend */}
+              </>
             )}
           </li>
         ))}
