@@ -1,70 +1,128 @@
 /* UserList.css */
 
-.user-list-container {
+:root{
+  --color-1:#352473;
+  --color-2:#724fc3; 
+  --color-3:#d90d6c;
+}
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .search-container {
-    margin-top: 20px;
-    align-self: flex-end;
-    margin-right: 20px;
-  }
-  
-  .search-input {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-right: 20px; /* Adjust as needed */
-  }
-  
-  
+.search-container {
+  margin-top: 20px;
+  margin-right: 20px;
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+}
+
+.search-input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 20px; /* Adjust as needed */
+}
+
+.user-list-flex-container {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 2%;
+  justify-content: center;
+  position: relative;
+}
+
+.user-card {
+  width: 350px;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #dddfe2;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+  list-style-type: none;
+}
+
+/* Ensure that three users are displayed in a row */
+@media screen and (max-width: 991px) {
   .user-card {
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 800px;
+    width: calc(50% - 20px); /* Adjust for smaller screens */
   }
-  
-  .username {
-    margin-top: 0;
-    font-size: 1.2em;
-    color: #333;
+}
+
+@media screen and (max-width: 767px) {
+  .user-card {
+    width: calc(100% - 20px); /* Adjust for smaller screens */
   }
-  
-  .user-image {
-    max-width: 100px;
-    border-radius: 50%;
-  }
-  
-  .email {
-    margin-bottom: 10px;
-    color: #666;
-  }
-  
-  .posts-header {
-    margin-top: 15px;
-    font-size: 1.1em;
-    color: #333;
-  }
-  
-  .posts-list {
-    list-style: none;
-    padding-left: 0;
-  }
-  
-  .post {
-    margin-bottom: 5px;
-    color: #555;
-  }
-  
-  .divider {
-    border: 0;
-    border-top: 1px solid #ccc;
-    margin: 20px 0;
-  }
-  
+}
+
+.username {
+  margin-top: 0;
+  font-size: 1.2em;
+  color:var(--color-1)
+}
+
+.user-image-userlist {
+  max-width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.email {
+  margin-bottom: 10px;
+  color: var(--color-1);
+  margin-left: 20px;
+}
+
+.posts-header {
+  margin-top: 15px;
+  font-size: 1.1em;
+  color: var(--color-2);
+  margin-left: 20px;
+}
+
+.posts-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.post {
+  margin-bottom: 5px;
+  color: #555;
+}
+
+
+
+
+.friend-request {
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  list-style: none;
+}
+
+.friend-request-container{
+  display: flex;
+  flex-direction: row;
+}
+
+.friend-request p {
+  margin: 0;
+  color: var(--color-1);
+}
+
+.friend-request button {
+  margin-left: 10px;
+  background-color: var(--color-2);
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.friend-request button:hover {
+  background-color: var(--color-3);
+}

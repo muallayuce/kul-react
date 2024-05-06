@@ -17,13 +17,13 @@ const UserList = () => {
       .then(data => setUsers(data))
       .catch(error => console.error('Error fetching users:', error));
 
-      const loggedInUserIdFromLocalStorage = localStorage.getItem('user_id');
-      console.log('loggedInUserIdFromLocalStorage:', loggedInUserIdFromLocalStorage); // Add this line
-      const loggedInUsernameFromLocalStorage = localStorage.getItem('username');
-      if (loggedInUserIdFromLocalStorage) {
-        setLoggedInUserId(parseInt(loggedInUserIdFromLocalStorage));
-        setLoggedInUsername(loggedInUsernameFromLocalStorage);
-      }
+    const loggedInUserIdFromLocalStorage = localStorage.getItem('user_id');
+    console.log('loggedInUserIdFromLocalStorage:', loggedInUserIdFromLocalStorage); // Add this line
+    const loggedInUsernameFromLocalStorage = localStorage.getItem('username');
+    if (loggedInUserIdFromLocalStorage) {
+      setLoggedInUserId(parseInt(loggedInUserIdFromLocalStorage));
+      setLoggedInUsername(loggedInUsernameFromLocalStorage);
+    }
   }, []);
 
   useEffect(() => {
@@ -118,7 +118,6 @@ const UserList = () => {
 
   return (
     <div className="user-list-container">
-      <h1>User List</h1>
       <div className="search-container">
         <input 
           type="text" 
@@ -128,41 +127,41 @@ const UserList = () => {
           className="search-input" 
         />
       </div>
-      <ul className="user-list">
-        {friendRequests.map(request => (
-          <li key={request.id} className="friend-request">
-            <p>{request.sender_username} sent you a friend request.</p>
-            <button className="accept-request-button" onClick={() => acceptRequest(request.id)}>Accept</button>
-            <button className="reject-request-button" onClick={() => rejectRequest(request.id)}>Reject</button>
-          </li>
-        ))}
-        {filteredUsers.map(user => (
-          <li key={user.id} className="user-card">
-            <Link to={`/profile/${user.id}`} className="user-link">
-              {user.images && user.images.map(image => (
-                <img key={image.id} className="user-image" src={`http://localhost:8000/users/${user.id}/userimage`} alt="User Image" />
-              ))}
-              <h3 className="username">{user.username}</h3>
-            </Link>
-            <p className="email">Email: {user.email}</p>
-            <h4 className="posts-header">Posts:</h4>
-            <ul className="posts-list">
-              {user.posts.map((post, index) => (
-                <li key={index} className="post">{post.content}</li>
-              ))}
-            </ul>
-            <hr className="divider" />
-            {loggedInUserId !== user.id && (
-              <>
-                {!friendRequests.some(request => request.sender_id === user.id) && ( // Check if there's no friend request pending
-                  <button className="add-friend-button" onClick={() => addFriend(user.id)}>Add Friend</button>
-                )}
-                {addedFriendId === user.id && <p>Friend added!</p>} {/* Display "Friend added!" only for the added friend */}
-              </>
-            )}
-          </li>
-        ))}
-      </ul>
+      <div className='friend-request-container'>
+      {friendRequests.map(request => (
+            <li key={request.id} className="friend-request">
+              <h2>Friend Requests</h2>
+              <p>{request.sender_username} sent you a friend request.</p>
+              <button className="accept-request-button" onClick={() => acceptRequest(request.id)}><i class="bi bi-check2"></i></button>
+              <button className="reject-request-button" onClick={() => rejectRequest(request.id)}><i class="bi bi-x-lg"></i></button>
+            </li>
+          ))}
+      </div>
+      <div className="user-list-flex-container"> {/* Add a container with flexbox style */}
+          {filteredUsers.map(user => (
+            <li key={user.id} className="user-card">
+                {user.images && user.images.map(image => (
+                  <img key={image.id} className="user-image-userlist" src={`http://localhost:8000/users/${user.id}/userimage`} alt="User Image" />
+                ))}
+                <h3 className="username">{user.username}</h3>
+              <p className="email">Email: {user.email}</p>
+              <h4 className="posts-header">Posts:</h4>
+              <ul className="posts-list">
+                {user.posts.map((post, index) => (
+                  <li key={index} className="post">{post.content}</li>
+                ))}
+              </ul>
+              {loggedInUserId !== user.id && (
+                <>
+                  {!friendRequests.some(request => request.sender_id === user.id) && ( // Check if there's no friend request pending
+                    <button className="add-friend-button" onClick={() => addFriend(user.id)}><i class="bi bi-person-add"></i></button>
+                  )}
+                  {addedFriendId === user.id && <p>Friend added!</p>} {/* Display "Friend added!" only for the added friend */}
+                </>
+              )}
+            </li>
+          ))}
+      </div>
     </div>
   );
 };

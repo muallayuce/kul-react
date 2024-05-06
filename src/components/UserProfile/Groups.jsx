@@ -378,9 +378,9 @@ const Groups = () => {
           </div>
           <p className='group-description'>Description: {group.description}</p>
           <div className="group-add-post">
-            <Button onClick={() => handleOpenCreatePost(group)} variant="contained" color="primary">Add Post</Button>
+            <Button onClick={() => handleOpenCreatePost(group)}><i class="bi bi-pencil-square" id="create-post-icon"></i></Button>
             {!group.members.some(member => member.id === parseInt(userId)) && (
-              <Button onClick={() => handleJoinGroup(group.id)} variant="contained" color="secondary">Join Group</Button>
+              <Button onClick={() => handleJoinGroup(group.id)}><i className="bi bi-person-add"></i></Button>
             )}
           </div>
           <div className="group-posts">GROUP POSTS
@@ -390,7 +390,7 @@ const Groups = () => {
                   <span className="post-author">{post.username}:</span>
                   <span className="post-content">{post.content}</span>
                   {post.author_id === parseInt(userId) && (
-                  <button onClick={() => handleDeleteGroupPost(post)}>Delete</button>
+                  <button onClick={() => handleDeleteGroupPost(post)}><i class="bi bi-trash3"></i></button>
                   )}
                 </div>
               ))}
