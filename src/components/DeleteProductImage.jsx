@@ -26,14 +26,14 @@ function DeleteProductImage({ imageId, onDelete }) {
     return (
         <div>
             {!confirmDelete ? (
-                <Tooltip title='Delete' placement='top' arrow id='delete-productimage-tooltip'>
+                <Tooltip title='Delete image' placement='right' arrow id='delete-productimage-tooltip'>
                     <button className='delete-productimage-button' onClick={() => setConfirmDelete(true)}>
                         <i className="bi bi-trash3-fill" id='productimage-trash-icon'></i>
                     </button>
                 </Tooltip>
             ) : (
                 <div className='delete-productimage-check-container'>
-                    <p className='delete-check'>Delete?</p>
+                    <p className='delete-check'>Delete this image?</p>
                     <div className='delete-productimage-yes-no-container'>
                         <button className='delete-productimage-yes-button' onClick={handleProductImageDelete}>
                             <i className="bi bi-check-circle-fill" id='check-icon'></i>

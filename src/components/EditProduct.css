@@ -156,3 +156,8 @@
     margin-top: 10px;
     border-radius: 5%;
   }
+
+  .single-productimg-container{
+    display: flex;
+    flex-direction: column;
+  }

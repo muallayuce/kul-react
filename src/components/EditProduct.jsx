@@ -147,7 +147,7 @@ function EditProduct() {
                     <input type="number" id="quantity" name="quantity" min="0" value={formData.quantity} onChange={handleChange} />
                 </div>
                 {formData.images && formData.images.length === 1 ? (
-                    <div>
+                    <div className='single-productimg-container'>
                     <img
                         className="product-edit-image"
                         src={`http://127.0.0.1:8000/images/${formData.images[0].id}`}
