@@ -1,110 +1,108 @@
-/* UserList.css */
+:root {
+  --color-1: #352473;
+  --color-2: #724fc3;
+  --color-3: #d90d6c;
+}
 
-:root{
-  --color-1:#352473;
-  --color-2:#724fc3; 
-  --color-3:#d90d6c;
+.user-list-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.friend-request-container {
+  flex: 1;
+  max-width: 300px;
+}
+
+.user-list-flex-container {
+  flex: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: flex-start;
+  margin: 20px 0;
+  list-style-type: none;
 }
 
 .search-container {
-  margin-top: 20px;
-  margin-right: 20px;
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
 }
 
 .search-input {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  margin-right: 20px; /* Adjust as needed */
-}
-
-.user-list-flex-container {
-  flex: 1;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin: 2%;
-  justify-content: center;
-  position: relative;
 }
 
 .user-card {
-  width: 350px;
-  margin: 10px;
-  padding: 10px;
-  border: 1px solid #dddfe2;
+  width: calc(33.33% - 20px);
+  margin-bottom: 20px;
+  padding: 20px;
   border-radius: 8px;
-  background-color: #fff;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
-  list-style-type: none;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Ensure that three users are displayed in a row */
 @media screen and (max-width: 991px) {
   .user-card {
-    width: calc(50% - 20px); /* Adjust for smaller screens */
+    width: calc(50% - 20px);
   }
 }
 
 @media screen and (max-width: 767px) {
   .user-card {
-    width: calc(100% - 20px); /* Adjust for smaller screens */
+    width: calc(100% - 20px);
   }
 }
 
 .username {
   margin-top: 0;
-  font-size: 1.2em;
-  color:var(--color-1)
+  font-size: 1.4em;
+  color: var(--color-1);
 }
 
 .user-image-userlist {
   max-width: 100px;
   height: 100px;
   border-radius: 50%;
+  margin-bottom: 10px;
 }
 
 .email {
-  margin-bottom: 10px;
   color: var(--color-1);
-  margin-left: 20px;
+  margin-bottom: 10px;
 }
 
 .posts-header {
-  margin-top: 15px;
   font-size: 1.1em;
   color: var(--color-2);
-  margin-left: 20px;
+  margin-bottom: 5px;
 }
 
 .posts-list {
   list-style: none;
   padding-left: 0;
+  margin-bottom: 10px;
 }
 
 .post {
-  margin-bottom: 5px;
-  color: #555;
+  color: #666;
 }
 
-
-
+.friend-request-container {
+  margin-top: 20px;
+}
 
 .friend-request {
-  margin-bottom: 10px;
   padding: 10px;
-  background-color: #fff;
   border-radius: 8px;
+  background-color: #fff;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   list-style: none;
-}
-
-.friend-request-container{
-  display: flex;
-  flex-direction: row;
 }
 
 .friend-request p {
@@ -117,7 +115,7 @@
   background-color: var(--color-2);
   color: #fff;
   border: none;
-  padding: 5px 10px;
+  padding: 8px 16px;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;

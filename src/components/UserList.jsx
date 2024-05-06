@@ -117,8 +117,8 @@ const UserList = () => {
   };
 
   return (
-    <div className="user-list-container">
-      <div className="search-container">
+    <>
+    <div className="search-container">
         <input 
           type="text" 
           placeholder="Search users..." 
@@ -127,6 +127,7 @@ const UserList = () => {
           className="search-input" 
         />
       </div>
+    <div className="user-list-container">
       <div className='friend-request-container'>
       {friendRequests.map(request => (
             <li key={request.id} className="friend-request">
@@ -163,6 +164,7 @@ const UserList = () => {
           ))}
       </div>
     </div>
+    </>
   );
 };
 
