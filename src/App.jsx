@@ -27,6 +27,7 @@ import CreatePost from './components/CreatePost';
 import Order from './components/Order';
 import Pay from './components/Pay';
 import UserList from './components/UserList';
+import UserProducts from './components/UserProducts';
 
 
 // Define your base URL
@@ -76,7 +77,13 @@ function App() {
   // Function to fetch products
   const fetchProducts = async () => {
     try {
-      const response = await fetch(BASE_URL + '/products/');
+        const response = await fetch(BASE_URL + '/products/', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
       if (response.ok) {
         const productsData = await response.json();
         console.log('Products:', productsData);
@@ -228,6 +235,7 @@ function App() {
           <Route path='/groups' element={<Groups/>}></Route>
           <Route path="/pay" element={<Pay />} />
           <Route path= '/users' element={<UserList />}></Route>
+          <Route path= '/myshop' element={<UserProducts />}></Route>
         </Routes>
 
         {/* Render login or signup modal based on openModal state */}

@@ -1,0 +1,213 @@
+@font-face {
+    font-family: "Logo";
+    src: url("/src/fonts/eras.TTF") format("truetype");
+}
+
+@font-face {
+    font-family: "Lucida";
+    src: url("/src/fonts/lucida.TTF") format("truetype");
+}
+
+@font-face {
+    font-family: "Slogan";
+    src: url("/src/fonts/mystical.TTF") format("truetype");
+}
+
+
+.orders-container {
+    height: 50%;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #dddfe2;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.my-order-title {
+    font-family: 'Slogan';
+    font-size: 40px;
+    margin-bottom: 20px;
+    color: var(--color-2);
+    text-align: center;
+}
+
+.order-info-container {
+    height: 50%;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    padding: 30px;
+    border: 1px solid #dddfe2;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.order-status {
+    font-family: 'Logo';
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: var(--color-2);
+}
+
+.order-price {
+    font-family: 'Logo';
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: var(--color-1);
+}
+
+
+.order-status-info {
+    font-family: 'Arial';
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: rgb(131, 129, 129);
+}
+
+.order-price-info {
+    font-family: 'Logo';
+    font-size: 38px;
+    margin-bottom: 20px;
+    color: black;
+}
+
+.pay-button {
+    background-color: var(--color-1);
+    margin: 10px;
+    font-family: "Logo", sans-serif;
+    color: #fafafa;
+    border-radius: 100%;
+    width: 70px;
+    height: 65px;
+    margin-left: 2.3%;
+}
+
+.pay-button:hover {
+    background-color: var(--color-2);
+    border: none;
+    transform: scale(1.3);
+}
+
+.mycart-tile {
+    font-family: 'Slogan';
+    font-size: 40px;
+    margin-bottom: 20px;
+    color: var(--color-2);
+    text-align: center;
+}
+
+.orderlines-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.orderline {
+    width: 80%;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #dddfe2;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+    margin-left: 2.3%;
+}
+
+.orderline:hover {
+    transform: scale(1.05);
+}
+
+.line-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+}
+
+.orderline-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    overflow: hidden;
+    width: 28%;
+}
+
+.orderline-image {
+    max-width: 95%;
+    object-fit: contain;
+    border-radius: 5%;
+    max-block-size: -webkit-fill-available;
+}
+
+.orderline-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.orderline-text-container {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    margin-top: 10px;
+}
+
+.orderline-labels {
+    flex: 0 0 210px;
+}
+
+.orderline-label {
+    font-size: 28px;
+    line-height: 1.6;
+    color: var(--color-2);
+    font-weight: bold;
+    font-family: 'Logo';
+    text-transform: capitalize;
+}
+
+.orderline-text {
+    font-size: 25px;
+    line-height: 1.6;
+    color: rgb(114, 114, 114);
+    font-weight: bold;
+    font-family: 'Arial';
+    text-transform: capitalize;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 auto;
+    gap: 5px;
+    max-width: 50rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.subtotal-container {
+    display: flex;
+}
+
+.subtotal-label {
+    font-size: 28px;
+    line-height: 1.6;
+    color: var(--color-1);
+    font-weight: bold;
+    font-family: 'Logo';
+    text-transform: capitalize;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.subtotal-text {
+    font-size: 35px;
+    line-height: 1.6;
+    color: black;
+    font-weight: bold;
+    font-family: 'Logo';
+    text-transform: capitalize;
+}
