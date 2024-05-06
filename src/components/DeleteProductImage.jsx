@@ -5,7 +5,7 @@ import './DeleteProductImage.css';
 function DeleteProductImage({ imageId, onDelete }) {
     const [confirmDelete, setConfirmDelete] = useState(false);
 
-    const handleDelete = async () => {
+    const handleProductImageDelete = async () => {
         console.log('Deleting product image...');
         try {
             const response = await fetch(`http://localhost:8000/images/${imageId}`, {
@@ -25,19 +25,19 @@ function DeleteProductImage({ imageId, onDelete }) {
     return (
         <div>
             {!confirmDelete ? (
-                <Tooltip title='Delete' placement='top' arrow id='delete-orderline-tooltip'>
-                    <button className='delete-orderline-button' onClick={() => setConfirmDelete(true)}>
-                        <i className="bi bi-trash3-fill" id='orderline-trash-icon'></i>
+                <Tooltip title='Delete' placement='top' arrow id='delete-productimage-tooltip'>
+                    <button className='delete-productimage-button' onClick={() => setConfirmDelete(true)}>
+                        <i className="bi bi-trash3-fill" id='productimage-trash-icon'></i>
                     </button>
                 </Tooltip>
             ) : (
-                <div className='delete-check-container'>
+                <div className='delete-productimage-check-container'>
                     <p className='delete-check'>Delete?</p>
-                    <div className='yes-no-container'>
-                        <button className='yes-button' onClick={handleDelete}>
+                    <div className='delete-productimage-yes-no-container'>
+                        <button className='delete-productimage-yes-button' onClick={handleProductImageDelete}>
                             <i className="bi bi-check-circle-fill" id='check-icon'></i>
                         </button>
-                        <button className='no-button' onClick={() => setConfirmDelete(false)}>
+                        <button className='delete-productimage-no-button' onClick={() => setConfirmDelete(false)}>
                             <i className="bi bi-x-circle-fill" id='x-icon'></i>
                         </button>
                     </div>

@@ -1,4 +1,4 @@
-.delete-orderline-button {
+.delete-productimage-button {
     background-color: transparent;
     margin: 10px;
     font-family: "Logo", sans-serif;
@@ -10,60 +10,60 @@
     border: transparent;
 }
 
-.delete-orderline-button:hover {
+.delete-productimage-button:hover {
     color: var(--color-2);
     background-color: transparent;
     border: none;
     transform: scale(1.3);
 }
 
-#orderline-trash-icon {
+#productimage-trash-icon {
     color: var(--color-1);
     font-size: 30px;
 }
 
-#orderline-trash-icon:hover {
+#productimage-trash-icon:hover {
     color: var(--color-2);
     font-size: 30px;
 }
 
-#delete-orderline-tooltip .MuiTooltip-tooltip {
+#delete-productimage-tooltip .MuiTooltip-tooltip {
     font-size: 18px;
 }
 
-.delete-check-container {
+.delete-productimage-check-container {
     float: right;
     font-family: Arial;
     font-weight: bold;
     color: var(--color-3);
 }
 
-.yes-no-container {
+.delete-productimage-yes-no-container {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.yes-button {
+.delete-productimage-yes-button {
     background-color: transparent;
     color: white;
     font-weight: bold;
     margin-right: 20px;
 }
 
-.yes-button:hover {
+.delete-productimage-yes-button:hover {
     background-color:transparent;
     border: none;
     transform: scale(1.3);
 }
 
-.no-button {
+.delete-productimage-no-button {
     background-color: transparent;
     color: white;
     font-weight: bold;
 }
 
-.no-button:hover {
+.delete-productimage-no-button:hover {
     background-color: transparent;
     border: none;
     transform: scale(1.3);
