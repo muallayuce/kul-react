@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Tooltip } from "@mui/material";
 import { useParams, useNavigate } from 'react-router-dom';
 import './EditProduct.css';
-import Slider from "react-slick"; // Importa el componente Slider
+import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

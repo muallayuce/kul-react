@@ -8,6 +8,7 @@
     width: 70px;
     height: 65px;
     border: transparent;
+    margin-right: 30%;
 }
 
 .delete-productimage-button:hover {
