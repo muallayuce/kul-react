@@ -71,7 +71,7 @@ function Marketplace({ products }) {
               <Link to={`/product/${product.id}`} className="product-link">
                 <div className="product_header">
                   <p className="product_name">{product.product_name}</p>
-                  <p className="product_price">${product.price}</p>
+                  <p className="product_price">{product.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</p>
                   <div className="product_images">
                     {product.images.length > 0 ? (
                       product.images.map(image => (
@@ -93,6 +93,9 @@ function Marketplace({ products }) {
                   <div className="product_rating">
                     {averageScores[product.id] !== undefined ? renderStars(averageScores[product.id]) : ''}
                   </div>
+                  {averageScores[product.id] === null && (
+                    <div className="product_rating">Be the first to write a review!</div>
+                  )}
                 </div>
               </Link>
             </div>
@@ -103,7 +106,7 @@ function Marketplace({ products }) {
               <Link to={`/product/${product.id}`} className="product-link">
                 <div className="product_header">
                   <p className="product_name">{product.product_name}</p>
-                  <p className="product_price">${product.price}</p>
+                  <p className="product_price">{product.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</p>
                   <div className="product_images">
                     {product.images.length > 0 ? (
                       <img

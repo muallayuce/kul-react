@@ -101,7 +101,7 @@ function CreatePost({ authToken, fetchPosts }) {
     return (
       <>
         <Tooltip title='Create Post' placement="top" arrow>
-          <Button onClick={handleOpen}><i className="bi bi-pencil-square"></i></Button>
+          <Button onClick={handleOpen}><i className="bi bi-pencil-square" id='create-post-icon'></i></Button>
         </Tooltip>
         <Dialog open={open} onClose={handleClose} BackdropComponent={CustomBackdrop}>
           <DialogTitle>Create Post</DialogTitle>

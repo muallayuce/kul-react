@@ -4,13 +4,6 @@
   src: url("/src/fonts/eras.TTF") format("truetype");
 }
 
-.marketplace {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 5px;
-}
-
 .post {
     margin-bottom: 20px;
     padding: 20px;

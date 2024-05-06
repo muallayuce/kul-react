@@ -1,34 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Tooltip } from "@mui/material";
 import { useParams, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import './PostReview.css';
+import { UserContext } from '../context/UserContext';
 
 const StarRating = ({ initialRating, onChange }) => {
-  const [rating, setRating] = useState(initialRating);
+    const [rating, setRating] = useState(initialRating);
 
-  const handleClick = (value) => {
-    setRating(value);
-    onChange(value);
-  };
+    const handleClick = (value) => {
+        setRating(value);
+        onChange(value);
+    };
 
-  return (
-    <div className='review-stars'>
-      {[...Array(5)].map((_, index) => {
-        const starValue = index + 1;
-        return (
-          <span
-            key={index}
-            onClick={() => handleClick(starValue)}
-            style={{ cursor: 'pointer', color: starValue <= rating ? 'var(--color-2)' : '#ded0fd'}}
-          >
-            <FontAwesomeIcon icon={faStar} />
-          </span>
-        );
-      })}
-    </div>
-  );
+    return (
+        <div className='review-stars'>
+            {[...Array(5)].map((_, index) => {
+                const starValue = index + 1;
+                return (
+                    <span
+                        key={index}
+                        onClick={() => handleClick(starValue)}
+                        style={{ cursor: 'pointer', color: starValue <= rating ? 'var(--color-2)' : '#ded0fd'}}
+                    >
+                        <FontAwesomeIcon icon={faStar} />
+                    </span>
+                );
+            })}
+        </div>
+    );
 };
 
 function PostReview() {
@@ -39,6 +40,7 @@ function PostReview() {
         score: 0,
         comment: ''
     });
+    const [token] = useContext(UserContext);
     const [error, setError] = useState('');
 
     const handleChange = (e) => {
@@ -64,6 +66,7 @@ function PostReview() {
             const response = await fetch(url, {
                 method: 'POST',
                 headers: {
+                    'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
@@ -90,10 +93,6 @@ function PostReview() {
             <h2 className='post-review-title'>Your review</h2>
             <form onSubmit={handleSubmit}>
                 {error && <p className="error-message-review">{error}</p>}
-                <div className="form-group">
-                    <label htmlFor="creator_id">Your ID:</label> <br />
-                    <input type="text" id="creator_id" name="creator_id" value={formData.creator_id} onChange={handleChange} />
-                </div>
                 <div className="form-group">
                     <label htmlFor="score">Score:</label> <br />
                     <StarRating initialRating={formData.score} onChange={handleRatingChange} />
