@@ -19,7 +19,8 @@ function EditProduct() {
         description: '',
         price: 0,
         quantity: 0,
-        image: null
+        images: [],
+        toUpload: [],
     });
 
     useEffect(() => {
@@ -33,7 +34,8 @@ function EditProduct() {
                     const productData = await response.json();
                     setFormData({
                         ...productData,
-                        id: id
+                        id: id,
+                        toUpload: []
                     });
                 } catch (error) {
                     console.error('Error fetching product data:', error);
@@ -49,7 +51,7 @@ function EditProduct() {
         if (name === 'image') {
             setFormData(prevState => ({
                 ...prevState,
-                [name]: files[0]
+                toUpload: [...prevState.toUpload, ...files]
             }));
         } else {
             setFormData(prevState => ({
@@ -66,15 +68,8 @@ function EditProduct() {
                 console.error('No product ID found');
                 return;
             }
-            const { product_name, description, price, quantity, image } = formData;
+            const { product_name, description, price, quantity } = formData;
 
-            // Update product data
-            const productUpdateData = {
-                product_name,
-                description,
-                price,
-                quantity
-            };
             const updateUrl = `http://localhost:8000/products/${id}?product_name=${product_name}&description=${description}&price=${price}&quantity=${quantity}`;
             const updateResponse = await fetch(updateUrl, {
                 method: 'PUT',
@@ -87,15 +82,14 @@ function EditProduct() {
             }
 
             // Upload image if available
-            if (image) {
-                const formData = new FormData();
-                formData.append('image', image);
-                const imageUrl = `http://localhost:8000/products/${id}/images`;
-                const imageResponse = await fetch(imageUrl, {
+            for (const image of formData.toUpload) {
+                const imagesFormData = new FormData();
+                imagesFormData.append('image', image);
+                const imagesResponse = await fetch(`http://localhost:8000/products/${id}/images`, {
                     method: 'POST',
-                    body: formData
+                    body: imagesFormData
                 });
-                if (!imageResponse.ok) {
+                if (!imagesResponse.ok) {
                     throw new Error('Failed to upload image');
                 }
             }
@@ -186,7 +180,7 @@ function EditProduct() {
 
                 <div className="form-group">
                     <label htmlFor="image">Image:</label> <br />
-                    <input type="file" id="image" name="image" accept="image/*" onChange={handleChange} />
+                    <input type="file" id="image" name="image" accept="image/*" multiple onChange={handleChange} />
                 </div>
                 <Tooltip title='Update' placement="top" arrow id='update-tooltip'>
                     <button className='update-button' onClick={handleSubmit}>
