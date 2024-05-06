@@ -8,6 +8,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import NoImage from "../assets/balamgray.png";
+import DeleteProductImage from './DeleteProductImage';
 
 function EditProduct() {
     const { id } = useParams();
@@ -139,11 +140,14 @@ function EditProduct() {
                     <input type="number" id="quantity" name="quantity" min="0" value={formData.quantity} onChange={handleChange} />
                 </div>
                 {formData.images && formData.images.length === 1 ? (
+                    <div>
                     <img
                         className="product-edit-image"
                         src={`http://127.0.0.1:8000/images/${formData.images[0].id}`}
                         alt="Product Image"
-                    />
+                    /> 
+                    <DeleteProductImage imageId={formData.images[0].id}/>
+                    </div>
                 ) : formData.images && formData.images.length > 1 ? (
                     <Slider
                         dots={true}
@@ -161,6 +165,7 @@ function EditProduct() {
                                     src={`http://127.0.0.1:8000/images/${image.id}`}
                                     alt="Product Image"
                                 />
+                                 <DeleteProductImage imageId={image.id}/>
                             </div>
                         ))}
                     </Slider>
