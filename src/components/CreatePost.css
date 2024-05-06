@@ -1,3 +1,22 @@
+@font-face {
+  font-family: "Logo";
+  src: url("/src/fonts/eras.TTF") format("truetype");
+}
+
+@font-face {
+  font-family: "Slogan";
+  src: url("/src/fonts/mystical.TTF") format("truetype");
+}
+
+
+/* Base colors */
+:root {
+  --color-1: #352473; /* Purple */
+  --color-2: #724fc3; /* Lighter purple */
+  --color-3: #d90d6c; /* Pink */
+}
+
+
 .dialog[open] {
   background-color: #ff0000;
 }
@@ -40,14 +59,15 @@
   margin-top: 20px;
 }
 
-.dialog-btn{
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-
 /* Dialog Buttons */
-.dialog-btn {
+#dialog-btn {
   color: var(--color-1);
   margin-left: 10px;
+}
+
+#dialog-btn:hover {
+  background-color: var(--color-2);
+  color: white;
 }
 
 /* Modal styles */
@@ -59,3 +79,4 @@
 .image-input {
   width: 500px;
 }
+

@@ -110,8 +110,8 @@ function CreatePost({ authToken, fetchPosts }) {
             {loading ? <p>Loading...</p> : null}
             {error && <p className="error-message">{error}</p>}
           <div className='dialog-button'>
-            <Button className='dialog-btn' onClick={handleClose}>Cancel</Button>
-            <Button className='dialog-btn' onClick={createPost}>Post</Button>
+            <Button id='dialog-btn' onClick={handleClose}>Cancel</Button>
+            <Button id='dialog-btn' onClick={createPost}>Post</Button>
           </div>
         </Dialog>
       </>
