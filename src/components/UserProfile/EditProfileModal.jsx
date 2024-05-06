@@ -2,11 +2,13 @@
 import React, { useState } from 'react';
 import './UserProfile.css';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const BASE_URL = 'http://localhost:8000';
 
-const EditProfileModal = ({ user, onSave, onCancel }) => {
+const EditProfileModal = ({ user, onCancel }) => {
   const initialUser = user || { username: '', email: '', password: '' };
+  const navigate = useNavigate();
   const [editedUser, setEditedUser] = useState(initialUser);
   const userId = localStorage.getItem("user_id");
 
@@ -31,7 +33,8 @@ const EditProfileModal = ({ user, onSave, onCancel }) => {
       if (!response.ok) {
         throw new Error('Failed to update user profile');
       }
-      onSave(editedUser);
+      navigate('/profile');
+      window.location.reload();
     } catch (error) {
       console.error('Error updating user profile:', error.message);
     }

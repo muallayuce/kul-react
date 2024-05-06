@@ -26,6 +26,7 @@ import EditReview from './components/EditReview';
 import CreatePost from './components/CreatePost';
 import Order from './components/Order';
 import Pay from './components/Pay';
+import UserList from './components/UserList';
 
 
 // Define your base URL
@@ -137,7 +138,7 @@ function App() {
     setFooterScreen('contactus')
   }
 
-  
+
   return (
     <Router>
       <div className='app'>
@@ -160,16 +161,16 @@ function App() {
                 </div>
 
                 <div className='app_header_right'>
-                  <Link to='/chat'> <i className="bi bi-chat-fill" id='chat_button'></i></Link> 
+                  <Link to='/chat'> <i className="bi bi-chat-fill" id='chat_button'></i></Link>
                   <Link to='/profile'><button className='profile_button' onClick={handleProfile}>Profile</button></Link>
                   <Link to="/"> <button className="logout_button" onClick={handleLogout}>Log Out </button></Link>
                 </div>
               </>
             ) : (
               <>
-              <div className='app_header_right'>
-                <Link to="/login"><button className='register'>Log In</button></Link>
-                <Link to="/signup"><button className='register'>Sign Up</button></Link>
+                <div className='app_header_right'>
+                  <Link to="/login"><button className='register'>Log In</button></Link>
+                  <Link to="/signup"><button className='register'>Sign Up</button></Link>
                 </div>
               </>
 
@@ -192,39 +193,41 @@ function App() {
             element={
               isLoggedIn && posts.length > 0 ? (
                 <>
-                <CreatePost authToken={token} fetchPosts={fetchPosts}/>
-                <div className='app_posts'>
-                  <div className='sidebar'>
-                    <Link to="/groups"><i className="bi bi-person-video2" title='Groups'></i></Link>
+                  <CreatePost authToken={token} fetchPosts={fetchPosts} />
+                  <div className='app_posts'>
+                    <div className='sidebar'>
+                      <Link to="/groups"><i className="bi bi-person-video2" title='Groups'></i></Link>
+                      <Link to="/users"><i className="bi bi-person-rolodex" id='all_users' title='All Users'></i></Link>
+
+                    </div>
+                    <div className='post_container'>
+                      {posts.map(post => (
+                        <Post key={post.id} post={post} authToken={token} userId={userId} />
+                      ))}
+                    </div>
                   </div>
-                  <div className='post_container'>
-                    {posts.map(post => (
-                      <Post key={post.id} post={post} authToken={token} userId={userId} />
-                    ))}
-                  </div>
-                </div>
                 </>
               ) : null
             }
-          
+
           />
           <Route path='/login' element={isLoggedIn ? <Navigate to="/posts" /> : <Login onLogin={handleLogin} />} />
           <Route path='/signup' element={<Signup onSignup={handleSignup} />} />
           <Route path="/marketplace" element={<Marketplace products={products} />} />
           <Route path="/product/:productId" element={<ProductDetail />} />
-          <Route path='/new/product' element={< PostProduct/>} />
+          <Route path='/new/product' element={< PostProduct />} />
           <Route path='/edit/product/:id' element={<EditProduct />} />
-          <Route path="/profile" element={<UserProfile/>} />
-          <Route path="/chat" element={<Chat/>}/>
-          <Route path='/contactus' element={<ContactUs/>}/>
-          <Route path='/terms' element={<TermsOfService/>}></Route>
-          <Route path='/privacy' element={<PrivacyPolicy/>}></Route>
-          <Route path='/product/:productId/review' element={<PostReview/>} />
+          <Route path="/profile/" element={<UserProfile />} />
+          <Route path="/chat" element={<Chat />} />
+          <Route path='/contactus' element={<ContactUs />} />
+          <Route path='/terms' element={<TermsOfService />}></Route>
+          <Route path='/privacy' element={<PrivacyPolicy />}></Route>
+          <Route path='/product/:productId/review' element={<PostReview />} />
           <Route path='/product/:productId/review/:reviewId/edit' element={<EditReview />} />
           <Route path='/mycart' element={<Order/>}></Route>
           <Route path='/groups' element={<Groups/>}></Route>
           <Route path="/pay" element={<Pay />} />
-
+          <Route path= '/users' element={<UserList />}></Route>
         </Routes>
 
         {/* Render login or signup modal based on openModal state */}

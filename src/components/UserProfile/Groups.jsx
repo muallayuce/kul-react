@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './UserProfile.css';
 import {
   Button,
   Dialog,
@@ -7,13 +6,17 @@ import {
   DialogTitle,
   TextField
 } from '@mui/material';
+import './UserProfile.css';
 
 const BASE_URL = 'http://localhost:8000';
 
 const Groups = () => {
   const [groups, setGroups] = useState([]);
+  const [filteredGroups, setFilteredGroups] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
   const [open, setOpen] = useState(false);
   const userId = localStorage.getItem('user_id');
+  const username = localStorage.getItem("username");
   const [newGroupData, setNewGroupData] = useState({
     name: '',
     description: '',
@@ -23,6 +26,23 @@ const Groups = () => {
   const [newPostContent, setNewPostContent] = useState('');
   const [openCreatePost, setOpenCreatePost] = useState(false);
   const [selectedGroup, setSelectedGroup] = useState(null);
+
+  useEffect(() => {
+    fetchGroups();
+  }, []);
+
+  useEffect(() => {
+    // Filter groups based on search query
+    const filtered = groups.filter(group =>
+      group.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredGroups(filtered);
+  }, [groups, searchQuery]);
+
+  // Function to handle changes in the search input
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -34,30 +54,91 @@ const Groups = () => {
       alert('Please provide both group name and description.');
       return;
     }
-
+  
     try {
-      const response = await fetch(`${BASE_URL}/groups/`, {
+      const queryParams = new URLSearchParams({
+        user_id: userId,
+        username: username
+      });
+  
+      const response = await fetch(`${BASE_URL}/groups/?${queryParams.toString()}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(newGroupData)
-      });
-      if (response.ok) {
-        fetchGroups();
-        setNewGroupData({
-          name: '',
-          description: '',
-          creator_id: 0,
+        body: JSON.stringify({
+          name: newGroupData.name,
+          description: newGroupData.description,
+          creator_id: parseInt(userId) || 0,
           created_at: new Date().toISOString()
-        });
-        handleClose();
-      } else {
-        throw new Error('Failed to create group');
+        })
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to create group');
       }
+  
+      const newGroup = await response.json();
+  
+      // Fetch the username of the creator
+      const creatorUsername = await fetchUsername(newGroup.creator_id);
+  
+      // Create a new member object for the creator
+      const creatorMember = {
+        id: newGroup.creator_id,
+        username: creatorUsername
+      };
+  
+      // Add the creator as a member of the group
+      const updatedGroup = {
+        ...newGroup,
+        members: [creatorMember],
+        creatorUsername
+      };
+  
+      setGroups([...groups, updatedGroup]);
+      setNewGroupData({
+        name: '',
+        description: '',
+        creator_id: parseInt(userId) || 0,
+        created_at: new Date().toISOString()
+      });
+      handleClose();
     } catch (error) {
       console.error(error);
-      alert('Failed to create group');
+      alert(error.message || 'Failed to create group');
+    }
+  };
+
+  const handleJoinGroup = async (groupId) => {
+    try {
+      const queryParams = new URLSearchParams({
+        group_id: groupId,
+        user_id: userId,
+        username: username
+      });
+
+      const response = await fetch(`${BASE_URL}/groups/${groupId}/join_group?${queryParams.toString()}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          user_id: parseInt(userId)
+        })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || 'Failed to join group');
+      }
+
+      // Optionally, you can update the UI to reflect the user joining the group
+      fetchGroups();
+    } catch (error) {
+      console.error(error);
+      alert(error.message || 'Failed to join group');
     }
   };
 
@@ -167,9 +248,51 @@ const Groups = () => {
     }
   };
 
-  useEffect(() => {
-    fetchGroups();
-  }, []);
+  
+  const handleDeleteGroupPost = async (post) => {
+    try {
+      // Check if the post belongs to the logged-in user before deletion
+      if (post.author_id !== parseInt(userId)) {
+        alert('You can only delete your own posts.');
+        return;
+      }
+  
+      console.log('Post:', post); // Add this console log
+  
+      // Ensure that post.id and post.group_id are not undefined
+      console.log('Post ID:', post.id); // Add this console log
+      console.log('Group ID:', post.group_id); // Add this console log
+      console.log('User ID:', userId); // Add this console log
+  
+      const requestOptions = {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      };
+  
+      const response = await fetch(`${BASE_URL}/group_posts/${post.id}?group_id=${post.group_id}&user_id=${userId}`, requestOptions);
+      
+      if (response.ok) {
+        // Remove the deleted post from the UI
+        const updatedGroups = groups.map(group => {
+          if (group.id === selectedGroup.id) {
+            const updatedPosts = group.posts.filter(p => p.id !== post.id);
+            return { ...group, posts: updatedPosts };
+          }
+          return group;
+        });
+        setGroups(updatedGroups);
+      } else {
+        throw new Error('Failed to delete post');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Failed to delete post');
+    }
+  };
+  
+  
 
   const toggleMemberList = (group) => {
     const updatedGroups = groups.map((grp) => {
@@ -200,6 +323,12 @@ const Groups = () => {
 
   return (
     <div className="groups">
+      <TextField
+        type="text"
+        placeholder="Search groups..."
+        value={searchQuery}
+        onChange={handleSearchChange}
+      />
       <Button variant="outlined" onClick={handleOpen}>
         Create Group
       </Button>
@@ -230,7 +359,7 @@ const Groups = () => {
         </DialogActions>
       </Dialog>
       <h2 className="groups-text">GROUPS</h2>
-      {groups.map((group, index) => (
+      {filteredGroups.map((group, index) => (
         <div key={group.id} className="group">
           <div className='name-photos-container'>
             <h2 className='group-name'>{group.name}</h2>
@@ -250,6 +379,9 @@ const Groups = () => {
           <p className='group-description'>Description: {group.description}</p>
           <div className="group-add-post">
             <Button onClick={() => handleOpenCreatePost(group)} variant="contained" color="primary">Add Post</Button>
+            {!group.members.some(member => member.id === parseInt(userId)) && (
+              <Button onClick={() => handleJoinGroup(group.id)} variant="contained" color="secondary">Join Group</Button>
+            )}
           </div>
           <div className="group-posts">GROUP POSTS
             {group.posts &&
@@ -257,6 +389,9 @@ const Groups = () => {
                 <div key={post.id} className="group-post">
                   <span className="post-author">{post.username}:</span>
                   <span className="post-content">{post.content}</span>
+                  {post.author_id === parseInt(userId) && (
+                  <button onClick={() => handleDeleteGroupPost(post)}>Delete</button>
+                  )}
                 </div>
               ))}
           </div>

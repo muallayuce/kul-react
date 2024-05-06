@@ -8,11 +8,12 @@ import UserInfo from './UserInfo';
 
 const BASE_URL = 'http://localhost:8000';
 
-const UserProfile = ({ user }) => {
+const UserProfile = ({ user, authTokenType, authToken }) => {
   const [isEditing, setIsEditing] = useState(false);
   const userId = localStorage.getItem("user_id");
   const [friends, setFriends] = useState([]);
   const [groups, setGroups] = useState([]);
+
 
   const fetchGroups = async () => {
     try {
@@ -39,11 +40,12 @@ const UserProfile = ({ user }) => {
         }
         const data = await response.json();
         const friendPromises = data.map(async (f) => {
-          const response = await fetch(`http://localhost:8000/users/${f.friend_id}`);
-          if (!response.ok) {
+          const friendResponse = await fetch(`http://localhost:8000/users/${f.friend_id}`);
+          if (!friendResponse.ok) {
             throw new Error(`Failed to fetch friend ${f.friend_id}`);
           }
-          return response.json();
+          const friendData = await friendResponse.json();
+          return { ...friendData, friendship_id: f.id };
         });
         const friendsData = await Promise.all(friendPromises);
         setFriends(friendsData);
@@ -51,12 +53,13 @@ const UserProfile = ({ user }) => {
         console.error('Error fetching friends:', error.message);
       }
     };
-
+  
     if (userId) {
       fetchFriends();
       fetchGroups(); // Call fetchGroups here
     }
   }, [userId]);
+  
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -74,16 +77,21 @@ const UserProfile = ({ user }) => {
     setIsEditing(false);
   };
 
-  const handleUnfriend = async (friendId) => {
+
+  const handleUnfriend = async (friendship_id) => {
     try {
-      const response = await fetch(`http://localhost:8000/friends/${friendId}`, {
+      const requestOptions = {
         method: 'DELETE',
-      });
+        headers: new Headers({
+          'Authorization': authTokenType + ' ' + authToken
+        })
+      };
+  
+      const response = await fetch(`${BASE_URL}/friends/${friendship_id}?id=${friendship_id}`, requestOptions);
+      
       if (response.ok) {
-        // Remove the unfriended friend from the list
-        const updatedFriends = friends.filter((friend) => friend.id !== friendId);
+        const updatedFriends = friends.filter((friend) => friend.friendship_id !== friendship_id);
         setFriends(updatedFriends);
-        console.log(`Unfriended user with ID: ${friendId}`);
       } else {
         throw new Error('Failed to unfriend user');
       }
@@ -93,7 +101,6 @@ const UserProfile = ({ user }) => {
     }
   };
   
-
   return (
     <div className="user-profile">
       <div className="profile-body">
