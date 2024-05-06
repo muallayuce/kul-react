@@ -2,6 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Tooltip } from "@mui/material";
 import { useParams, useNavigate } from 'react-router-dom';
 import './EditProduct.css';
+import Slider from "react-slick"; // Importa el componente Slider
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import NoImage from "../assets/balamgray.png";
 
 function EditProduct() {
     const { id } = useParams();
@@ -32,11 +38,10 @@ function EditProduct() {
                     console.error('Error fetching product data:', error);
                 }
             };
-    
+
             fetchProductData();
         }
     }, [id]);
-    
 
     const handleChange = (e) => {
         const { name, value, files } = e.target;
@@ -100,7 +105,18 @@ function EditProduct() {
             console.error('Error updating product:', error);
         }
     };
-    
+
+    const PrevArrow = ({ onClick }) => (
+        <button className="slick-arrow prev" onClick={onClick}>
+            <FontAwesomeIcon icon={faArrowLeft} />
+        </button>
+    );
+
+    const NextArrow = ({ onClick }) => (
+        <button className="slick-arrow next" onClick={onClick}>
+            <FontAwesomeIcon icon={faArrowRight} />
+        </button>
+    );
 
     return (
         <div className="edit-product-container">
@@ -122,6 +138,40 @@ function EditProduct() {
                     <label htmlFor="quantity">Quantity:</label> <br />
                     <input type="number" id="quantity" name="quantity" min="0" value={formData.quantity} onChange={handleChange} />
                 </div>
+                {formData.images && formData.images.length === 1 ? (
+                    <img
+                        className="product-d-image"
+                        src={`http://127.0.0.1:8000/images/${formData.images[0].id}`}
+                        alt="Product Image"
+                    />
+                ) : formData.images && formData.images.length > 1 ? (
+                    <Slider
+                        dots={true}
+                        infinite={true} //Infinite slide
+                        speed={500} // Slide speed
+                        slidesToShow={1}
+                        slidesToScroll={1}
+                        nextArrow={<NextArrow />}
+                        prevArrow={<PrevArrow />}
+                    >
+                        {formData.images.map(image => (
+                            <div key={image.id}>
+                                <img
+                                    className="product-d-image"
+                                    src={`http://127.0.0.1:8000/images/${image.id}`}
+                                    alt="Product Image"
+                                />
+                            </div>
+                        ))}
+                    </Slider>
+                ) : (
+                    <img
+                        className="product-d-image"
+                        src={NoImage}
+                        alt="Placeholder Image"
+                    />
+                )}
+
                 <div className="form-group">
                     <label htmlFor="image">Image:</label> <br />
                     <input type="file" id="image" name="image" accept="image/*" onChange={handleChange} />
