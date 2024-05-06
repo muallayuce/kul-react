@@ -140,7 +140,7 @@ function EditProduct() {
                 </div>
                 {formData.images && formData.images.length === 1 ? (
                     <img
-                        className="product-d-image"
+                        className="product-edit-image"
                         src={`http://127.0.0.1:8000/images/${formData.images[0].id}`}
                         alt="Product Image"
                     />
@@ -157,7 +157,7 @@ function EditProduct() {
                         {formData.images.map(image => (
                             <div key={image.id}>
                                 <img
-                                    className="product-d-image"
+                                    className="product-edit-image"
                                     src={`http://127.0.0.1:8000/images/${image.id}`}
                                     alt="Product Image"
                                 />
@@ -166,7 +166,7 @@ function EditProduct() {
                     </Slider>
                 ) : (
                     <img
-                        className="product-d-image"
+                        className="product-edit-image"
                         src={NoImage}
                         alt="Placeholder Image"
                     />

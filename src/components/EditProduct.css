@@ -107,3 +107,52 @@
   #update-tooltip .MuiTooltip-tooltip {
     font-size: 18px;
   }
+
+
+  /* Carousel arrows */
+.slick-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 99;
+    width: 70px;
+    height: 70px;
+    background-color: rgb(122, 120, 120, 0.2);
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .prev {
+    left: 0;
+    margin-left: 15%;
+  }
+  
+  .next {
+    right: 0;
+    margin-right: 15%;
+  }
+  
+  /* Arrows icons */
+  .slick-arrow svg {
+    color: var(--color-2);
+    font-size: 30px;
+  }
+
+  .product-edit-image {
+    display: block;
+    /* Make the image a block-level element */
+    margin: auto;
+    /* Center the image horizontally */
+    max-width: 800px;
+    max-height: 500px;
+    height: auto;
+    /* Maintain aspect ratio */
+    margin-bottom: 20px;
+    margin-top: 10px;
+    border-radius: 5%;
+  }
