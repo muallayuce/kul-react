@@ -50,8 +50,7 @@ const FriendsList = ({ friends, onUnfriend }) => {
                   <button onClick={handleClose}>Close</button>
                 </div>
               )}
-              {/* Add an unfriend button */}
-              <button onClick={() => handleUnfriendClick(friend.friendship_id)}><i className="bi bi-person-dash"></i></button>
+              <button className='unfriend' onClick={() => handleUnfriendClick(friend.friendship_id)}><i className="bi bi-person-dash"></i></button>
             </div>
           ))}
         </>

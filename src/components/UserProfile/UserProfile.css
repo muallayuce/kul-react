@@ -86,7 +86,7 @@ body {
 
 .edit-profile:hover {
   color: var(--color-1);
-  background-color: var(--color-2);
+  background-color:rgb(205, 175, 245);
 }
 
 /* User info component */
@@ -340,6 +340,7 @@ color: black;
   position: relative; /* Ensure the parent of the modal is positioned relative */
   text-align: center;
   font-family: 'Logo';
+  display: flex;
 }
 
 .friends-list {
@@ -433,6 +434,20 @@ color: black;
 .modal-actions button {
   margin-left: 10px;
 }
+
+.unfriend{
+  width: 20px;
+  display: flex;
+  justify-content: center;
+  background-color: transparent;
+  color: #352473;
+  font-size: 15px;
+}
+
+.unfriend:hover {
+  border: transparent;
+}
+
 
 
 

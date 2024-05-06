@@ -100,21 +100,19 @@ function CreatePost({ authToken, fetchPosts }) {
   
     return (
       <>
-        <Tooltip title='Create Post' placement="top" arrow>
+        <Tooltip className='create-post' title='Create Post' placement="top" arrow>
           <Button onClick={handleOpen}><i className="bi bi-pencil-square" id='create-post-icon'></i></Button>
         </Tooltip>
         <Dialog open={open} onClose={handleClose} BackdropComponent={CustomBackdrop}>
-          <DialogTitle>Create Post</DialogTitle>
-          <DialogContent>
+          <DialogTitle id='create-post-text'>Create Post</DialogTitle>
             <textarea className="post-textarea" value={newPost} onChange={(e) => setNewPost(e.target.value)} />
             <input className="image-input" type="file" accept="image/*" onChange={handleImageChange} />
             {loading ? <p>Loading...</p> : null}
             {error && <p className="error-message">{error}</p>}
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={createPost}>Post</Button>
-          </DialogActions>
+          <div className='dialog-button'>
+            <Button className='dialog-btn' onClick={handleClose}>Cancel</Button>
+            <Button className='dialog-btn' onClick={createPost}>Post</Button>
+          </div>
         </Dialog>
       </>
     );  
