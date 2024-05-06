@@ -216,7 +216,7 @@ function App() {
           <Route path="/marketplace" element={<Marketplace products={products} />} />
           <Route path="/product/:productId" element={<ProductDetail />} />
           <Route path='/new/product' element={< PostProduct />} />
-          <Route path='/edit/product/:id' element={<EditProduct />} />
+          <Route path='/product/:id/edit' element={<EditProduct />} />
           <Route path="/profile/" element={<UserProfile />} />
           <Route path="/chat" element={<Chat />} />
           <Route path='/contactus' element={<ContactUs />} />
