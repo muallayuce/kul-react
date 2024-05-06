@@ -122,7 +122,7 @@ function EditProduct() {
     return (
         <div className="edit-product-container">
             <h2 className='edit-product-title'>Edit your product</h2>
-            <form onSubmit={handleSubmit}>
+            <form>
                 <div className="form-group">
                     <label htmlFor="product_name">Product name:</label> <br />
                     <input type="text" id="product_name" name="product_name" value={formData.product_name} onChange={handleChange} />
@@ -182,7 +182,7 @@ function EditProduct() {
                     <input type="file" id="image" name="image" accept="image/*" onChange={handleChange} />
                 </div>
                 <Tooltip title='Update' placement="top" arrow id='update-tooltip'>
-                    <button className='update-button' type="submit">
+                    <button className='update-button' onClick={handleSubmit}>
                         <i className="bi bi-bag-check-fill" id='post-update'></i>
                     </button>
                 </Tooltip>

@@ -5,7 +5,8 @@ import './DeleteProductImage.css';
 function DeleteProductImage({ imageId, onDelete }) {
     const [confirmDelete, setConfirmDelete] = useState(false);
 
-    const handleProductImageDelete = async () => {
+    const handleProductImageDelete = async (e) => {
+        e.preventDefault();
         console.log('Deleting product image...');
         try {
             const response = await fetch(`http://localhost:8000/images/${imageId}`, {
