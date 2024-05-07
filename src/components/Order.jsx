@@ -101,7 +101,7 @@ function Orders() {
                     <div className='orderlines-container'>
                         {order.order_lines.map((line, index) => (
                             <div key={index} className="orderline">
-                                <Link to={`/product/${line.product_id}`} className="product-link" key={index}>
+                                <Link to={`/product/${line.product_id}`} key={index}>
                                     {productsDetails[line.product_id] && (
                                         <div className="line-container">
                                             <div className="orderline-image-container">

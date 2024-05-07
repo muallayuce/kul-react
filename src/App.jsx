@@ -28,6 +28,7 @@ import Order from './components/Order';
 import Pay from './components/Pay';
 import UserList from './components/UserList';
 import UserProducts from './components/UserProducts';
+import Transactions from './components/Transaction';
 
 
 // Define your base URL
@@ -236,6 +237,7 @@ function App() {
           <Route path="/pay" element={<Pay />} />
           <Route path= '/users' element={<UserList />}></Route>
           <Route path= '/myshop' element={<UserProducts />}></Route>
+          <Route path='/pay/:result' element={<Transactions />} />
         </Routes>
 
         {/* Render login or signup modal based on openModal state */}
