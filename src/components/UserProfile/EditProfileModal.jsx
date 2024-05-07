@@ -57,11 +57,11 @@ const EditProfileModal = ({ user, onCancel }) => {
             <label htmlFor="password">Password:</label>
             <input type="password" id="password" name="password" value={editedUser.password} onChange={handleChange} />
           </div>
-        </form>
-        <div className="button-group">
+          <div className="button-group">
             <Button id='btn-grp' type="submit">Save</Button>
             <Button id='btn-grp' type="button" onClick={onCancel}>Cancel</Button>
-          </div>
+        </div>
+        </form>
       </DialogContent>
     </Dialog>
   );
