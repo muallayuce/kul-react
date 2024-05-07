@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Tooltip } from "@mui/material";
 import { useParams, useNavigate } from 'react-router-dom';
 import './EditProduct.css';
-import Slider from "react-slick"; // Importa el componente Slider
+import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import NoImage from "../assets/balamgray.png";
+import DeleteProductImage from './DeleteProductImage';
 
 function EditProduct() {
     const { id } = useParams();
@@ -18,7 +19,8 @@ function EditProduct() {
         description: '',
         price: 0,
         quantity: 0,
-        image: null
+        images: [],
+        toUpload: [],
     });
 
     useEffect(() => {
@@ -32,7 +34,8 @@ function EditProduct() {
                     const productData = await response.json();
                     setFormData({
                         ...productData,
-                        id: id
+                        id: id,
+                        toUpload: []
                     });
                 } catch (error) {
                     console.error('Error fetching product data:', error);
@@ -48,7 +51,7 @@ function EditProduct() {
         if (name === 'image') {
             setFormData(prevState => ({
                 ...prevState,
-                [name]: files[0]
+                toUpload: [...prevState.toUpload, ...files]
             }));
         } else {
             setFormData(prevState => ({
@@ -65,15 +68,8 @@ function EditProduct() {
                 console.error('No product ID found');
                 return;
             }
-            const { product_name, description, price, quantity, image } = formData;
+            const { product_name, description, price, quantity } = formData;
 
-            // Update product data
-            const productUpdateData = {
-                product_name,
-                description,
-                price,
-                quantity
-            };
             const updateUrl = `http://localhost:8000/products/${id}?product_name=${product_name}&description=${description}&price=${price}&quantity=${quantity}`;
             const updateResponse = await fetch(updateUrl, {
                 method: 'PUT',
@@ -86,15 +82,14 @@ function EditProduct() {
             }
 
             // Upload image if available
-            if (image) {
-                const formData = new FormData();
-                formData.append('image', image);
-                const imageUrl = `http://localhost:8000/products/${id}/images`;
-                const imageResponse = await fetch(imageUrl, {
+            for (const image of formData.toUpload) {
+                const imagesFormData = new FormData();
+                imagesFormData.append('image', image);
+                const imagesResponse = await fetch(`http://localhost:8000/products/${id}/images`, {
                     method: 'POST',
-                    body: formData
+                    body: imagesFormData
                 });
-                if (!imageResponse.ok) {
+                if (!imagesResponse.ok) {
                     throw new Error('Failed to upload image');
                 }
             }
@@ -118,10 +113,17 @@ function EditProduct() {
         </button>
     );
 
+    const updateImageSlider = (deletedImageId) => {
+        setFormData(prevState => ({
+            ...prevState,
+            images: prevState.images.filter(image => image.id !== deletedImageId)
+        }));
+    };
+
     return (
         <div className="edit-product-container">
             <h2 className='edit-product-title'>Edit your product</h2>
-            <form onSubmit={handleSubmit}>
+            <form>
                 <div className="form-group">
                     <label htmlFor="product_name">Product name:</label> <br />
                     <input type="text" id="product_name" name="product_name" value={formData.product_name} onChange={handleChange} />
@@ -139,11 +141,14 @@ function EditProduct() {
                     <input type="number" id="quantity" name="quantity" min="0" value={formData.quantity} onChange={handleChange} />
                 </div>
                 {formData.images && formData.images.length === 1 ? (
+                    <div className='single-productimg-container'>
                     <img
-                        className="product-d-image"
+                        className="product-edit-image"
                         src={`http://127.0.0.1:8000/images/${formData.images[0].id}`}
                         alt="Product Image"
-                    />
+                    /> 
+                    <DeleteProductImage imageId={formData.images[0].id} onDelete={updateImageSlider}/>
+                    </div>
                 ) : formData.images && formData.images.length > 1 ? (
                     <Slider
                         dots={true}
@@ -157,16 +162,17 @@ function EditProduct() {
                         {formData.images.map(image => (
                             <div key={image.id}>
                                 <img
-                                    className="product-d-image"
+                                    className="product-edit-image"
                                     src={`http://127.0.0.1:8000/images/${image.id}`}
                                     alt="Product Image"
                                 />
+                                 <DeleteProductImage imageId={image.id} onDelete={updateImageSlider}/>
                             </div>
                         ))}
                     </Slider>
                 ) : (
                     <img
-                        className="product-d-image"
+                        className="product-edit-image"
                         src={NoImage}
                         alt="Placeholder Image"
                     />
@@ -174,10 +180,10 @@ function EditProduct() {
 
                 <div className="form-group">
                     <label htmlFor="image">Image:</label> <br />
-                    <input type="file" id="image" name="image" accept="image/*" onChange={handleChange} />
+                    <input type="file" id="image" name="image" accept="image/*" multiple onChange={handleChange} />
                 </div>
                 <Tooltip title='Update' placement="top" arrow id='update-tooltip'>
-                    <button className='update-button' type="submit">
+                    <button className='update-button' onClick={handleSubmit}>
                         <i className="bi bi-bag-check-fill" id='post-update'></i>
                     </button>
                 </Tooltip>

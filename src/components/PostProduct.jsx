@@ -12,7 +12,7 @@ function PostProduct() {
         price: 0,
         quantity: 0,
         published: true,
-        image: null,
+        images: [],
     });
     const [token] = useContext(UserContext);
 
@@ -21,7 +21,7 @@ function PostProduct() {
         if (name === 'image') {
             setFormData(prevState => ({
                 ...prevState,
-                [name]: files[0]
+                images: [...prevState.images, ...files]
             }));
         } else {
             setFormData(prevState => ({
@@ -61,9 +61,9 @@ function PostProduct() {
 
             //Once the product has been added and fetches the product ID and sends the image
             const productId = responseData.id;
-            if (formData.image) {
+            for (const image of formData.images) {
                 const imagesFormData = new FormData();
-                imagesFormData.append('image', formData.image);
+                imagesFormData.append('image', image);
 
                 const imagesResponse = await fetch(`http://localhost:8000/products/${productId}/images`, {
                     method: 'POST',
@@ -104,7 +104,7 @@ function PostProduct() {
                 </div>
                 <div className="form-group">
                     <label htmlFor="image">Image:</label> <br />
-                    <input type="file" id="image" name="image" accept="image/*" onChange={handleChange} />
+                    <input type="file" id="image" name="image" accept="image/*" multiple onChange={handleChange} />
                 </div>
                 <Tooltip title='Post' placement="top" arrow id='post-tooltip'>
                     <button className='post-button' type="submit">

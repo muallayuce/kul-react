@@ -120,7 +120,7 @@ function ProductDetail() {
           <p className='product-d-price'>{product.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</p>
         </div>
         <div className='edit-delete-container'>
-          {isSeller(product) && <Link to={`/edit/product/${product.id}`}>
+          {isSeller(product) && <Link to={`/product/${product.id}/edit`}>
             <Tooltip title='Edit product' placement="top" arrow id='edit-product-tooltip'>
               <button className='edit-product-button'>
                 <i className="bi bi-pencil-square" id='edit-product-icon'></i>
