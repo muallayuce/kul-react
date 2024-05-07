@@ -205,7 +205,7 @@ function App() {
                   <div className='app_posts'>
                     <div className='sidebar'>
                       <Link to="/groups"><i className="bi bi-person-video2" title='Groups'></i></Link>
-                      <Link to="/users"><i className="bi bi-person-rolodex" id='all_users' title='All Users'></i></Link>
+                      <Link to="/users"><i className="bi bi-person-fill-add" id='all_users' title='All Users'></i></Link>
 
                     </div>
                     <div className='post_container'>
