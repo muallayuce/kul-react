@@ -3,16 +3,14 @@ import React, { useState } from 'react';
 import './UserProfile.css';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../../context/UserContext';
-import { useContext } from 'react';
 
 const BASE_URL = 'http://localhost:8000';
 
 const EditProfileModal = ({ user, onCancel }) => {
   const initialUser = user || { username: '', email: '', password: '' };
   const navigate = useNavigate();
-  const [token] = useContext(UserContext);
   const [editedUser, setEditedUser] = useState(initialUser);
+  const userId = localStorage.getItem("user_id");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,10 +23,9 @@ const EditProfileModal = ({ user, onCancel }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${BASE_URL}/users/update`, {
+      const response = await fetch(`${BASE_URL}/users/${userId}`, {
         method: 'PUT',
         headers: {
-          'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(editedUser),
@@ -65,6 +62,7 @@ const EditProfileModal = ({ user, onCancel }) => {
             <Button id='btn-grp' type="button" onClick={onCancel}>Cancel</Button>
         </div>
         </form>
+        
       </DialogContent>
     </Dialog>
   );
