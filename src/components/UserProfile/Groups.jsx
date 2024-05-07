@@ -27,11 +27,6 @@ const Groups = () => {
   const [openCreatePost, setOpenCreatePost] = useState(false);
   const [selectedGroup, setSelectedGroup] = useState(null);
 
-  const isMember = (group) => {
-    return group.members.some(member => member.id === parseInt(userId));
-  };
-  
-
   useEffect(() => {
     fetchGroups();
   }, []);
@@ -253,6 +248,14 @@ const Groups = () => {
     }
   };
 
+  const isMember = (group) => {
+    console.log('Group:', group); // Log the group object
+    console.log('User ID:', userId); // Log the user ID
+    // Check if the user is a member of the group
+    const isUserMember = group.members.some(member => member.id === parseInt(userId) || member.username === username);
+    console.log('Is User Member:', isUserMember); // Log the result
+    return isUserMember;
+  };  
   
   const handleDeleteGroupPost = async (post) => {
     try {
