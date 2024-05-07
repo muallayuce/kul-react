@@ -27,6 +27,11 @@ const Groups = () => {
   const [openCreatePost, setOpenCreatePost] = useState(false);
   const [selectedGroup, setSelectedGroup] = useState(null);
 
+  const isMember = (group) => {
+    return group.members.some(member => member.id === parseInt(userId));
+  };
+  
+
   useEffect(() => {
     fetchGroups();
   }, []);
@@ -381,8 +386,8 @@ const Groups = () => {
           </div>
           <p className='group-description'>Description: {group.description}</p>
           <div className="group-add-post">
-            <Button onClick={() => handleOpenCreatePost(group)}><i class="bi bi-pencil-square" id="create-group-post"></i></Button>
-            {!group.members.some(member => member.id === parseInt(userId)) && (
+            <Button onClick={() => handleOpenCreatePost(group)}><i className="bi bi-pencil-square" id="create-group-post"></i></Button>
+            {!isMember(group) && (
               <Button onClick={() => handleJoinGroup(group.id)}><i className="bi bi-person-add" id='person-join'></i></Button>
             )}
           </div>
