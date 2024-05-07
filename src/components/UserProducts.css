@@ -37,12 +37,14 @@
 
 .myproducts-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .myproduct-line {
-    width: 80%;
+    width: 40%;
     margin: 10px;
     padding: 10px;
     border: 1px solid #dddfe2;
@@ -115,7 +117,7 @@
     flex-direction: column;
     flex: 0 0 auto;
     gap: 5px;
-    max-width: 50rem;
+    max-width: 15rem;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
