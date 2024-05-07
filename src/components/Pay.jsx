@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import { UserContext } from '../context/UserContext';
 import './Pay.css';
 import Balam from '../assets/balam.png'
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Pay = () => {
     const [total, setTotal] = useState(null);
@@ -41,6 +43,13 @@ const Pay = () => {
         }));
     };
 
+    const navigate = useNavigate();
+
+    const handleTransactionStatus = () => {
+        const isSuccess = Math.random() < 0.5;
+        navigate(`/pay/${isSuccess ? 'success' : 'fail'}`);
+    };
+
     const renderPaymentForm = () => {
         switch (paymentMethod) {
             case 'card':
@@ -75,7 +84,7 @@ const Pay = () => {
                         <input
                             className="payment-card-input"
                             type="text"
-                            inputmode="numeric"
+                            inputMode="numeric"
                             id="cardExpiration"
                             name="cardExpiration"
                             placeholder="MM/YY"
@@ -102,7 +111,9 @@ const Pay = () => {
                                 e.target.value = value;
                             }}
                         />
-                        <button className='pay-card-button'>Pay</button>
+                            <button className='pay-card-button' onClick={handleTransactionStatus}>
+                                Pay
+                            </button>
                     </div>
                 );
             default:
@@ -117,12 +128,12 @@ const Pay = () => {
                 <div className='total-container'>
                     <p className="total-label"><u>Total:</u></p>
                     <p className="total-amount">{total ? total.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : 'Loading...'}</p>
-                <div className='balam-container'>
-                <img src={Balam} className='balam'></img> 
-                </div>
+                    <div className='balam-container'>
+                        <img src={Balam} className='balam'></img>
+                    </div>
                 </div>
             </div>
-            <div class="vertical-line"></div>
+            <div className="vertical-line"></div>
             <div className="payment-methods">
                 <h2 className="payment-heading">Payment Method</h2>
                 <div className="payment-options">
