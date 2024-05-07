@@ -31,42 +31,40 @@ function UserProducts() {
     }, []);
 
     return (
-        <div className="orders-container">
-            <h2 className='my-order-title'> <i class="bi bi-shop" style={{ color: "var(--color-2)" }}></i> My Shop</h2>
-            <div className='order-info-container'>
-                <div className='orderlines-container'>
-                    {userProducts.map((product, index) => (
-                        <div key={index} className="orderline">
-                            <Link to={`/product/${product.id}`} className="product-link">
-                                <div className="line-container">
-                                    <div className="orderline-image-container">
-                                        <img
-                                            className="orderline-image"
-                                            src={product.images.length > 0 ? `http://127.0.0.1:8000/${product.images[0].file_path}` : NoImage}
-                                            alt="Product Image"
-                                        />
-                                        <div className='orderline-info'>
-                                            <div className='orderline-text-container'>
-                                                <div className='orderline-labels'>
-                                                    <span className='orderline-label'> <i class="bi bi-bag-heart"></i> Product: </span> <br />
-                                                    <span className='orderline-label'> <i class="bi bi-box-seam"></i>  In Stock: </span> <br />
-                                                    <span className='orderline-label'> <i class="bi bi-cash-coin"></i>  Price: </span> <br />
-                                                </div>
-                                                <div className='orderline-text'>
-                                                    <span>{product.product_name}</span>
-                                                    <span>{product.quantity}</span>
-                                                    <span>{product.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</span>
-                                                </div>
-                                            </div>
+        <div className="myshop-container">
+            <h2 className='myshop-title'> <i class="bi bi-shop" style={{ color: "var(--color-2)" }}></i> My Shop</h2>
+            <div className='myproducts-container'>
+                {userProducts.map((product, index) => (
+                    <div key={index} className="myproduct-line">
+                        <Link to={`/product/${product.id}`} className="product-lin">
+                            <div className="myproduct-image-text-container">
+                                <div className="myproduct-image-container">
+                                    <img
+                                        className="myproduct-image"
+                                        src={product.images.length > 0 ? `http://127.0.0.1:8000/${product.images[0].file_path}` : NoImage}
+                                        alt="Product Image"
+                                    />
+                                </div>
+                                <div className='myproduct-info'>
+                                    <div className='myproduct-text-container'>
+                                        <div className='myproduct-labels'>
+                                            <span className='myproduct-label'> <i class="bi bi-bag-heart"></i> Product: </span> <br />
+                                            <span className='myproduct-label'> <i class="bi bi-box-seam"></i>  In Stock: </span> <br />
+                                            <span className='myproduct-label'> <i class="bi bi-cash-coin"></i>  Price: </span> <br />
+                                        </div>
+                                        <div className='myproduct-text'>
+                                            <span>{product.product_name}</span>
+                                            <span>{product.quantity}</span>
+                                            <span>{product.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</span>
                                         </div>
                                     </div>
                                 </div>
-                            </Link>
-                        </div>
-                    ))}
-                </div>
+                            </div>
+                        </Link>
+                    </div>
+                ))}
             </div>
-        </div>
+        </div >
     );
 }
 
