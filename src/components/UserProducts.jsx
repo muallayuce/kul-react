@@ -3,19 +3,27 @@ import NoImage from "../assets/balamgray.png";
 import { Link } from "react-router-dom";
 import './UserProducts.css';
 import { a_fetch } from './NetworkUtils';
+import ShopSearchBar from "./ShopSearchBar";
 
 function UserProducts() {
     const [userProducts, setUserProducts] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
         const fetchUserProducts = async () => {
             try {
-                const response = await a_fetch(`http://127.0.0.1:8000/products/?user_products=true`, {
+                let url = `http://127.0.0.1:8000/products/?user_products=true`;
+                if (searchTerm && searchTerm.length >= 3) {
+                    url = `http://127.0.0.1:8000/products/?product_name=${searchTerm}&user_products=true`;
+                }
+
+                const response = await a_fetch(url, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
                     }
                 });
+
                 if (response.ok) {
                     const data = await response.json();
                     setUserProducts(data);
@@ -28,11 +36,12 @@ function UserProducts() {
         };
 
         fetchUserProducts();
-    }, []);
+    }, [searchTerm]);
 
     return (
         <div className="myshop-container">
-            <h2 className='myshop-title'> <i class="bi bi-shop" style={{ color: "var(--color-2)" }}></i> My Shop</h2>
+            <ShopSearchBar setSearchTerm={setSearchTerm} />
+            <h2 className='myshop-title'> <i className="bi bi-shop" style={{ color: "var(--color-2)" }}></i> My Shop</h2>
             <div className='myproducts-container'>
                 {userProducts.map((product, index) => (
                     <div key={index} className="myproduct-line">
@@ -48,9 +57,9 @@ function UserProducts() {
                                 <div className='myproduct-info'>
                                     <div className='myproduct-text-container'>
                                         <div className='myproduct-labels'>
-                                            <span className='myproduct-label'> <i class="bi bi-bag-heart"></i> Product: </span> <br />
-                                            <span className='myproduct-label'> <i class="bi bi-box-seam"></i>  In Stock: </span> <br />
-                                            <span className='myproduct-label'> <i class="bi bi-cash-coin"></i>  Price: </span> <br />
+                                            <span className='myproduct-label'> <i className="bi bi-bag-heart"></i> Product: </span> <br />
+                                            <span className='myproduct-label'> <i className="bi bi-box-seam"></i>  In Stock: </span> <br />
+                                            <span className='myproduct-label'> <i className="bi bi-cash-coin"></i>  Price: </span> <br />
                                         </div>
                                         <div className='myproduct-text'>
                                             <span>{product.product_name}</span>
@@ -64,7 +73,7 @@ function UserProducts() {
                     </div>
                 ))}
             </div>
-        </div >
+        </div>
     );
 }
 
