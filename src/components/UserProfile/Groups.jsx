@@ -322,14 +322,17 @@ const Groups = () => {
   };
 
   return (
-    <div className="groups">
+    <>
+    <div className='group-search'>
       <TextField
         type="text"
         placeholder="Search groups..."
         value={searchQuery}
         onChange={handleSearchChange}
       />
-      <Button variant="outlined" onClick={handleOpen}>
+    </div>
+    <div className="groups">
+      <Button id='group-create-btn' variant="outlined" onClick={handleOpen}>
         Create Group
       </Button>
       <Dialog open={open} onClose={handleClose} className="modal-container">
@@ -378,9 +381,9 @@ const Groups = () => {
           </div>
           <p className='group-description'>Description: {group.description}</p>
           <div className="group-add-post">
-            <Button onClick={() => handleOpenCreatePost(group)} variant="contained" color="primary">Add Post</Button>
+            <Button onClick={() => handleOpenCreatePost(group)}><i class="bi bi-pencil-square" id="create-group-post"></i></Button>
             {!group.members.some(member => member.id === parseInt(userId)) && (
-              <Button onClick={() => handleJoinGroup(group.id)} variant="contained" color="secondary">Join Group</Button>
+              <Button onClick={() => handleJoinGroup(group.id)}><i className="bi bi-person-add" id='person-join'></i></Button>
             )}
           </div>
           <div className="group-posts">GROUP POSTS
@@ -389,9 +392,6 @@ const Groups = () => {
                 <div key={post.id} className="group-post">
                   <span className="post-author">{post.username}:</span>
                   <span className="post-content">{post.content}</span>
-                  {post.author_id === parseInt(userId) && (
-                  <button onClick={() => handleDeleteGroupPost(post)}>Delete</button>
-                  )}
                 </div>
               ))}
           </div>
@@ -419,6 +419,7 @@ const Groups = () => {
         </DialogActions>
       </Dialog>
     </div>
+    </>
   );
 };
 

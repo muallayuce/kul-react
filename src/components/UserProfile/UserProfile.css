@@ -36,7 +36,6 @@ body {
 }
 
 
-
 .profile_button:hover {
   border: var(--color-3) 2px solid;
     background-color: #724FC3;
@@ -86,7 +85,7 @@ body {
 
 .edit-profile:hover {
   color: var(--color-1);
-  background-color: var(--color-2);
+  background-color:rgb(205, 175, 245);
 }
 
 /* User info component */
@@ -245,6 +244,14 @@ color: black;
   border-radius: 10px;
 }
 
+
+.modal-input input {
+  border: none;
+  background-color: #fff;
+  
+}
+
+
 .close {
   color: var(--color-1);
   position: absolute;
@@ -261,7 +268,21 @@ color: black;
   text-decoration: none;
 }
 
+
 /* Groups component */
+
+.group-search{
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  margin-top: 20px;
+  margin-right: 20px;
+}
+
+.group-search:hover{
+  border: #352473;
+}
+
 .groups {
   background-color: white;
   border: 1px solid #dddfe2; /* Border color */
@@ -332,6 +353,27 @@ color: black;
   border: none;
 }
 
+#person-join {
+  color: var(--color-3);
+  font-size: 30px;
+}
+
+#create-group-post{
+  color: var(--color-3);
+  font-size: 30px;
+}
+
+#group-create-btn{
+  color: var(--color-1);
+  border-radius: 20px;
+  border-color:var(--color-2)
+}
+
+#group-create-btn:hover {
+  background-color: rgb(207, 182, 248);
+}
+
+
 /* Extra styling for friend list */
 .friend {
   cursor: pointer;
@@ -340,6 +382,7 @@ color: black;
   position: relative; /* Ensure the parent of the modal is positioned relative */
   text-align: center;
   font-family: 'Logo';
+  display: flex;
 }
 
 .friends-list {
@@ -432,7 +475,27 @@ color: black;
 
 .modal-actions button {
   margin-left: 10px;
+  color: #352473;
+  background-color: transparent;
+  border: transparent;
 }
+.modal-actions button:hover{
+  background-color: #724fc3;
+}
+
+.unfriend{
+  width: 20px;
+  display: flex;
+  justify-content: center;
+  background-color: transparent;
+  color: #352473;
+  font-size: 15px;
+}
+
+.unfriend:hover {
+  border: transparent;
+}
+
 
 
 
