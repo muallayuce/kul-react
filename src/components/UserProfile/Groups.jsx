@@ -371,8 +371,6 @@ const Groups = () => {
         <div key={group.id} className="group">
           <div className='name-photos-container'>
             <h2 className='group-name'>{group.name}</h2>
-            <p>Created by: {group.creatorUsername}</p>
-            <p>Created at: {new Date(group.created_at).toLocaleDateString()}</p>
             <button className='group-members' onClick={() => toggleMemberList(group)}>
               <i className="bi bi-people"></i> ({group.members.length})
             </button>
@@ -383,6 +381,10 @@ const Groups = () => {
                 ))}
               </ul>
             )}
+          </div>
+          <div className='grp-crt'>
+            <p className='grp-user'>Created by: {group.creatorUsername}</p>
+            <p>Created at: {new Date(group.created_at).toLocaleDateString()}</p>
           </div>
           <p className='group-description'>Description: {group.description}</p>
           <div className="group-add-post">

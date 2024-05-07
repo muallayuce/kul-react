@@ -481,6 +481,14 @@ color: black;
   justify-content: center;
 }
 
+.grp-crt{
+  display: flex;
+  justify-content: center;
+}
+
+.grp-user{
+  margin-right: 20px;
+}
 
 /* UserProfile.css */
 
