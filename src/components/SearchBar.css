@@ -71,7 +71,7 @@ input:focus{
 
  .kart-button {
     background-color: var(--color-1);
-    margin-right: 15px;
+    margin-left: 15px;
     font-family: "Logo", sans-serif;
     color: #fafafa;
     float: right;

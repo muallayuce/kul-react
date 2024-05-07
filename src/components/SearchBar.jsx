@@ -38,13 +38,7 @@ const SearchBar = ({ setSearchResults }) => {
     return (
         <div className="search-bar-container">
             <header className='search-header'>
-                <Link to='/mycart'>
-                    <Tooltip title='My cart' placement="top" arrow id="kart-tooltip" >
-                        <button className="kart-button">
-                            <i class="bi bi-cart4" id='kart-icon'></i>
-                        </button>
-                    </Tooltip>
-                </Link>
+
                 <div className="input-wrapper">
                     <FontAwesomeIcon icon={faSearch} id='search-icon' />
                     <input placeholder="Search..." value={input} onChange={(e) => handleChange(e.target.value)}></input>
@@ -60,6 +54,13 @@ const SearchBar = ({ setSearchResults }) => {
                     <Tooltip title='My shop' placement="top" arrow id="shop-tooltip" >
                         <button className="shop-button">
                             <i class="bi bi-shop" id='shop-icon'></i>
+                        </button>
+                    </Tooltip>
+                </Link>
+                <Link to='/mycart'>
+                    <Tooltip title='My cart' placement="top" arrow id="kart-tooltip" >
+                        <button className="kart-button">
+                            <i class="bi bi-cart4" id='kart-icon'></i>
                         </button>
                     </Tooltip>
                 </Link>
