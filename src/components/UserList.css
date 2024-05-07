@@ -124,3 +124,13 @@
 .friend-request button:hover {
   background-color: var(--color-3);
 }
+
+
+.add-friend-button{
+  background-color: transparent;
+  color: var(--color-1);
+}
+
+#person-add {
+  font-size: 25px;
+}

@@ -248,6 +248,14 @@ const Groups = () => {
     }
   };
 
+  const isMember = (group) => {
+    console.log('Group:', group); // Log the group object
+    console.log('User ID:', userId); // Log the user ID
+    // Check if the user is a member of the group
+    const isUserMember = group.members.some(member => member.id === parseInt(userId) || member.username === username);
+    console.log('Is User Member:', isUserMember); // Log the result
+    return isUserMember;
+  };  
   
   const handleDeleteGroupPost = async (post) => {
     try {
@@ -366,8 +374,6 @@ const Groups = () => {
         <div key={group.id} className="group">
           <div className='name-photos-container'>
             <h2 className='group-name'>{group.name}</h2>
-            <p>Created by: {group.creatorUsername}</p>
-            <p>Created at: {new Date(group.created_at).toLocaleDateString()}</p>
             <button className='group-members' onClick={() => toggleMemberList(group)}>
               <i className="bi bi-people"></i> ({group.members.length})
             </button>
@@ -379,10 +385,14 @@ const Groups = () => {
               </ul>
             )}
           </div>
+          <div className='grp-crt'>
+            <p className='grp-user'>Created by: {group.creatorUsername}</p>
+            <p>Created at: {new Date(group.created_at).toLocaleDateString()}</p>
+          </div>
           <p className='group-description'>Description: {group.description}</p>
           <div className="group-add-post">
-            <Button onClick={() => handleOpenCreatePost(group)}><i class="bi bi-pencil-square" id="create-group-post"></i></Button>
-            {!group.members.some(member => member.id === parseInt(userId)) && (
+            <Button onClick={() => handleOpenCreatePost(group)}><i className="bi bi-pencil-square" id="create-group-post"></i></Button>
+            {!isMember(group) && (
               <Button onClick={() => handleJoinGroup(group.id)}><i className="bi bi-person-add" id='person-join'></i></Button>
             )}
           </div>

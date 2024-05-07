@@ -44,7 +44,7 @@ const EditProfileModal = ({ user, onCancel }) => {
     <Dialog open={true} onClose={onCancel}>
       <DialogTitle>Edit Profile</DialogTitle>
       <DialogContent>
-        <form onSubmit={handleSubmit}>
+        <form  id='edit-profile-form' onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="username">Username:</label>
             <input type="text" id="username" name="username" value={editedUser.username} onChange={handleChange} />
@@ -58,10 +58,11 @@ const EditProfileModal = ({ user, onCancel }) => {
             <input type="password" id="password" name="password" value={editedUser.password} onChange={handleChange} />
           </div>
           <div className="button-group">
-            <Button type="submit">Save</Button>
-            <Button type="button" onClick={onCancel}>Cancel</Button>
-          </div>
+            <Button id='btn-grp' type="submit">Save</Button>
+            <Button id='btn-grp' type="button" onClick={onCancel}>Cancel</Button>
+        </div>
         </form>
+        
       </DialogContent>
     </Dialog>
   );

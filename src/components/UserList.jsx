@@ -9,8 +9,27 @@ const UserList = () => {
   const [loggedInUserId, setLoggedInUserId] = useState(null);
   const [loggedInUsername, setLoggedInUsername] = useState(null);
   const [addedFriendId, setAddedFriendId] = useState(null); // State to store the ID of the added friend
-  const { userId } = useParams();
+  const [friends, setFriends] = useState([]);
+  const userId = localStorage.getItem("user_id");
 
+
+ const areFriends = (user, friends) => {
+  console.log('User ID:', user.id);
+  console.log('Friends:', friends);
+  
+  // Check if the friends array is not empty
+  if (friends.length > 0) {
+    // Assuming the structure of each friend object is { id: friendId, friendship_id: friendshipId }
+    // Check if any friend's ID matches the user's ID
+    return friends.some(friend => friend.id === user.id);
+  } else {
+    // If the friends array is empty, return false
+    return false;
+  }
+};
+
+  
+  
   useEffect(() => {
     fetch('http://localhost:8000/users')
       .then(response => response.json())
@@ -34,6 +53,34 @@ const UserList = () => {
         .catch(error => console.error('Error fetching friend requests:', error));
     }
   }, [loggedInUserId]);
+
+  useEffect(() => {
+    const fetchFriends = async () => {
+      try {
+        const response = await fetch(`http://localhost:8000/users/${userId}/friends`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch friends');
+        }
+        const data = await response.json();
+        const friendPromises = data.map(async (f) => {
+          const friendResponse = await fetch(`http://localhost:8000/users/${f.friend_id}`);
+          if (!friendResponse.ok) {
+            throw new Error(`Failed to fetch friend ${f.friend_id}`);
+          }
+          const friendData = await friendResponse.json();
+          return { ...friendData, friendship_id: f.id };
+        });
+        const friendsData = await Promise.all(friendPromises);
+        setFriends(friendsData);
+      } catch (error) {
+        console.error('Error fetching friends:', error.message);
+      }
+    };
+  
+    if (userId) {
+      fetchFriends();
+    }
+  }, [userId]);
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
@@ -152,14 +199,12 @@ const UserList = () => {
                   <li key={index} className="post">{post.content}</li>
                 ))}
               </ul>
-              {loggedInUserId !== user.id && (
-                <>
-                  {!friendRequests.some(request => request.sender_id === user.id) && ( // Check if there's no friend request pending
-                    <button className="add-friend-button" onClick={() => addFriend(user.id)}><i class="bi bi-person-add"></i></button>
-                  )}
-                  {addedFriendId === user.id && <p>Friend added!</p>} {/* Display "Friend added!" only for the added friend */}
-                </>
+              {loggedInUserId !== user.id && !areFriends(user, friends) && (
+                    <button className="add-friend-button" onClick={() => addFriend(user.id)}>
+                    <i className="bi bi-person-add" id='person-add'></i>
+                    </button>
               )}
+                {addedFriendId === user.id && <p>Friend added!</p>}
             </li>
           ))}
       </div>
