@@ -127,7 +127,7 @@ function Post({ post, authToken, authTokenType, onDelete}) {
       {post.id && (
       <div>
         {console.log("Image URL:", `http://localhost:8000/postimages/${post.id}`)}
-        <img className="post_image" src={`http://localhost:8000/postimages/${post.id}`} alt="Post Image" />
+      <img className="post_image" src={`http://127.0.0.1:8000/postimages/${post.id}`} alt="Post Image" />
         </div>
       )}
       <div className='post_comments'>

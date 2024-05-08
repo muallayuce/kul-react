@@ -130,7 +130,7 @@ const Timeline = ({ post, authToken, authTokenType }) => {
           <h3>{post.title}</h3>
           <p className='post_content'>{post.content}</p>
           {post.images.map((image) => (
-            <img key={image.id} className="post_image" src={`http://localhost:8000/postimages/${image.id}`} alt="Post Image" />
+            <img key={image.id} className="post_image" src={`http://127.0.0.1:8000/postimages/${post.id}`} alt="Post Image" />
           ))}
           <div className='post_comments'>
             {post.comments && post.comments
