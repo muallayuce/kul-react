@@ -199,7 +199,7 @@ function App() {
           <Route
             path="/posts"
             element={
-              isLoggedIn && posts.length > 0 ? (
+              isLoggedIn && posts.length >= 0 ? (
                 <>
                   <CreatePost authToken={token} fetchPosts={fetchPosts} />
                   <div className='app_posts'>
