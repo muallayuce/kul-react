@@ -4,9 +4,10 @@ import likeImg from '../assets/like.png';
 import loveImg from '../assets/heart.png';
 import { BASE_URL } from '../App';
 
-function Post({ post, authToken, authTokenType}) {
+function Post({ post, authToken, authTokenType, onDelete}) {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
+  const [confirmDelete, setConfirmDelete] = useState(false);
 
   const userId = localStorage.getItem("user_id");
   const username = localStorage.getItem('username');
@@ -28,23 +29,26 @@ function Post({ post, authToken, authTokenType}) {
       return;
     }
 
-    const requestOptions = {
-      method: 'DELETE',
-      headers: new Headers({
-        'Authorization': authTokenType + ' ' + authToken
-      })
-    }
+    // If the user confirms the deletion
+    if (window.confirm("Are you sure you want to delete this post?")) {
+      const requestOptions = {
+        method: 'DELETE',
+        headers: new Headers({
+          'Authorization': authTokenType + ' ' + authToken
+        })
+      }
 
-    fetch(BASE_URL + `/posts/${post.id}`, requestOptions)
-      .then(response => {
-        if(response.ok) {
-          window.location.reload()
-        }
-        throw response
-      })
-      .catch(error => {
-        console.log(error);
-      })
+      fetch(BASE_URL + `/posts/${post.id}`, requestOptions)
+        .then(response => {
+          if(response.ok) {
+            window.location.reload()
+          }
+          throw response
+        })
+        .catch(error => {
+          console.log(error);
+        })
+    }
   }
 
   function formatTimestamp(timestamp) {
@@ -121,7 +125,10 @@ function Post({ post, authToken, authTokenType}) {
       </div>
       <p className="post_content">{post.content}</p>
       {post.id && (
+      <div>
+        {console.log("Image URL:", `http://localhost:8000/postimages/${post.id}`)}
         <img className="post_image" src={`http://localhost:8000/postimages/${post.id}`} alt="Post Image" />
+        </div>
       )}
       <div className='post_comments'>
         {comments &&
@@ -132,6 +139,9 @@ function Post({ post, authToken, authTokenType}) {
           ))
         }
       </div>
+      {confirmDelete && (
+        <p>Are you sure you want to delete this post?</p>
+      )}
       <div className="post-actions-container">
         <button className="post_reactions">
           <img src={likeImg} alt="Like" className="likeImg" />
