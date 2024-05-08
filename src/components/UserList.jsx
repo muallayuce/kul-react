@@ -193,12 +193,12 @@ const UserList = () => {
                 ))}
                 <h3 className="username">{user.username}</h3>
               <p className="email">Email: {user.email}</p>
-              <h4 className="posts-header">Posts:</h4>
+             {/*  <h4 className="posts-header">Posts:</h4>
               <ul className="posts-list">
                 {user.posts.map((post, index) => (
                   <li key={index} className="post">{post.content}</li>
                 ))}
-              </ul>
+              </ul> */}
               {loggedInUserId !== user.id && !areFriends(user, friends) && (
                     <button className="add-friend-button" onClick={() => addFriend(user.id)}>
                     <i className="bi bi-person-add" id='person-add'></i>
